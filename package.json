@@ -4,8 +4,9 @@
   "description": "",
   "main": "./src/main.js",
   "scripts": {
-    "lint" : "eslint ./src",
-    "start" : "node ./src/main"
+    "lint": "eslint ./src",
+    "start": "node ./src/main",
+    "start-dev" :"nodemon ./src/main"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "eslint": "^8.5.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.3"
+    "eslint-plugin-import": "^2.25.3",
+    "nodemon": "^2.0.15"
   }
 }
