@@ -1,6 +1,7 @@
 const createServer = require('./Infrastrutures/Http/createServer');
 
 (()=>{
+  const port = 5000;
   const app = createServer();
-  app.listen(3000, ()=>console.log('app listten on port 3000'));
+  app.listen(port)
 })()

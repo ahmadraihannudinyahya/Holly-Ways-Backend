@@ -1,11 +1,12 @@
-const express = require('express');
+const express = require('express')
 
 const createServer=()=>{
-  const app = express();
-  app.use(express.json);
-  app.get('/', (req, res)=>{
-    res.send('hello world')
-  })
-  return app;
+  const app = express()
+
+  app.get('/', (req, res) => {
+    res.send('Hello World!')
+  });
+  
+  return app
 }
 module.exports = createServer;
