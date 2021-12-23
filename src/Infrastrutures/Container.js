@@ -7,12 +7,14 @@ const jwt = require('jsonwebtoken');
 const {Users} = require('../../models');
 
 const RegisterRepository = require('../Domains/RegisterUsers/RegisterRepository')
+const LoginUserRepository = require('../Domains/LoginUser/LoginUserRepository')
 
 const PasswordHash = require('../Aplications/Security/PasswordHash');
 const TokenManager = require('../Aplications/Security/TokenManager');
 const Validation = require('../Aplications/Validation/Validation');
 
 const SequelizeRegisterRepository = require('./Repository/SequelizeRegisterRepository');
+const SequelizeLoginUserRepository = require('./Repository/SequelizeLoginUserRepository');
 
 const BcryptPasswordhash = require('./Security/BcryptPasswordhash');
 const JwtTokenManager = require('./Security/JwtTokenManager');
@@ -20,6 +22,7 @@ const JoiValidation = require('./JoiValidation/JoiValidation');
 
 const RegisterUserUseCase = require('../Aplications/usecase/Register/RegisterUserUseCase');
 const Joi = require('joi');
+const LoginUserUseCase = require('../Aplications/usecase/Login/LoginUserUseCase');
 const container = createContainer();
 
 container.register([
@@ -30,6 +33,15 @@ container.register([
       dependencies :[
         {concrete : Users},
         {concrete : nanoid}
+      ]
+    }
+  },
+  {
+    key: LoginUserRepository.name,
+    Class : SequelizeLoginUserRepository,
+    parameter : {
+      dependencies : [
+        {concrete : Users}
       ]
     }
   },
@@ -85,6 +97,31 @@ container.register([
           name : 'validation',
           internal:Validation.name
         },
+      ]
+    }
+  },
+  {
+    key : LoginUserUseCase.name,
+    Class : LoginUserUseCase,
+    parameter : {
+      injectType : 'destructuring',
+      dependencies : [
+        {
+          name : 'loginUserRepository',
+          internal : LoginUserRepository.name,
+        },
+        {
+          name : 'passwordHash',
+          internal : PasswordHash.name,
+        },
+        {
+          name : 'tokenManager',
+          internal : TokenManager.name,
+        },
+        {
+          name : 'validation',
+          internal : Validation.name
+        }
       ]
     }
   }
