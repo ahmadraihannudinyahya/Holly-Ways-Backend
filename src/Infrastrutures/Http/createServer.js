@@ -19,9 +19,9 @@ const createServer = (container) => {
   app.use((error, req, res, next) => {
     if (error) {
       if (error instanceof ClientError) {
-        res.status(error.statusCode).send({ status: 'fail', message: error.message });
+        return res.status(error.statusCode).send({ status: 'fail', message: error.message });
       }
-      res.status(500).send({ status: 'error', message: 'Internal Server Error' });
+      return res.status(500).send({ status: 'error', message: 'Internal Server Error' });
     }
   });
   return app;
