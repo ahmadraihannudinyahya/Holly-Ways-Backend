@@ -12,7 +12,7 @@ class RegisterUserUseCase{
     this.validation.validateRegisterUserPayload(payload);
     const registerUser = new RegisterUser(payload);
     await this.registerRepository.verifyAvailableEmail(payload.email);
-    registerUser.hashedPassword = await this.passwordHash.hashPassword(payload.pasword);
+    registerUser.hashedPassword = await this.passwordHash.hashPassword(payload.password);
     registerUser.id = await this.registerRepository.addUser(registerUser);
     const token = await this.tokenManager.createToken(registerUser);
     return new RegisteredUser({...registerUser, token});
