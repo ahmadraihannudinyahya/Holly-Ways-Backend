@@ -14,9 +14,11 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "express": "^4.17.2",
+    "instances-container": "^2.0.5",
     "joi": "^17.5.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
+    "nanoid": "^3.1.30",
     "sequelize": "^6.12.1",
     "sequelize-cli": "^6.3.0"
   },
