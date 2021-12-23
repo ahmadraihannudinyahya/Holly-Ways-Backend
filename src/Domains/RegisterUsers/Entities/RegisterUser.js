@@ -5,7 +5,6 @@ class RegisterUser{
     this.email = email;
     this.password = password;
     this.fullname = fullname;
-    this.hashedPassword = null;
   }
   verifyPayload({email, password, fullname}){
     if(!email || !password || !fullname){
@@ -15,6 +14,12 @@ class RegisterUser{
       throw new Error('Register_User.Not_Meet_Data_Spesification')
     }
     return({email, password, fullname})
+  }
+  set id(id){
+    this.userId = id;
+  }
+  set hashedPassword(hashedPassword){
+    this.password = hashedPassword;
   }
 }
 
