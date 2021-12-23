@@ -1,9 +1,12 @@
+const schemaTemplate = require('./schemaTemplate');
 const Validation = require('../../Aplications/Validation/Validation');
 const InvariantError = require('../../Commons/Exceptions/InvariantError');
 
+
 class JoiValidation extends Validation{
-  constructor(schema){
-    this.schema = schema;
+  constructor(Joi){
+    this.Joi = Joi;
+    this.schema = schemaTemplate(Joi);
   }
   validateRegisterUserPayload(payload){
     const validationResult = this.schema.RegisterUserPayloadSchema.validate(payload);
