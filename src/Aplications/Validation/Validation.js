@@ -1,5 +1,5 @@
-class Validation{
-  validateRegisterUserPayload(payload){
+class Validation {
+  validateRegisterUserPayload() {
     throw new Error('RegisterUserValidation is abstract class');
   }
   validateLoginUserPayload(){
