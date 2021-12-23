@@ -14,3 +14,4 @@ class RegisteredUser{
     return({fullname, token});
   }
 }
+module.exports = RegisteredUser;
