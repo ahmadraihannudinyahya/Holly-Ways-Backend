@@ -19,6 +19,7 @@ const JwtTokenManager = require('./Security/JwtTokenManager');
 const JoiValidation = require('./JoiValidation/JoiValidation');
 
 const RegisterUserUseCase = require('../Aplications/usecase/Register/RegisterUserUseCase');
+const Joi = require('joi');
 const container = createContainer();
 
 container.register([
@@ -53,6 +54,11 @@ container.register([
   {
     key : Validation.name,
     Class : JoiValidation,
+    parameter : {
+      dependencies :[
+        {concrete : Joi}
+      ]
+    }
   }
 ]);
 
