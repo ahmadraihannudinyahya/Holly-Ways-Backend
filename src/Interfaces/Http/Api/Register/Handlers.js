@@ -7,7 +7,7 @@ class RegisterHandler {
     this.addUser = this.addUser.bind(this);
   }
 
-  async addUser(req, res) {
+  async addUser(req, res, next) {
     try {
       const registerUserUseCase = this.container.getInstance(RegisterUserUseCase.name);
       const user = await registerUserUseCase.execute(req.body);
@@ -18,7 +18,7 @@ class RegisterHandler {
         },
       });
     } catch (error) {
-      res.send('error');
+      next(error);
     }
   }
 }
