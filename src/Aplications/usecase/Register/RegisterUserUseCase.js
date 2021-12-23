@@ -1,4 +1,5 @@
 const RegisterUser = require('../../../Domains/RegisterUsers/Entities/RegisterUser');
+const RegisteredUser = require('../../../Domains/RegisterUsers/Entities/RegisteredUser');
 
 class RegisterUserUseCase{
   constructor({registerRepository, passwordHash, tokenManager}){
