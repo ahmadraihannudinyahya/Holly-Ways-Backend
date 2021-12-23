@@ -18,7 +18,7 @@ class RegisterHandler {
       })
     } catch (error) {
       console.log(error);
-      res.sen('error')
+      res.send('error');
     }
   }
 }
