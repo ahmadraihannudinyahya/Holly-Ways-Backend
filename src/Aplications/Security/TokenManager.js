@@ -3,3 +3,4 @@ class TokenManager{
     throw new Error('TokenManager is abstract class');
   }
 }
+module.exports = TokenManager;
