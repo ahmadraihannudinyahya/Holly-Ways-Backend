@@ -1,5 +1,6 @@
 const express = require('express');
 const register = require('../../Interfaces/Http/Api/Register');
+const Login = require('../../Interfaces/Http/Api/Login');
 
 const createServer = (container) => {
   const app = express();
@@ -11,6 +12,7 @@ const createServer = (container) => {
   });
 
   app.use('/api/v1', register(container));
+  app.use('/api/v1', Login(container));
 
   return app;
 };
