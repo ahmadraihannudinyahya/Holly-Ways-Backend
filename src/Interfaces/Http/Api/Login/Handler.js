@@ -6,7 +6,7 @@ class LoginUserHandler {
     this.loginUser = this.loginUser.bind(this);
   }
 
-  async loginUser(req, res) {
+  async loginUser(req, res, next) {
     try {
       const loginUserUsecase = this.container.getInstance(LoginUserUseCase.name);
       const user = await loginUserUsecase.execute(req.body);
@@ -18,7 +18,7 @@ class LoginUserHandler {
         },
       });
     } catch (error) {
-      res.send('error');
+      next(error);
     }
   }
 }
