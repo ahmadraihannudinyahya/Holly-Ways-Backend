@@ -6,3 +6,5 @@ class RegisterRepository{
     throw new Error('RegisterRepository is abstract class');
   }
 }
+
+module.exports = RegisterRepository;
