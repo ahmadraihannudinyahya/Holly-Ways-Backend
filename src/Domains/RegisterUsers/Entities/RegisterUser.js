@@ -17,3 +17,5 @@ class RegisterUser{
     return({email, password, fullname})
   }
 }
+
+module.exports = RegisterUser;
