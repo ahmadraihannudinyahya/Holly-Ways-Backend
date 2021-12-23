@@ -15,5 +15,11 @@ class JoiValidation extends Validation {
       throw new InvariantError(validationResult.error.message);
     }
   }
+  validateLoginUserPayload(payload){
+    const validationResult = this.schema.LoginUserPayloadSchema.validate(payload);
+    if(validationResult.error){
+      throw new InvariantError(validationResult.error.message);
+    }
+  }
 }
 module.exports = JoiValidation;
