@@ -1,8 +1,9 @@
-class RegisterRepository{
-  async verifyAvailableEmail(){
+class RegisterRepository {
+  async verifyAvailableEmail() {
     throw new Error('RegisterRepository is abstract class');
   }
-  async addUser(){
+
+  async addUser() {
     throw new Error('RegisterRepository is abstract class');
   }
 }

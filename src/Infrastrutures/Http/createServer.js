@@ -4,7 +4,7 @@ const register = require('../../Interfaces/Http/Api/Register');
 const createServer = (container) => {
   const app = express();
 
-  app.use(express.json())
+  app.use(express.json());
 
   app.get('/', (req, res) => {
     res.send('Hello World!');
