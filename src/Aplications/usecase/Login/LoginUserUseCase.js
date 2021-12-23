@@ -1,14 +1,17 @@
-const LoginUser = require('../../../Domains/LoginUser/Entities/LoginUser')
-const LogedinUser = require('../../../Domains/LoginUser/Entities/LogedinUser')
+const LoginUser = require('../../../Domains/LoginUser/Entities/LoginUser');
+const LogedinUser = require('../../../Domains/LoginUser/Entities/LogedinUser');
 
-class LoginUserUseCase{
-  constructor({loginUserRepository, passwordHash, tokenManager, validation}){
+class LoginUserUseCase {
+  constructor({
+    loginUserRepository, passwordHash, tokenManager, validation,
+  }) {
     this.loginUserRepository = loginUserRepository;
     this.passwordHash = passwordHash;
     this.tokenManager = tokenManager;
     this.validation = validation;
   }
-  async execute(payload){
+
+  async execute(payload) {
     this.validation.validateLoginUserPayload(payload);
     const loginUser = new LoginUser(payload);
     await this.loginUserRepository.verifyUserByEmail(loginUser.email);
@@ -16,7 +19,7 @@ class LoginUserUseCase{
     await this.passwordHash.comparePassword(loginUser.password, user.password);
     loginUser.id = user.id;
     const token = await this.tokenManager.createToken(loginUser);
-    return new LogedinUser({...loginUser, fullname : user.fullname, token});
+    return new LogedinUser({ ...loginUser, fullname: user.fullname, token });
   }
 }
 

@@ -1,8 +1,9 @@
-class LoginUserRepository{
-  async verifyUserByEmail(){
+class LoginUserRepository {
+  async verifyUserByEmail() {
     throw new Error('LoginUserRepository is abstract class');
   }
-  async getUserByEmail(){
+
+  async getUserByEmail() {
     throw new Error('LoginUserRepository is abstract class');
   }
 }

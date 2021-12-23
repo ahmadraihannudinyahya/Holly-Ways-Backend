@@ -7,9 +7,8 @@ const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const { Users } = require('../../models');
 
-const RegisterRepository = require('../Domains/RegisterUsers/RegisterRepository')
-const LoginUserRepository = require('../Domains/LoginUser/LoginUserRepository')
-
+const RegisterRepository = require('../Domains/RegisterUsers/RegisterRepository');
+const LoginUserRepository = require('../Domains/LoginUser/LoginUserRepository');
 
 const PasswordHash = require('../Aplications/Security/PasswordHash');
 const TokenManager = require('../Aplications/Security/TokenManager');
@@ -24,8 +23,8 @@ const JoiValidation = require('./JoiValidation/JoiValidation');
 
 const RegisterUserUseCase = require('../Aplications/usecase/Register/RegisterUserUseCase');
 
-const Joi = require('joi');
 const LoginUserUseCase = require('../Aplications/usecase/Login/LoginUserUseCase');
+
 const container = createContainer();
 
 container.register([
@@ -41,21 +40,21 @@ container.register([
   },
   {
     key: LoginUserRepository.name,
-    Class : SequelizeLoginUserRepository,
-    parameter : {
-      dependencies : [
-        {concrete : Users}
-      ]
-    }
+    Class: SequelizeLoginUserRepository,
+    parameter: {
+      dependencies: [
+        { concrete: Users },
+      ],
+    },
   },
   {
-    key : PasswordHash.name,
-    Class : BcryptPasswordhash,
-    parameter : {
-      dependencies :[
-        {concrete : brycpt}
-      ]
-    }
+    key: PasswordHash.name,
+    Class: BcryptPasswordhash,
+    parameter: {
+      dependencies: [
+        { concrete: brycpt },
+      ],
+    },
   },
   {
     key: TokenManager.name,
@@ -100,33 +99,33 @@ container.register([
           name: 'validation',
           internal: Validation.name,
         },
-      ]
-    }
+      ],
+    },
   },
   {
-    key : LoginUserUseCase.name,
-    Class : LoginUserUseCase,
-    parameter : {
-      injectType : 'destructuring',
-      dependencies : [
+    key: LoginUserUseCase.name,
+    Class: LoginUserUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
         {
-          name : 'loginUserRepository',
-          internal : LoginUserRepository.name,
+          name: 'loginUserRepository',
+          internal: LoginUserRepository.name,
         },
         {
-          name : 'passwordHash',
-          internal : PasswordHash.name,
+          name: 'passwordHash',
+          internal: PasswordHash.name,
         },
         {
-          name : 'tokenManager',
-          internal : TokenManager.name,
+          name: 'tokenManager',
+          internal: TokenManager.name,
         },
         {
-          name : 'validation',
-          internal : Validation.name
-        }
-      ]
-    }
-  }
-])
+          name: 'validation',
+          internal: Validation.name,
+        },
+      ],
+    },
+  },
+]);
 module.exports = container;
