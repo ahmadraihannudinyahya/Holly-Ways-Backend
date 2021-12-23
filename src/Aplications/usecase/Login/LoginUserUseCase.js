@@ -16,7 +16,7 @@ class LoginUserUseCase{
     await this.passwordHash.comparePassword(loginUser.password, user.password);
     loginUser.id = user.id;
     const token = await this.tokenManager.createToken(loginUser);
-    return new LogedinUser({...loginUser, user, token});
+    return new LogedinUser({...loginUser, fullname : user.fullname, token});
   }
 }
 
