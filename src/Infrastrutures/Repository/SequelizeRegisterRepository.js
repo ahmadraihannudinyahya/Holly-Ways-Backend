@@ -2,9 +2,10 @@ const NotFoundError = require('../../Commons/Exceptions/NotFoundError');
 const RegisterRepository = require("../../Domains/RegisterUsers/RegisterRepository");
 
 class SequelizeRegisterRepository extends RegisterRepository{
-  constructor(Users){
+  constructor(Users, idGenerator){
     super();
     this.Users = Users;
+    this.idGenerator = idGenerator;
   }
   async verifyAvailableEmail(email){
     const data = await this.Users.findOne({
@@ -17,7 +18,9 @@ class SequelizeRegisterRepository extends RegisterRepository{
     }
   }
   async addUser(registerUser){
-    await this.Users.create(registerUser);
+    const id = `user-${this.idGenerator()}`;
+    await this.Users.create({...registerUser, id});
+    return id;
   }
 }
 
