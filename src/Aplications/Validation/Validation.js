@@ -1,7 +1,7 @@
-class RegisterUserValidation{
+class Validation{
   validateRegisterUserPayload(payload){
     throw new Error('RegisterUserValidation is abstract class');
   }
 }
 
-module.exports = RegisterUserValidation;
+module.exports = Validation;
