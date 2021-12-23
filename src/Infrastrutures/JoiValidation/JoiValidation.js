@@ -5,6 +5,7 @@ const InvariantError = require('../../Commons/Exceptions/InvariantError');
 
 class JoiValidation extends Validation{
   constructor(Joi){
+    super();
     this.Joi = Joi;
     this.schema = schemaTemplate(Joi);
   }
