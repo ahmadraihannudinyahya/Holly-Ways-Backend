@@ -5,28 +5,33 @@ const brycpt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const Joi = require('joi');
-const { Users } = require('../../models');
+const { Users, Funds } = require('../../models');
 
 const RegisterRepository = require('../Domains/RegisterUsers/RegisterRepository');
 const LoginUserRepository = require('../Domains/LoginUser/LoginUserRepository');
 const UserRepository = require('../Domains/User/UserRepository');
+const FundRepository = require('../Domains/Fund/FundRepository');
 
 const PasswordHash = require('../Aplications/Security/PasswordHash');
 const TokenManager = require('../Aplications/Security/TokenManager');
 const Validation = require('../Aplications/Validation/Validation');
+const StorageServices = require('../Aplications/Storage/StorageServices');
 
 const SequelizeRegisterRepository = require('./Repository/SequelizeRegisterRepository');
 const SequelizeLoginUserRepository = require('./Repository/SequelizeLoginUserRepository');
 const SequelizeUserRepository = require('./Repository/SequelizeUserRepository');
+const SequelizeFundRepository = require('./Repository/SequelizeFundRepository');
 
 const BcryptPasswordhash = require('./Security/BcryptPasswordhash');
 const JwtTokenManager = require('./Security/JwtTokenManager');
 const JoiValidation = require('./JoiValidation/JoiValidation');
+const LocalStorageServices = require('./LocalStorageServices/LocalStorageServices');
 
 const RegisterUserUseCase = require('../Aplications/usecase/Register/RegisterUserUseCase');
 const LoginUserUseCase = require('../Aplications/usecase/Login/LoginUserUseCase');
 const GetAllUserUseCase = require('../Aplications/usecase/User/GetAllUserUseCase');
 const DeleteUserByIdUseCase = require('../Aplications/usecase/User/DeleteUserByIdUseCase');
+const AddFundUseCase = require('../Aplications/usecase/Fund/AddFundUseCase');
 
 const container = createContainer();
 
@@ -60,6 +65,16 @@ container.register([
     },
   },
   {
+    key: FundRepository.name,
+    Class: SequelizeFundRepository,
+    parameter: {
+      dependencies: [
+        { concrete: Funds },
+        { concrete: nanoid },
+      ],
+    },
+  },
+  {
     key: PasswordHash.name,
     Class: BcryptPasswordhash,
     parameter: {
@@ -85,6 +100,10 @@ container.register([
         { concrete: Joi },
       ],
     },
+  },
+  {
+    key: StorageServices.name,
+    Class: LocalStorageServices,
   },
 ]);
 
@@ -165,6 +184,31 @@ container.register([
         {
           name: 'userRepository',
           internal: UserRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: AddFundUseCase.name,
+    Class: AddFundUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        {
+          name: 'tokenManager',
+          internal: TokenManager.name,
+        },
+        {
+          name: 'validation',
+          internal: Validation.name,
+        },
+        {
+          name: 'storageService',
+          internal: StorageServices.name,
+        },
+        {
+          name: 'fundRepository',
+          internal: FundRepository.name,
         },
       ],
     },
