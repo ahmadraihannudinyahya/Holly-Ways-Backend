@@ -7,8 +7,8 @@ class JwtTokenManager extends TokenManager {
     this.jwt = jwt;
   }
 
-  async createToken({ id }) {
-    return this.jwt.sign({ userId: id }, 'supersecret');
+  async createToken({ userId }) {
+    return this.jwt.sign({ userId }, 'supersecret');
   }
 
   async verifyToken(token) {
