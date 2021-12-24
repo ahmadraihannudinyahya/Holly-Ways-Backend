@@ -12,6 +12,10 @@ class SequelizeFundRepository extends FundRepository {
     await this.Funds.create({ ...newFund, id });
     return id;
   }
+
+  async getAllFund() {
+    return this.Funds.findAll();
+  }
 }
 
 module.exports = SequelizeFundRepository;
