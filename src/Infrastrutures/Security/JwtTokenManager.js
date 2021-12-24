@@ -8,13 +8,13 @@ class JwtTokenManager extends TokenManager {
   }
 
   async createToken({ userId }) {
-    return this.jwt.sign({ userId }, 'supersecret');
+    return this.jwt.sign({ userId }, process.env.TOKENKEY);
   }
 
   async verifyToken(token) {
     if (!token) throw new AuthorizationError('Restricted Feature');
     try {
-      return this.jwt.verify(token, 'supersecret');
+      return this.jwt.verify(token, process.env.TOKENKEY);
     } catch (error) {
       throw new AuthorizationError('Token Invalid');
     }
