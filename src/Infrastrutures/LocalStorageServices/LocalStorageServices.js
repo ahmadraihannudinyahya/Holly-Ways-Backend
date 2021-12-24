@@ -1,4 +1,6 @@
 const path = require('path');
+const fs = require('fs');
+
 const StorageServices = require('../../Aplications/Storage/StorageServices');
 
 class LocalStorageServices extends StorageServices {
