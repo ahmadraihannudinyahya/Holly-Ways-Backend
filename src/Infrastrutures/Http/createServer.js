@@ -3,6 +3,7 @@ const express = require('express');
 const register = require('../../Interfaces/Http/Api/Register');
 const Login = require('../../Interfaces/Http/Api/Login');
 const User = require('../../Interfaces/Http/Api/User');
+const Fund = require('../../Interfaces/Http/Api/Fund');
 
 const ClientError = require('../../Commons/Exceptions/ClientError');
 
@@ -18,6 +19,7 @@ const createServer = (container) => {
   app.use('/api/v1', register(container));
   app.use('/api/v1', Login(container));
   app.use('/api/v1', User(container));
+  app.use('/api/v1', Fund(container));
 
   app.use((error, req, res, next) => {
     if (error) {
