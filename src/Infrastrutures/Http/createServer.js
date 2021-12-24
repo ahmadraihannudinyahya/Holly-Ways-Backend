@@ -11,8 +11,8 @@ const ClientError = require('../../Commons/Exceptions/ClientError');
 const createServer = (container) => {
   const app = express();
   const midleware = {
-    fileHandle : (key) => multer().single(key)
-  }
+    fileHandle: (key) => multer().single(key),
+  };
   app.use(express.json());
 
   app.get('/', (req, res) => {

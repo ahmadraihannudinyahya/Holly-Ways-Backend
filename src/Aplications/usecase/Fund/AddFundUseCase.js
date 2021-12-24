@@ -15,8 +15,8 @@ class AddFundUseCase {
     const { userId: owner } = await this.tokenManager.verifyToken(payload.token);
     await this.validation.validateNewFundPayload(payload);
     const newFund = new NewFund({ ...payload, owner });
-    newFund.setThumbnail = await this.storageService.uploadFile(thumbnail);
-    newFund.fundId = this.fundRepository.addFund(newFund);
+    newFund.setThumbnail = await this.storageService.uploadFile(payload.thumbnail);
+    newFund.fundId = await this.fundRepository.addFund(newFund);
     return new AddedFund(newFund);
   }
 }
