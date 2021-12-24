@@ -10,5 +10,9 @@ class FundRepository {
   verifyFundOwner() {
     throw new Error('FundRepository is abstract class');
   }
+
+  deleteFundById() {
+    throw new Error('FundRepository is abstract class');
+  }
 }
 module.exports = FundRepository;
