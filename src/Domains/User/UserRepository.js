@@ -10,5 +10,9 @@ class UserRepository {
   async verifyUserDeleteSelf() {
     throw new Error('UserRepository is abstract class');
   }
+
+  async verifyUserRegisteredById() {
+    throw new Error('UserRepository is abstract class');
+  }
 }
 module.exports = UserRepository;
