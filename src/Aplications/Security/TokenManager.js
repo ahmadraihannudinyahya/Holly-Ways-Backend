@@ -3,7 +3,7 @@ class TokenManager {
     throw new Error('TokenManager is abstract class');
   }
 
-  async verivyToken() {
+  async verifyToken() {
     throw new Error('TokenManager is abstract class');
   }
 }
