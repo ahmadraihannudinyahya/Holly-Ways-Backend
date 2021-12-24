@@ -1,5 +1,6 @@
 const AddFundUseCase = require('../../../../Aplications/usecase/Fund/AddFundUseCase');
 const GetAllFundUseCase = require('../../../../Aplications/usecase/Fund/GetAllFundUseCase');
+const DeleteFundByIdUseCase = require('../../../../Aplications/usecase/Fund/DeleteFundByIdUseCase');
 
 class FundHandler {
   constructor(container) {
@@ -34,6 +35,23 @@ class FundHandler {
         status: 'success',
         data: {
           funds,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async deleteFundByIdHandler(req, res, next) {
+    try {
+      const authHeader = req.header('Authorization');
+      const token = authHeader && authHeader.split(' ')[1];
+      const deleteFundByIdUseCase = this.container.getInstance(DeleteFundByIdUseCase.name);
+      await deleteFundByIdUseCase.execute({ ...req.params, token });
+      res.send({
+        status: 'success',
+        data: {
+          id: req.params.fundId,
         },
       });
     } catch (error) {
