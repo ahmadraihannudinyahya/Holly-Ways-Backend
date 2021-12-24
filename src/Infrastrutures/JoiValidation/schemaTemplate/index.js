@@ -8,4 +8,9 @@ module.exports = (Joi) => ({
     email: Joi.string().email().required(),
     password: Joi.string().min(8).required(),
   }),
+  NewFundPayloadSchema: Joi.object({
+    title: Joi.string().required(),
+    description: Joi.string().required(),
+    goal: Joi.number().required(),
+  }),
 });
