@@ -26,6 +26,7 @@ const JoiValidation = require('./JoiValidation/JoiValidation');
 const RegisterUserUseCase = require('../Aplications/usecase/Register/RegisterUserUseCase');
 const LoginUserUseCase = require('../Aplications/usecase/Login/LoginUserUseCase');
 const GetAllUserUseCase = require('../Aplications/usecase/User/GetAllUserUseCase');
+const DeleteUserByIdUseCase = require('../Aplications/usecase/User/DeleteUserByIdUseCase');
 
 const container = createContainer();
 
@@ -144,6 +145,23 @@ container.register([
     parameter: {
       injectType: 'destructuring',
       dependencies: [
+        {
+          name: 'userRepository',
+          internal: UserRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: DeleteUserByIdUseCase.name,
+    Class: DeleteUserByIdUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        {
+          name: 'tokenManager',
+          internal: TokenManager.name,
+        },
         {
           name: 'userRepository',
           internal: UserRepository.name,
