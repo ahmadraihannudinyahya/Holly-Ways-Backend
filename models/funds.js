@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Funds.init({
-    id: DataTypes.STRING,
+    id:{
+      type:DataTypes.STRING,
+      primaryKey: true
+    },
     title: DataTypes.STRING,
     thumbnail: DataTypes.TEXT,
     goal: DataTypes.INTEGER,
