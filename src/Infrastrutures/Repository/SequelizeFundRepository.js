@@ -2,6 +2,7 @@ const FundRepository = require('../../Domains/Fund/FundRepository');
 
 class SequelizeFundRepository extends FundRepository {
   constructor(Funds, idGenerator) {
+    super();
     this.Funds = Funds;
     this.idGenerator = idGenerator;
   }
