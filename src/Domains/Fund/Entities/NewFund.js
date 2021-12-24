@@ -10,9 +10,9 @@ class NewFund {
   }
 
   verifyPayload({
-    title, thumbnail, goal, description, owner,
+    title, goal, description, owner,
   }) {
-    intGoal = parseInt(goal);
+    const intGoal = parseInt(goal);
     if (!title || !description || !intGoal || !owner) {
       throw new Error('New_Fund.Not_Contain_Data_Spesification');
     }
@@ -20,7 +20,7 @@ class NewFund {
       throw new Error('New_Fund.Not_Meet_Data_Spesification');
     }
     return ({
-      title, thumbnail, goal: intGoal, description, owner,
+      title, goal: intGoal, description, owner,
     });
   }
 
