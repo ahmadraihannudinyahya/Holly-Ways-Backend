@@ -1,10 +1,9 @@
 class NewFund {
   constructor(payload) {
     const {
-      title, thumbnail, goal, description, owner,
+      title, goal, description, owner,
     } = this.verifyPayload(payload);
     this.title = title;
-    this.thumbnail = thumbnail;
     this.goal = goal;
     this.description = description;
     this.owner = owner;
@@ -14,10 +13,10 @@ class NewFund {
     title, thumbnail, goal, description, owner,
   }) {
     intGoal = parseInt(goal);
-    if (!title || !thumbnail || !description || !intGoal || !owner) {
+    if (!title || !description || !intGoal || !owner) {
       throw new Error('New_Fund.Not_Contain_Data_Spesification');
     }
-    if (typeof (title) !== 'string' || typeof (thumbnail) !== 'string' || typeof (description) !== 'string' || typeof (owner) !== 'string' || typeof (intGoal) !== 'number') {
+    if (typeof (title) !== 'string' || typeof (description) !== 'string' || typeof (owner) !== 'string' || typeof (intGoal) !== 'number') {
       throw new Error('New_Fund.Not_Meet_Data_Spesification');
     }
     return ({
@@ -27,6 +26,10 @@ class NewFund {
 
   set fundId(fundId) {
     this.id = fundId;
+  }
+
+  set setThumbnail(thumbnail) {
+    this.thumbnail = thumbnail;
   }
 }
 module.exports = NewFund;
