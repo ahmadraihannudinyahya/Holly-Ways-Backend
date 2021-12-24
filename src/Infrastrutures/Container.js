@@ -32,6 +32,7 @@ const LoginUserUseCase = require('../Aplications/usecase/Login/LoginUserUseCase'
 const GetAllUserUseCase = require('../Aplications/usecase/User/GetAllUserUseCase');
 const DeleteUserByIdUseCase = require('../Aplications/usecase/User/DeleteUserByIdUseCase');
 const AddFundUseCase = require('../Aplications/usecase/Fund/AddFundUseCase');
+const GetAllFundUseCase = require('../Aplications/usecase/Fund/GetAllFundUseCase');
 
 const container = createContainer();
 
@@ -206,6 +207,19 @@ container.register([
           name: 'storageService',
           internal: StorageServices.name,
         },
+        {
+          name: 'fundRepository',
+          internal: FundRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: GetAllFundUseCase.name,
+    Class: GetAllFundUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
         {
           name: 'fundRepository',
           internal: FundRepository.name,
