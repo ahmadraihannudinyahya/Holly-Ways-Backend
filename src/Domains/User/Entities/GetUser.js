@@ -7,7 +7,7 @@ class GetUser {
   }
 
   verifyPatload({ id, fullname, email }) {
-    if (!id || !fullname || !!email) {
+    if (!id || !fullname || !email) {
       throw new Error('Get_User.Not_Contain_Data_Spesification');
     }
     if (typeof (id) !== 'string' || typeof (fullname) !== 'string' || typeof (email) !== 'string') {

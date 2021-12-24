@@ -21,7 +21,6 @@ const createServer = (container) => {
 
   app.use((error, req, res, next) => {
     if (error) {
-      console.log(error);
       if (error instanceof ClientError) {
         return res.status(error.statusCode).send({ status: 'fail', message: error.message });
       }
