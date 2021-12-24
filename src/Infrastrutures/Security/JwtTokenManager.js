@@ -1,4 +1,5 @@
 const TokenManager = require('../../Aplications/Security/TokenManager');
+const AuthorizationError = require('../../Commons/Exceptions/AuthorizationError');
 
 class JwtTokenManager extends TokenManager {
   constructor(jwt) {
@@ -8,6 +9,15 @@ class JwtTokenManager extends TokenManager {
 
   async createToken({ id }) {
     return this.jwt.sign({ userId: id }, 'supersecret');
+  }
+
+  async verifyToken(token) {
+    if (!token) throw new AuthorizationError('Restricted Feature');
+    try {
+      return this.jwt.verify(token, 'supersecret');
+    } catch (error) {
+      throw new AuthorizationError('Token Invalid');
+    }
   }
 }
 
