@@ -14,6 +14,10 @@ class Validation {
   validateEditFundPayload() {
     throw new Error('Validation is abstract class');
   }
+
+  validateNewDonationPayload() {
+    throw new Error('Validation is abstract class');
+  }
 }
 
 module.exports = Validation;
