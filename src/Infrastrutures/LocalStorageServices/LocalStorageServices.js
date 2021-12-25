@@ -26,6 +26,13 @@ class LocalStorageServices extends StorageServices {
       });
     });
   }
+
+  async deleteFile(file) {
+    const pathFile = path.join(this.pathStorage, file);
+    if (fs.existsSync(pathFile)) {
+      fs.unlinkSync(pathFile);
+    }
+  }
 }
 
 module.exports = LocalStorageServices;
