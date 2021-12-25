@@ -22,7 +22,7 @@ class LocalStorageServices extends StorageServices {
         if (error) {
           return reject(new Error(error));
         }
-        return resolve(fileName);
+        return resolve(`${process.env.ENDPOINT_FILE}/${fileName}`);
       });
     });
   }
