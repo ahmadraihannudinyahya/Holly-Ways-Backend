@@ -7,7 +7,7 @@ class NewDonations {
 
   verifyPayload({ donateAmount, fundId }) {
     const intDonateAmount = parseInt(donateAmount);
-    if (!intDonateAmount || !!fundId) {
+    if (!intDonateAmount || !fundId) {
       throw new Error('New_Donations.Not_Contain_Data_Spesification');
     }
     if (typeof (fundId) !== 'string') {
