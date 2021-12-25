@@ -18,5 +18,9 @@ class FundRepository {
   verifyFundFound() {
     throw new Error('FundRepository is abstract class');
   }
+
+  getFundById() {
+    throw new Error('FundRepository is abstract class');
+  }
 }
 module.exports = FundRepository;
