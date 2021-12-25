@@ -16,10 +16,10 @@ class GetDonationsByFundIdUseCase {
     await this.fundRepository.verifyFundFound(payload.fundId);
     try {
       await this.fundRepository.verifyFundOwner(payload.fundId, userId);
-      const donations = await this.donationsRepository.getAllFundByFundId(payload.fundId);
+      const donations = await this.donationsRepository.getAllDonationsByFundId(payload.fundId);
       return donations.map((donation) => new GetDonation(donation));
     } catch {
-      const donations = await this.donationsRepository.getSuccessFundByFundId(payload.fundId);
+      const donations = await this.donationsRepository.getSuccessDonationsByFundId(payload.fundId);
       return donations.map((donation) => new GetDonation(donation));
     }
   }
