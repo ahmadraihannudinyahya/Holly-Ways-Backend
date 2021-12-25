@@ -34,6 +34,7 @@ class EditFund {
         throw new Error('Edit_Fund.Not_Meet_Data_Spesification');
       }
     }
+    return({title, goal, description , id })
   }
 
   set setThumbnail(thumbnail) {
