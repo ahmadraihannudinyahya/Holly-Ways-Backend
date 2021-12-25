@@ -52,7 +52,7 @@ class SequelizeFundRepository extends FundRepository {
   }
 
   async getFundById(id) {
-    return this.fund.findOne({
+    return this.Funds.findOne({
       where: {
         id,
       },
