@@ -1,4 +1,5 @@
 const AddDonationUseCase = require('../../../../Aplications/usecase/Donations/AddDonationUseCase');
+const SetStatusSuccessDonationUseCase = require('../../../../Aplications/usecase/Donations/SetStatusSuccessDonationUseCase');
 
 class DonationHandler {
   constructor(container) {
@@ -19,6 +20,21 @@ class DonationHandler {
         data: {
           id,
         },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async setStatusSuccessDonationHandler(req, res, next) {
+    try {
+      const authHeader = req.header('Authorization');
+      const token = authHeader && authHeader.split(' ')[1];
+      const setStatusSuccessDonationUseCase = this.container.getInstance(SetStatusSuccessDonationUseCase.name);
+      await setStatusSuccessDonationUseCase.execute({ ...req.params, token });
+      res.send({
+        status: 'success',
+        id: req.params.donationId,
       });
     } catch (error) {
       next(error);
