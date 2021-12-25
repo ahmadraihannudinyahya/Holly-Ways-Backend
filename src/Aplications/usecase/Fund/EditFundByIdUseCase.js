@@ -22,7 +22,8 @@ class EditFundByIdUseCase {
       await this.storageService.deleteFile(deleteThumnail);
       editFund.setThumbnail = await this.storageService.uploadFile(payload.thumbnail);
     }
-    const fund = await this.fundRepostory.editFundById(editFund);
+    await this.fundRepostory.editFundById(editFund);
+    const fund = await this.fundRepostory.getFundById(editFund.id);
     return new GetFund(fund);
   }
 }
