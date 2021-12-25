@@ -37,4 +37,17 @@ module.exports = (Joi) => ({
     },
     token: Joi.string(),
   }),
+  NewDonationPayloadSchema: Joi.object({
+    donateAmount: Joi.number().required(),
+    fundId: Joi.string(),
+    proofAttachment: Joi.object({
+      fieldname: Joi.string().required(),
+      originalname: Joi.string().required(),
+      buffer: Joi.required(),
+      encoding: Joi.required(),
+      mimetype: Joi.required(),
+      size: Joi.number().max(4000000).required(),
+    }).required(),
+    token: Joi.string(),
+  }),
 });
