@@ -12,6 +12,7 @@ class FundHandler {
     this.getAllFundHandler = this.getAllFundHandler.bind(this);
     this.deleteFundByIdHandler = this.deleteFundByIdHandler.bind(this);
     this.getFundByIdHandler = this.getFundByIdHandler.bind(this);
+    this.editFundByIdHandler = this.editFundByIdHandler.bind(this);
   }
 
   async addFundHandler(req, res, next) {
