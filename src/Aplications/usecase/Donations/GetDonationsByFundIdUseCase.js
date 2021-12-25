@@ -11,7 +11,7 @@ class GetDonationsByFundIdUseCase {
   }
 
   async execute(payload) {
-    const { userId } = this.tokenManager.verifyToken(payload.token);
+    const { userId } = await this.tokenManager.verifyToken(payload.token);
     await this.userRepository.verifyUserFound(userId);
     await this.fundRepository.verifyFundFound(payload.fundId);
     try {
