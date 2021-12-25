@@ -11,16 +11,15 @@ class GetDonation {
     this.proofAttachment = proofAttachment;
   }
 
-  verifyPayload({
-    id, fullname, email, donateAmount, status, proofAttachment,
-  }) {
+  verifyPayload({id, user, donateAmount, status, proofAttachment}) {
+    const {fullname , email } = user;
     if (!id || !fullname || !email || !donateAmount || !status || !proofAttachment) {
       throw new Error('Get_Donation.Not_Contain_Data_Spesification');
     }
     if (
       typeof (id) !== 'string'
       || typeof (fullname) !== 'string'
-      || typeof (emai) !== 'string'
+      || typeof (email) !== 'string'
       || typeof (donateAmount) !== 'number'
       || typeof (status) !== 'string'
       || typeof (proofAttachment) !== 'string'
