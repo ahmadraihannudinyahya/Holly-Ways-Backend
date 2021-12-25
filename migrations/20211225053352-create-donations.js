@@ -7,11 +7,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.STRING,
       },
-      donateAmmont: {
+      donateAmount: {
         type: Sequelize.INTEGER
       },
       status: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue : 'pending'
       },
       proofAttachment: {
         type: Sequelize.TEXT

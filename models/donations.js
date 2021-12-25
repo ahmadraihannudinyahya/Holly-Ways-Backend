@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       primaryKey: true
     },
-    donateAmmont: DataTypes.INTEGER,
+    donateAmount: DataTypes.INTEGER,
     status: DataTypes.STRING,
     proofAttachment: DataTypes.TEXT,
     userId: DataTypes.STRING,
