@@ -90,6 +90,7 @@ container.register([
       dependencies: [
         { concrete: nanoid },
         { concrete: Donations },
+        { concrete: Users },
       ],
     },
   },
