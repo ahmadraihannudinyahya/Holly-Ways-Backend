@@ -11,7 +11,9 @@ class DonationHandler {
       const authHeader = req.header('Authorization');
       const token = authHeader && authHeader.split(' ')[1];
       const addDonationUseCase = this.container.getInstance(AddDonationUseCase.name);
-      const id = await addDonationUseCase.execute({ ...req.body, ...req.params, token });
+      const id = await addDonationUseCase.execute({
+        ...req.body, ...req.params, proofAttachment: req.file, token,
+      });
       res.send({
         status: 'success',
         data: {
