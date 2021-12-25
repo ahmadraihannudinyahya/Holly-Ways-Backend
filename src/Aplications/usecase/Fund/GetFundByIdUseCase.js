@@ -5,8 +5,8 @@ class GetFundByIdUseCase {
     this.fundRepository = fundRepository;
   }
 
-  async execute() {
-    const fund = await this.fundRepository.getFundById();
+  async execute(fundId) {
+    const fund = await this.fundRepository.getFundById(fundId);
     return new GetFund(fund);
   }
 }
