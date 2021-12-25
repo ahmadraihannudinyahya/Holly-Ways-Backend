@@ -15,7 +15,11 @@ class DonationRepository {
     throw new Error('DonationRepository is abstract class');
   }
 
-  getDonationsByFundId() {
+  getAllDonationsByFundId() {
+    throw new Error('DonationRepository is abstract class');
+  }
+
+  getSuccessDonationsByFundId() {
     throw new Error('DonationRepository is abstract class');
   }
 }
