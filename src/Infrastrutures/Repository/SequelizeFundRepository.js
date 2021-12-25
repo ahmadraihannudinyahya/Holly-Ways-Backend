@@ -58,6 +58,14 @@ class SequelizeFundRepository extends FundRepository {
       },
     });
   }
+
+  async editFundById(editFund) {
+    return this.Funds.update(editFund, {
+      where: {
+        id: editFund.id,
+      },
+    });
+  }
 }
 
 module.exports = SequelizeFundRepository;
