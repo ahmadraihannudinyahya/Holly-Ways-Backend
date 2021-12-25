@@ -65,7 +65,7 @@ class FundHandler {
   async getFundByIdHandler(req, res, next) {
     try {
       const getFundByIdUseCase = this.container.getInstance(GetFundByIdUseCase.name);
-      const fund = await getFundByIdUseCase.execute();
+      const fund = await getFundByIdUseCase.execute(req.params.fundId);
       res.send({
         status: 'success',
         data: {
