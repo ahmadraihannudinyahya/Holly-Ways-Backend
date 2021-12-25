@@ -24,7 +24,7 @@ class NewDonations {
   }
 
   set setProofAttachment(proofAttachment) {
-    if (typeof (userId) !== 'string') {
+    if (typeof (proofAttachment) !== 'string') {
       throw new Error('New_Donations.Proof_Attachment.User_Id.Not_Meet_Data_Spesification');
     }
     this.proofAttachment = proofAttachment;
