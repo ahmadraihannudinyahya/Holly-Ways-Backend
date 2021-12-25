@@ -1,6 +1,7 @@
 const AddFundUseCase = require('../../../../Aplications/usecase/Fund/AddFundUseCase');
 const GetAllFundUseCase = require('../../../../Aplications/usecase/Fund/GetAllFundUseCase');
 const DeleteFundByIdUseCase = require('../../../../Aplications/usecase/Fund/DeleteFundByIdUseCase');
+const GetFundByIdUseCase = require('../../../../Aplications/usecase/Fund/GetFundByIdUseCase');
 
 class FundHandler {
   constructor(container) {
@@ -53,6 +54,21 @@ class FundHandler {
         status: 'success',
         data: {
           id: req.params.fundId,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getFundByIdHandler(req, res, next) {
+    try {
+      const getFundByIdUseCase = this.container.getInstance(GetFundByIdUseCase.name);
+      const fund = await getFundByIdUseCase.execute();
+      res.send({
+        status: 'success',
+        data: {
+          fund,
         },
       });
     } catch (error) {

@@ -5,6 +5,7 @@ const route = (handler, midleware) => {
   router.post('/fund', midleware.fileHandle('thumbnail'), handler.addFundHandler);
   router.get('/fund', handler.getAllFundHandler);
   router.delete('/fund/:fundId', handler.deleteFundByIdHandler);
+  router.get('/fund/:fundId', handler.getFundByIdHandler);
   return router;
 };
 module.exports = route;
