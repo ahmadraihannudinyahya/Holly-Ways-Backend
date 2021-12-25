@@ -35,9 +35,9 @@ class DonationHandler {
       await setStatusSuccessDonationUseCase.execute({ ...req.params, token });
       res.send({
         status: 'success',
-        data : {
+        data: {
           id: req.params.donationId,
-        }
+        },
       });
     } catch (error) {
       next(error);
