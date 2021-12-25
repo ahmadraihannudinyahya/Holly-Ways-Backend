@@ -6,6 +6,7 @@ class GetFundByIdUseCase {
   }
 
   async execute(fundId) {
+    await this.fundRepository.verifyFundFound(fundId);
     const fund = await this.fundRepository.getFundById(fundId);
     return new GetFund(fund);
   }
