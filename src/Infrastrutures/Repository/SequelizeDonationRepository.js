@@ -44,5 +44,22 @@ class SequelizeDonationRepository extends DonationRepository {
       throw new AuthorizationError('Donation must in Fund');
     }
   }
+
+  async getAllDonationsByFundId(fundId) {
+    return this.Donations.findAll({
+      where: {
+        fundId,
+      },
+    });
+  }
+
+  async getSuccessDonationsByFundId(fundId) {
+    return this.Donations.findAll({
+      where: {
+        fundId,
+        status: 'success',
+      },
+    });
+  }
 }
 module.exports = SequelizeDonationRepository;
