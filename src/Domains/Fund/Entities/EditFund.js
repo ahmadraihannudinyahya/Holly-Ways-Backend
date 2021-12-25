@@ -3,6 +3,15 @@ class EditFund {
     const {
       title, goal, description, id,
     } = this.verifyPayload(payload);
+    if (title) {
+      this.title = title;
+    }
+    if (goal) {
+      this.goal = goal;
+    } if (description) {
+      this.description = description;
+    }
+    this.id = id;
   }
 
   verifyPayload({
