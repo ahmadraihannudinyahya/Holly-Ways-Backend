@@ -50,6 +50,14 @@ class SequelizeFundRepository extends FundRepository {
       throw new NotFoundError('Fund not found');
     }
   }
+
+  async getFundById(id) {
+    return this.fund.findOne({
+      where: {
+        id,
+      },
+    });
+  }
 }
 
 module.exports = SequelizeFundRepository;
