@@ -13,7 +13,7 @@ class AddDonationUsrCase {
   }
 
   async execute(payload) {
-    this.validation.verifyNewDonationPayload(payload);
+    this.validation.validateNewDonationPayload(payload);
     const { userId } = await this.tokenManager.verifyToken(payload.token);
     const newDonation = new NewDonations(payload);
     newDonation.setUserId = userId;
