@@ -54,6 +54,9 @@ class SequelizeDonationRepository extends DonationRepository {
       include: {
         model: this.Users,
         as: 'user',
+        attributes: {
+          exclude: ['createdAt', 'updatedAt', 'id', 'password'],
+        },
       },
     });
   }
@@ -67,6 +70,9 @@ class SequelizeDonationRepository extends DonationRepository {
       include: {
         model: this.Users,
         as: 'user',
+        attributes: {
+          exclude: ['createdAt', 'updatedAt', 'id', 'password'],
+        },
       },
     });
   }
