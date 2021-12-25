@@ -5,12 +5,13 @@ const brycpt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const Joi = require('joi');
-const { Users, Funds } = require('../../models');
+const { Users, Funds, Donations } = require('../../models');
 
 const RegisterRepository = require('../Domains/RegisterUsers/RegisterRepository');
 const LoginUserRepository = require('../Domains/LoginUser/LoginUserRepository');
 const UserRepository = require('../Domains/User/UserRepository');
 const FundRepository = require('../Domains/Fund/FundRepository');
+const DonationRepository = require('../Domains/Donations/DonationRepository');
 
 const PasswordHash = require('../Aplications/Security/PasswordHash');
 const TokenManager = require('../Aplications/Security/TokenManager');
@@ -21,6 +22,7 @@ const SequelizeRegisterRepository = require('./Repository/SequelizeRegisterRepos
 const SequelizeLoginUserRepository = require('./Repository/SequelizeLoginUserRepository');
 const SequelizeUserRepository = require('./Repository/SequelizeUserRepository');
 const SequelizeFundRepository = require('./Repository/SequelizeFundRepository');
+const SequelizeDonationRepository = require('./Repository/SequelizeDonationRepository');
 
 const BcryptPasswordhash = require('./Security/BcryptPasswordhash');
 const JwtTokenManager = require('./Security/JwtTokenManager');
@@ -36,6 +38,7 @@ const GetAllFundUseCase = require('../Aplications/usecase/Fund/GetAllFundUseCase
 const DeleteFundByIdUseCase = require('../Aplications/usecase/Fund/DeleteFundByIdUseCase');
 const GetFundByIdUseCase = require('../Aplications/usecase/Fund/GetFundByIdUseCase');
 const EditFundByIdUseCase = require('../Aplications/usecase/Fund/EditFundByIdUseCase');
+const AddDonationUseCase = require('../Aplications/usecase/Donations/AddDonationUseCase');
 
 const container = createContainer();
 
@@ -75,6 +78,16 @@ container.register([
       dependencies: [
         { concrete: Funds },
         { concrete: nanoid },
+      ],
+    },
+  },
+  {
+    key: DonationRepository.name,
+    Class: SequelizeDonationRepository,
+    parameter: {
+      dependencies: [
+        { concrete: nanoid },
+        { concrete: Donations },
       ],
     },
   },
@@ -281,6 +294,39 @@ container.register([
         {
           name: 'storageService',
           internal: StorageServices.name,
+        },
+      ],
+    },
+  },
+  {
+    key: AddDonationUseCase.name,
+    Class: AddDonationUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        {
+          name: 'validation',
+          internal: Validation.name,
+        },
+        {
+          name: 'tokenManager',
+          internal: TokenManager.name,
+        },
+        {
+          name: 'storageService',
+          internal: StorageServices.name,
+        },
+        {
+          name: 'userRepository',
+          internal: UserRepository.name,
+        },
+        {
+          name: 'fundRepository',
+          internal: FundRepository.name,
+        },
+        {
+          name: 'donationsRepository',
+          internal: DonationRepository.name,
         },
       ],
     },
