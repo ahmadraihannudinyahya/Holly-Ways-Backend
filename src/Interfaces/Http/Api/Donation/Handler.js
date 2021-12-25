@@ -5,6 +5,7 @@ class DonationHandler {
   constructor(container) {
     this.container = container;
     this.addDonationHandler = this.addDonationHandler.bind(this);
+    this.setStatusSuccessDonationHandler = this.setStatusSuccessDonationHandler.bind(this);
   }
 
   async addDonationHandler(req, res, next) {
