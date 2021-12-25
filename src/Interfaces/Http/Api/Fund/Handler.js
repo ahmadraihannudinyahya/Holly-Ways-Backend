@@ -2,6 +2,7 @@ const AddFundUseCase = require('../../../../Aplications/usecase/Fund/AddFundUseC
 const GetAllFundUseCase = require('../../../../Aplications/usecase/Fund/GetAllFundUseCase');
 const DeleteFundByIdUseCase = require('../../../../Aplications/usecase/Fund/DeleteFundByIdUseCase');
 const GetFundByIdUseCase = require('../../../../Aplications/usecase/Fund/GetFundByIdUseCase');
+const EditFundByIdUseCase = require('../../../../Aplications/usecase/Fund/EditFundByIdUseCase');
 
 class FundHandler {
   constructor(container) {
@@ -66,6 +67,25 @@ class FundHandler {
     try {
       const getFundByIdUseCase = this.container.getInstance(GetFundByIdUseCase.name);
       const fund = await getFundByIdUseCase.execute(req.params.fundId);
+      res.send({
+        status: 'success',
+        data: {
+          fund,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async editFundByIdHandler(req, res, next) {
+    try {
+      const authHeader = req.header('Authorization');
+      const token = authHeader && authHeader.split(' ')[1];
+      const editFundByIdUseCase = this.container.getInstance(EditFundByIdUseCase.name);
+      const fund = await editFundByIdUseCase.execute({
+        id: req.params.fundId, ...req.body, thumbnail: req.file, token,
+      });
       res.send({
         status: 'success',
         data: {
