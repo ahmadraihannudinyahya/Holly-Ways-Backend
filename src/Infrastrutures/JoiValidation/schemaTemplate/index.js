@@ -22,4 +22,19 @@ module.exports = (Joi) => ({
     },
     token: Joi.string(),
   }),
+  EditFundPayloadSchema: Joi.object({
+    id: Joi.string().required(),
+    title: Joi.string(),
+    description: Joi.string(),
+    goal: Joi.number(),
+    thumbnail: {
+      fieldname: Joi.string().required(),
+      originalname: Joi.string().required(),
+      buffer: Joi.required(),
+      encoding: Joi.required(),
+      mimetype: Joi.required(),
+      size: Joi.number().max(4000000).required(),
+    },
+    token: Joi.string(),
+  }),
 });
