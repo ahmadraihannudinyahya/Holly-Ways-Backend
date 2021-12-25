@@ -10,6 +10,7 @@ class FundHandler {
     this.addFundHandler = this.addFundHandler.bind(this);
     this.getAllFundHandler = this.getAllFundHandler.bind(this);
     this.deleteFundByIdHandler = this.deleteFundByIdHandler.bind(this);
+    this.getFundByIdHandler = this.getFundByIdHandler.bind(this);
   }
 
   async addFundHandler(req, res, next) {
