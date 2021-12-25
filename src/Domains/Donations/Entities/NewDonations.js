@@ -1,18 +1,19 @@
 class NewDonations {
   constructor(payload) {
-    const { donateAmmount, fundId } = this.verifyPayload(payload);
-    this.donateAmmount = donateAmmount;
+    const { donateAmount, fundId } = this.verifyPayload(payload);
+    this.donateAmount = donateAmount;
     this.fundId = fundId;
   }
 
-  verifyPayload({ donateAmmount, fundId }) {
-    const intDonateAmmont = parseInt(donateAmmount);
-    if (!intDonateAmmont || !!fundId) {
+  verifyPayload({ donateAmount, fundId }) {
+    const intDonateAmount = parseInt(donateAmount);
+    if (!intDonateAmount || !!fundId) {
       throw new Error('New_Donations.Not_Contain_Data_Spesification');
     }
     if (typeof (fundId) !== 'string') {
       throw new Error('New_Donations.Not_Meet_Data_Spesification');
     }
+    return ({ fundId, donateAmount: intDonateAmount });
   }
 
   set setUserId(userId) {
