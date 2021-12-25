@@ -19,7 +19,7 @@ class AddDonationUsrCase {
     newDonation.setUserId = userId;
     await this.userRepository.verifyUserFound(newDonation.userId);
     await this.fundRepository.verifyFundFound(newDonation.fundId);
-    newDonation.setProofAttachment = await this.storageService.uploadFile(payload.ProofAttachment);
+    newDonation.setProofAttachment = await this.storageService.uploadFile(payload.proofAttachment);
     return this.donationsRepository.addDonations(newDonation);
   }
 }
