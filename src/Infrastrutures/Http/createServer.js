@@ -5,6 +5,7 @@ const register = require('../../Interfaces/Http/Api/Register');
 const Login = require('../../Interfaces/Http/Api/Login');
 const User = require('../../Interfaces/Http/Api/User');
 const Fund = require('../../Interfaces/Http/Api/Fund');
+const Donation = require('../../Interfaces/Http/Api/Donation');
 
 const ClientError = require('../../Commons/Exceptions/ClientError');
 
@@ -23,6 +24,7 @@ const createServer = (container) => {
   app.use('/api/v1', Login(container));
   app.use('/api/v1', User(container));
   app.use('/api/v1', Fund(container, midleware));
+  app.use('/api/v1', Donation(container, midleware));
 
   app.use((error, req, res, next) => {
     if (error) {
