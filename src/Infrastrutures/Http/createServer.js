@@ -1,3 +1,5 @@
+const path = require('path');
+
 const express = require('express');
 const multer = require('multer');
 
@@ -15,7 +17,7 @@ const createServer = (container) => {
     fileHandle: (key) => multer().single(key),
   };
   app.use(express.json());
-
+  app.use(process.env.ENDPOINT_FILE, express.static(path.join(__dirname, '../../../uploads')));
   app.get('/', (req, res) => {
     res.send('Hello World!');
   });
