@@ -7,6 +7,7 @@
     "lint": "eslint ./src",
     "start": "node ./src/main",
     "start-dev": "nodemon ./src/main",
+    "test": "jest --setupFiles dotenv/config -i",
     "test:watch": "jest --watchAll --coverage --setupFiles dotenv/config -i",
     "migrate": "sequelize db:migrate",
     "migrate:test": "sequelize db:migrate --env test",
