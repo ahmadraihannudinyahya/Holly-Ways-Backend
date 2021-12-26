@@ -16,8 +16,8 @@ describe('test interface login', ()=>{
       .post('/api/v1/register')
       .send(UserRegistered);
   })
-  afterEach(async ()=>{
-    UserTestHelper.cleanTable();
+  afterAll(async ()=>{
+    await UserTestHelper.cleanTable();
   })
   describe('test endpoint post /login', ()=>{
     it('should response corectly', async ()=>{
