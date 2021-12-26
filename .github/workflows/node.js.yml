@@ -1,0 +1,44 @@
+# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [14.x]
+        
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install migrate and test
+      run: |
+        npm install
+        npm run migrate:test
+        npm run test
+      env:
+        CI: true
+        ENDPOINT_FILE: /file
+        DB_HOST: ${{ secrets.DBTEST_HOST }}
+        DB_USER: ${{ secrets.DBTEST_USER }}
+        DB_PASSSWORD: ${{ secrets.DBTEST_PASSWORD }}
+        DB_NAME: ${{ secrets.DBTEST_NAME }}
+        DB_PORT:  ${{ secrets.DBTEST_PORT }}
+        DB_DIALECT: ${{ secrets.DBTEST_DIALECT }}
+        DBTEST_HOST: ${{ secrets.DBTEST_HOST }}
+        DBTEST_USER: ${{ secrets.DBTEST_USER }}
+        DBTEST_PASSSWORD: ${{ secrets.DBTEST_PASSWORD }}
+        DBTEST_NAME: ${{ secrets.DBTEST_NAME }}
+        DBTEST_PORT: ${{ secrets.DBTEST_PORT }}
+        DBTEST_DIALECT: ${{ secrets.DBTEST_DIALECT }}
+        TOKENKEY: ${{ secrets.TOKENKEY }}
