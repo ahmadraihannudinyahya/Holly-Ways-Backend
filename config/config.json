@@ -7,11 +7,11 @@
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "developer",
+    "password": "developer",
+    "database": "holly_ways_test",
+    "host": "192.168.56.101",
+    "dialect": "postgres"  
   },
   "production": {
     "username": "root",
