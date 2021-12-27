@@ -7,7 +7,7 @@ module.exports = {
     "host": process.env.DB_HOST,
     "port" : process.env.DB_PORT,
     "dialect": process.env.DB_DIALECT,
-    "loging" : false,
+    "logging" : false,
   },
   "test": {
     "username": process.env.DBTEST_USER,
@@ -16,7 +16,7 @@ module.exports = {
     "host": process.env.DBTEST_HOST,
     "port" : process.env.DBTEST_PORT,
     "dialect": process.env.DBTEST_DIALECT,
-    "loging" : false,
+    "logging" : false,
   },
   "production": {
     "username": "root",
@@ -24,6 +24,6 @@ module.exports = {
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "loging" : false,
+    "logging" : false,
   }
 };
