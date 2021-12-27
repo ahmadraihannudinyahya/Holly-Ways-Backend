@@ -59,7 +59,7 @@ describe('Fund Interface Test', ()=>{
       await FundTestHelper.cleanTable();
       StorageTestHelper.cleanStorage();
     });
-    it('should add fund corectly', async ()=>{
+    it('should response corectly', async ()=>{
       const payload = {
         title : 'this is title',
         goal : 65_000_000,
@@ -86,6 +86,31 @@ describe('Fund Interface Test', ()=>{
       expect(goal).toEqual(payload.goal);
       expect(description).toEqual(payload.description);
     });
+    it('should add fund corectly', async ()=>{
+      const payload = {
+        title : 'this is title',
+        goal : 65_000_000,
+        description : 'descriptions for fund'
+      }
+
+      const app = createServer(container);
+      const responseFund = await request(app)
+        .post('/api/v1/fund')
+        .auth(userTest.token, {type : 'bearer'})
+        .type('form-data')
+        .field('title', payload.title)
+        .field('description', payload.description)
+        .field('goal', payload.goal)
+        .attach('thumbnail', imagePathTest);
+      const responseFundJson = JSON.parse(responseFund.text);
+      const {id : fundId} = responseFundJson.data.fund
+
+      const response = await request(app).get(`/api/v1/fund/${fundId}`);
+      const responseJson = JSON.parse(response.text);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.status).toEqual('success');
+      expect(responseJson.data.fund).toBeDefined()
+    })
     xit('should response 400 bad request when request body not contain needed property', async ()=>{
       const payload = {
         title : 'this is title',
