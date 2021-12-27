@@ -18,16 +18,16 @@ describe('test User Interface', ()=>{
       const app = createServer(container);
       await request(app).post('/api/v1/register').send(userRegistered);
     })
-    xit('should response All user registered', async ()=>{
+    it('should response All user registered', async ()=>{
       const app = createServer(container);
       const response = await request(app).get('/api/v1/user');
       const responseJson = JSON.parse(response.text);
       const {fullname, email }= responseJson.data.users[0];
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
-      expect(responseJson.data.users).lenght(1);
-      expect(fullname).lenght(userRegistered.email);
-      expect(email).lenght(userRegistered.email);
+      expect(responseJson.data.users).toHaveLength(1);
+      expect(fullname).toEqual(userRegistered.fullname);
+      expect(email).toEqual(userRegistered.email);
     });
     xit('should add response user when user has added', async()=>{
       const app = createServer(container);
