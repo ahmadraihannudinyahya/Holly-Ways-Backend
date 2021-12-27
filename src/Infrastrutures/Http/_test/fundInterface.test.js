@@ -111,7 +111,7 @@ describe('Fund Interface Test', ()=>{
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.fund).toBeDefined()
     })
-    xit('should response 400 bad request when request body not contain needed property', async ()=>{
+    it('should response 400 bad request when request body not contain needed property', async ()=>{
       const payload = {
         title : 'this is title',
         goal : 65_000_000,

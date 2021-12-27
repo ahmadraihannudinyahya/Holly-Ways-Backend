@@ -29,7 +29,7 @@ describe('test User Interface', ()=>{
       expect(fullname).toEqual(userRegistered.fullname);
       expect(email).toEqual(userRegistered.email);
     });
-    xit('should add response user when user has added', async()=>{
+    it('should add response user when user has added', async()=>{
       const app = createServer(container);
       await request(app).post('/api/v1/register').send({
         email : 'user2@mail.com',
@@ -40,7 +40,7 @@ describe('test User Interface', ()=>{
       const responseJson = JSON.parse(response.text);
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
-      expect(responseJson.data.users).lenght(2);
+      expect(responseJson.data.users).toHaveLength(2);
     });
   });
   describe('endpoint delete /user', ()=>{
