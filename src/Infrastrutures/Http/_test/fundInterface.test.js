@@ -326,18 +326,6 @@ describe('Fund Interface Test', ()=>{
       expect(goal).toEqual(testFund1.goal);
       expect(description).toEqual(testFund1.description);
     });
-    xit('should response 400 when request bad payload', async ()=>{
-      const app = createServer(container);
-      const response = await request(app)
-        .patch(`/api/v1/fund/${testFund1.id}`)
-        .auth(userTest.token, {type : 'bearer'})
-        .type('form-data')
-        .field('title', 70000000);
-      const responseJson = JSON.parse(response.text);
-      expect(response.statusCode).toEqual(400);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toBeDefined();
-    })
     it('should edit fund corectly', async ()=>{
       const app = createServer(container);
       await request(app)
@@ -430,10 +418,11 @@ describe('Fund Interface Test', ()=>{
       await request(app)
         .delete(`/api/v1/fund/${testFund1.id}`)
         .auth(userTest.token, {type : 'bearer'})
-      const response = await request(app).get(`/api/v1/fund/${testFund2.id}`);
+      const response = await request(app).get(`/api/v1/fund/${testFund1.id}`);
       const responseJson = JSON.parse(response.text);
       expect(response.statusCode).toEqual(404);
-      expect(responseJson.status).toBeDefined();
+      expect(responseJson.status).toEqual('fail');
+      expect(responseJson.message).toBeDefined();
     });
     it('should response 404 when fund not found', async ()=>{
       const app = createServer(container);
