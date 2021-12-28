@@ -414,6 +414,7 @@ describe('Fund Interface Test', ()=>{
       expect(responseJson.data.id).toEqual(testFund1.id);
     });
     xit('should delete fund corectly', async ()=>{
+      // test cant be done because request cant run in syncronous
       const app = createServer(container);
       await request(app)
         .delete(`/api/v1/fund/${testFund1.id}`)

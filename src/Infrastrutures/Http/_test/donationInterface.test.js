@@ -277,6 +277,7 @@ describe('Donation interface test', ()=>{
       expect(responseJson.data.id).toEqual(donationTest1.id);
     });
     xit('should change status donation corectly', async ()=>{
+      // test cant be done because request cant run in syncronous
       const app = createServer(container);
       await request(app)
         .patch(`/api/v1/donation/${donationTest1.id}/fund/${fundTest1.id}`)
