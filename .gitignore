@@ -1,4 +1,5 @@
 node_modules
 uploads
+uploads_test
 coverage
 .env
