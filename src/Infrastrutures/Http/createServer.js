@@ -18,9 +18,6 @@ const createServer = (container) => {
   };
   app.use(express.json());
   app.use(process.env.ENDPOINT_FILE, express.static(path.join(__dirname, '../../../uploads')));
-  app.get('/', (req, res) => {
-    res.send('Hello World!');
-  });
 
   app.use('/api/v1', register(container));
   app.use('/api/v1', Login(container));

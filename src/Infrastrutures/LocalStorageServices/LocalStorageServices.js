@@ -6,7 +6,7 @@ const StorageServices = require('../../Aplications/Storage/StorageServices');
 class LocalStorageServices extends StorageServices {
   constructor() {
     super();
-    const pathStorage = path.join(__dirname, '../../../uploads');
+    const pathStorage =  process.env.NODE_ENV === 'test' ? path.join(__dirname, '../../../uploads_test') : path.join(__dirname, '../../../uploads');
     if (!fs.existsSync(pathStorage)) {
       fs.mkdirSync(pathStorage);
     }

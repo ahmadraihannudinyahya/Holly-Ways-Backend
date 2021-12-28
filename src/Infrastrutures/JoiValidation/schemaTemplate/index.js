@@ -12,14 +12,14 @@ module.exports = (Joi) => ({
     title: Joi.string().required(),
     description: Joi.string().required(),
     goal: Joi.number().required(),
-    thumbnail: {
+    thumbnail: Joi.object({
       fieldname: Joi.string().required(),
       originalname: Joi.string().required(),
       buffer: Joi.required(),
       encoding: Joi.required(),
       mimetype: Joi.required(),
       size: Joi.number().max(4000000).required(),
-    },
+    }).required(),
     token: Joi.string(),
   }),
   EditFundPayloadSchema: Joi.object({

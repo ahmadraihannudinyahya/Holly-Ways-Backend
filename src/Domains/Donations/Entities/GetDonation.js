@@ -5,7 +5,7 @@ class GetDonation {
     } = this.verifyPayload(payload);
     this.id = id;
     this.fullname = fullname;
-    this.emai = email;
+    this.email = email;
     this.donateAmount = donateAmount;
     this.status = status;
     this.proofAttachment = proofAttachment;

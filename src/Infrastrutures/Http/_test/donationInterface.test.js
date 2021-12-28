@@ -94,7 +94,7 @@ describe('Donation interface test', ()=>{
   })
 
   describe('endPoint Post /donation/fund/:fundId', ()=>{
-    xit('should response corectly', async ()=>{
+    it('should response corectly', async ()=>{
       const app = createServer(container);
       const response = await request(app)
         .post(`/api/v1/donation/fund/${fundTest1.id}`)
@@ -191,7 +191,7 @@ describe('Donation interface test', ()=>{
       donationTest2.id = responseDonation2Json.data.id;
     });
 
-    xit('should response corectly', async()=>{
+    it('should response corectly', async()=>{
       const app = createServer(container);
       const response = await request(app)
         .get(`/api/v1/donation/fund/${fundTest1.id}`)
@@ -277,6 +277,7 @@ describe('Donation interface test', ()=>{
       expect(responseJson.data.id).toEqual(donationTest1.id);
     });
     xit('should change status donation corectly', async ()=>{
+      // test cant be done because request cant run in syncronous
       const app = createServer(container);
       await request(app)
         .patch(`/api/v1/donation/${donationTest1.id}/fund/${fundTest1.id}`)

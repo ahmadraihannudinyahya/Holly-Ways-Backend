@@ -14,6 +14,7 @@ class UserHandler {
       const getAllUserUseCase = this.container.getInstance(GetAllUserUseCase.name);
       const users = await getAllUserUseCase.execute();
       res.send({
+        status : 'success',
         data: {
           users,
         },
