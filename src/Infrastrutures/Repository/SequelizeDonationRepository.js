@@ -83,10 +83,7 @@ class SequelizeDonationRepository extends DonationRepository {
         fundId
       }
     });
-    const count = donations.reduce((total, donation)=>{
-      total + donation.donateAmount
-    }, 0);
-    return count;
+    return donations.reduce((total, donation)=> total + donation.donateAmount, 0);
   }
 
   async getAllDonations(){
