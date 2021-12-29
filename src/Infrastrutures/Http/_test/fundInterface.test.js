@@ -85,7 +85,6 @@ describe('Fund Interface Test', ()=>{
       expect(title).toEqual(payload.title);
       expect(goal).toEqual(payload.goal);
       expect(description).toEqual(payload.description);
-      expect(donationObtained).toEqual(0);
     });
     it('should add fund corectly', async ()=>{
       const payload = {
