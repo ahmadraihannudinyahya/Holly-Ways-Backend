@@ -243,6 +243,10 @@ container.register([
           name: 'fundRepository',
           internal: FundRepository.name,
         },
+        {
+          name : 'donationRepository',
+          internal : DonationRepository.name
+        },
       ],
     },
   },
@@ -273,6 +277,10 @@ container.register([
           name: 'fundRepository',
           internal: FundRepository.name,
         },
+        {
+          name : 'donationRepository',
+          internal : DonationRepository.name
+        },
       ],
     },
   },
@@ -297,6 +305,10 @@ container.register([
         {
           name: 'storageService',
           internal: StorageServices.name,
+        },
+        {
+          name : 'donationRepository',
+          internal : DonationRepository.name
         },
       ],
     },

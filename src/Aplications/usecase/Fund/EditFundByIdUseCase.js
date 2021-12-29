@@ -3,12 +3,13 @@ const GetFund = require('../../../Domains/Fund/Entities/GetFund');
 
 class EditFundByIdUseCase {
   constructor({
-    tokenManager, fundRepostory, validation, storageService,
+    tokenManager, fundRepostory, validation, storageService, donationRepository
   }) {
     this.tokenManager = tokenManager;
     this.fundRepostory = fundRepostory;
     this.validation = validation;
     this.storageService = storageService;
+    this.donationRepository = donationRepository;
   }
 
   async execute(payload) {
@@ -24,7 +25,15 @@ class EditFundByIdUseCase {
     }
     await this.fundRepostory.editFundById(editFund);
     const fund = await this.fundRepostory.getFundById(editFund.id);
-    return new GetFund(fund);
+    const donationObtained = await this.donationRepository.getDonationCountByFundId(editFund.id);
+    return new GetFund({
+      id : fund.id, 
+      title : fund.title,
+      thumbnail : fund.thumbnail, 
+      goal : fund.goal, 
+      description : fund.description, 
+      donationObtained
+    });
   }
 }
 module.exports = EditFundByIdUseCase;

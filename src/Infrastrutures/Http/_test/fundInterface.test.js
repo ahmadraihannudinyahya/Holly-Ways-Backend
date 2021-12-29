@@ -76,7 +76,7 @@ describe('Fund Interface Test', ()=>{
         .field('goal', payload.goal)
         .attach('thumbnail', imagePathTest)
       const responseJson = JSON.parse(response.text);
-      const {id, title, thumbnail, description,goal} = responseJson.data.fund
+      const {id, title, thumbnail, description, goal, donationObtained} = responseJson.data.fund
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.fund).toBeDefined();
@@ -247,7 +247,7 @@ describe('Fund Interface Test', ()=>{
       const app = createServer(container);
       const response = await request(app).get(`/api/v1/fund/${testFund1.id}`);
       const responseJson = JSON.parse(response.text);
-      const {id, title, thumbnail, goal, description} = responseJson.data.fund;
+      const {id, title, thumbnail, goal, description, donationObtained} = responseJson.data.fund;
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.fund).toBeDefined();
@@ -256,6 +256,7 @@ describe('Fund Interface Test', ()=>{
       expect(title).toEqual(testFund1.title);
       expect(goal).toEqual(testFund1.goal);
       expect(description).toEqual(testFund1.description);
+      expect(donationObtained).toEqual(0);
     });
     it('should response fail 404 when fund id not found', async ()=>{
       const app = createServer(container);
