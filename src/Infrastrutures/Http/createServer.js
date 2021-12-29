@@ -17,7 +17,8 @@ const createServer = (container) => {
     fileHandle: (key) => multer().single(key),
   };
   app.use(express.json());
-  app.use(process.env.ENDPOINT_FILE, express.static(path.join(__dirname, '../../../uploads')));
+  const pathFile = process.env.NODE_ENV === 'test' ? '../../../uploads_test' : '../../../uploads';
+  app.use(process.env.ENDPOINT_FILE, express.static(path.join(__dirname, pathFile)));
 
   app.use('/api/v1', register(container));
   app.use('/api/v1', Login(container));
