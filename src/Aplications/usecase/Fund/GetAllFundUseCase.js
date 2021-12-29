@@ -12,9 +12,11 @@ class GetAllFundUseCase {
     return funds.map(fund => {
       const donationObtained = donations.reduce((total, donation) => {
         if( donation.fundId === fund.id ){
-          total + donation.donateAmount
+          return total + donation.donateAmount;
         };
+        return total;
       }, 0);
+      const fundId = fund.id;
       return new GetFund({
         id : fund.id, 
         title : fund.title,
