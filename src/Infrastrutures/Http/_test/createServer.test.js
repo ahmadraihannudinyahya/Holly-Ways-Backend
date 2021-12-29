@@ -60,8 +60,9 @@ describe('create server test', ()=>{
         .field('goal', fund.goal)
         .attach('thumbnail', imagePathTest);
       const responseJson = JSON.parse(response.text);
-      const {thumbnail} = responseJson.data.fund
+      const {thumbnail, id} = responseJson.data.fund
       fund.addedThumnail = thumbnail;
+      fund.id = id
     });
   
     afterAll(async ()=>{
@@ -75,8 +76,15 @@ describe('create server test', ()=>{
       const app = createServer(container);
       const path = fund.addedThumnail.split('/');
       const response = await request(app).get(`/file/${path[path.length-1]}`);
-      console.log(path[path.length-1]);
       expect(response.statusCode).toEqual(200);
+    });
+    it('should response 404 when file deleted', async ()=>{
+      const app = createServer(container);
+      await request(app).delete(`/api/v1/fund/${fund.id}`).auth(userTest.token, {type : 'bearer'});
+
+      const path = fund.addedThumnail.split('/');
+      const response = await request(app).get(`/file/${path[path.length-1]}`);
+      expect(response.statusCode).toEqual(404);
     })
   })
 })
