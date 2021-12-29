@@ -88,5 +88,9 @@ class SequelizeDonationRepository extends DonationRepository {
     }, 0);
     return count;
   }
+
+  async getAllDonations(){
+    return this.Donations.findAll();
+  }
 }
 module.exports = SequelizeDonationRepository;
