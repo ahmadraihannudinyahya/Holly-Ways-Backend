@@ -73,7 +73,9 @@ describe('create server test', ()=>{
     });
     it('should not response 404 when access file uploaded', async ()=>{
       const app = createServer(container);
-      const response = await request(app).get(fund.addedThumnail);
+      const path = fund.addedThumnail.split('/');
+      const response = await request(app).get(`/file/${path[path.length-1]}`);
+      console.log(path[path.length-1]);
       expect(response.statusCode).toEqual(200);
     })
   })
