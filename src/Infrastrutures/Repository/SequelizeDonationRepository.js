@@ -76,5 +76,17 @@ class SequelizeDonationRepository extends DonationRepository {
       },
     });
   }
+
+  async getDonationCountByFundId(fundId){
+    const donations = await this.Donations.findAll({
+      where : {
+        fundId
+      }
+    });
+    const count = donations.reduce((total, donation)=>{
+      total + donation.donateAmount
+    }, 0);
+    return count;
+  }
 }
 module.exports = SequelizeDonationRepository;
