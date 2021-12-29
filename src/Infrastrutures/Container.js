@@ -302,6 +302,10 @@ container.register([
           name: 'storageService',
           internal: StorageServices.name,
         },
+        {
+          name : 'donationRepository',
+          internal : DonationRepository.name
+        },
       ],
     },
   },
