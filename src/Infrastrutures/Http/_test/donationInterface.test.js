@@ -124,6 +124,26 @@ describe('Donation interface test', ()=>{
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.donations).toHaveLength(1);
     })
+    it('should add donationObtained corectly', async ()=>{
+      const app = createServer(container);
+      await request(app)
+        .post(`/api/v1/donation/fund/${fundTest1.id}`)
+        .auth(userTest1.token, {type : 'bearer'})
+        .type('form-data')
+        .field('donateAmount', 100000)
+        .attach('proofAttachment', imagePathTest);
+      
+      const response = await request(app)
+        .get(`/api/v1/fund/${fundTest1.id}`)
+        .auth(userTest1.token, {type : 'bearer'});
+      const responseJson = JSON.parse(response.text);
+      const { id,  donationObtained } = responseJson.data.fund;
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.status).toEqual('success');
+      expect(responseJson.data.fund).toBeDefined();
+      expect(id).toEqual(fundTest1.id);
+      expect(donationObtained).toEqual(100000);
+    })
     it('should response fail when payload not contain data needed', async ()=>{
       const app = createServer(container);
       const response = await request(app)
