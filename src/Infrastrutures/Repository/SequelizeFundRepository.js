@@ -3,10 +3,11 @@ const AuthorizationError = require('../../Commons/Exceptions/AuthorizationError'
 const NotFoundError = require('../../Commons/Exceptions/NotFoundError');
 
 class SequelizeFundRepository extends FundRepository {
-  constructor(Funds, idGenerator) {
+  constructor(Funds, idGenerator, Donations) {
     super();
     this.Funds = Funds;
     this.idGenerator = idGenerator;
+    this.Donations = Donations;
   }
 
   async addFund(newFund) {
@@ -71,6 +72,13 @@ class SequelizeFundRepository extends FundRepository {
     return this.Funds.findAll({
       where : {
         owner
+      },
+      include: {
+        model: this.Donations,
+        as: 'donations',
+        attributes: {
+          exclude: ['createdAt', 'updatedAt'],
+        },
       },
     });
   }
