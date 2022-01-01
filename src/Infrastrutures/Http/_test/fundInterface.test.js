@@ -505,6 +505,23 @@ describe('Fund Interface Test', ()=>{
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.funds).toBeDefined();
       expect(responseJson.data.funds).toHaveLength(2);
+    });
+    it('should response users funds corectly', async ()=>{
+      const app = createServer(container);
+      const response = await request(app).get('/api/v1/myfund').auth(newUserTest.token, {type :'bearer'});
+      const responseJson = JSON.parse(response.text);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.status).toEqual('success');
+      expect(responseJson.data.funds).toBeDefined();
+      expect(responseJson.data.funds).toHaveLength(0);
     })
+    it('should response 403 when request without auth', async ()=>{
+      const app = createServer(container);
+      const response = await request(app).get('/api/v1/myfund');
+      const responseJson = JSON.parse(response.text);
+      expect(response.statusCode).toEqual(403);
+      expect(responseJson.status).toEqual('fail');
+      expect(responseJson.message).toBeDefined();
+    });
   })
 });
