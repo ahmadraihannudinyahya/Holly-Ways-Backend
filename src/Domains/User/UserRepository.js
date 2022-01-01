@@ -18,5 +18,9 @@ class UserRepository {
   async verifyUserFound() {
     throw new Error('UserRepository is abstract class');
   }
+
+  async getUserById() {
+    throw new Error('UserRepository is abstract class');
+  }
 }
 module.exports = UserRepository;

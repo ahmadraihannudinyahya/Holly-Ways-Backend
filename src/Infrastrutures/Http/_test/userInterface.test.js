@@ -114,4 +114,48 @@ describe('test User Interface', ()=>{
       expect(responseJson.message).toBeDefined();
     });
   });
+  describe('endpoint /profile', ()=>{
+    afterEach(async ()=>{
+      await UserTestHelper.cleanTable();
+    })
+    const userRegistered = {
+      email : 'userregistered@mail.com',
+      password : 'supersecret',
+      fullname : 'user registered'
+    }
+    beforeEach(async ()=>{
+      const app = createServer(container);
+      const response = await request(app).post('/api/v1/register').send({
+        email : userRegistered.email,
+        password : userRegistered.password,
+        fullname : userRegistered.fullname,
+      });
+      const responseJson = JSON.parse(response.text);
+      userRegistered.token = responseJson.data.user.token;
+
+      const responseId = await request(app).get('/api/v1/user');
+      const responseIdJson = JSON.parse(responseId.text);
+      const [{id : userId}] = responseIdJson.data.users.filter(user => user.email === userRegistered.email)
+      userRegistered.id = userId;
+    });
+    it('should response profil corectly', async ()=>{
+      const app = createServer(container);
+      const response = await request(app).get('/api/v1/profil').auth(userRegistered.token , {type : 'bearer'});
+      const responseJson = JSON.parse(response.text);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.status).toEqual('success');
+      expect(responseJson.data.user).toBeDefined();
+      const { fullname, email} = responseJson.data.user;
+      expect(fullname).toEqual(userRegistered.fullname);
+      expect(email).toEqual(userRegistered.email);
+    });
+    it('should response 403 when request without auth', async ()=>{
+      const app = createServer(container);
+      const response = await request(app).get('/api/v1/profil');
+      const responseJson = JSON.parse(response.text);
+      expect(response.statusCode).toEqual(403);
+      expect(responseJson.status).toEqual('fail');
+      expect(responseJson.message).toBeDefined();
+    });
+  })
 });

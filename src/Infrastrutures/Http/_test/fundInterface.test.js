@@ -247,7 +247,7 @@ describe('Fund Interface Test', ()=>{
       const app = createServer(container);
       const response = await request(app).get(`/api/v1/fund/${testFund1.id}`);
       const responseJson = JSON.parse(response.text);
-      const {id, title, thumbnail, goal, description, donationObtained} = responseJson.data.fund;
+      const {id, title, thumbnail, goal, description, donationObtained, postAt} = responseJson.data.fund;
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.fund).toBeDefined();
@@ -257,6 +257,7 @@ describe('Fund Interface Test', ()=>{
       expect(goal).toEqual(testFund1.goal);
       expect(description).toEqual(testFund1.description);
       expect(donationObtained).toEqual(0);
+      expect(postAt).toBeDefined();
     });
     it('should response fail 404 when fund id not found', async ()=>{
       const app = createServer(container);
@@ -414,18 +415,6 @@ describe('Fund Interface Test', ()=>{
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.id).toEqual(testFund1.id);
     });
-    xit('should delete fund corectly', async ()=>{
-      // test cant be done because request cant run in syncronous
-      const app = createServer(container);
-      await request(app)
-        .delete(`/api/v1/fund/${testFund1.id}`)
-        .auth(userTest.token, {type : 'bearer'})
-      const response = await request(app).get(`/api/v1/fund/${testFund1.id}`);
-      const responseJson = JSON.parse(response.text);
-      expect(response.statusCode).toEqual(404);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toBeDefined();
-    });
     it('should response 404 when fund not found', async ()=>{
       const app = createServer(container);
       const response = await request(app)
@@ -456,4 +445,71 @@ describe('Fund Interface Test', ()=>{
       expect(responseJson.message).toBeDefined();
     });
   });
+  describe('endPoint /myfund', ()=>{
+    const testFund1 = {
+      title : 'this is title',
+      goal : 10000000,
+      description : 'not have description, just for test'
+    };
+    const testFund2 = {
+      title : 'title is here',
+      goal : 20000000,
+      description : 'not have description, just for test'
+    }
+    beforeEach(async ()=>{
+      const app = createServer(container);
+      // add fund 1 and get id
+      const response1 = await request(app)
+      .post('/api/v1/fund')
+      .auth(userTest.token, {type : 'bearer'})
+      .type('form-data')
+      .field('title', testFund1.title)
+      .field('goal', testFund1.goal)
+      .field('description', testFund1.description)
+      .attach('thumbnail', imagePathTest) 
+      const response1Json = JSON.parse(response1.text);
+      testFund1.id = response1Json.data.fund.id;
+      // add fund 2 and get id
+      const response2 = await request(app)
+      .post('/api/v1/fund')
+      .auth(userTest.token, {type : 'bearer'})
+      .type('form-data')
+      .field('title', testFund2.title)
+      .field('goal', testFund2.goal)
+      .field('description', testFund2.description)
+      .attach('thumbnail', imagePathTest) 
+      const response2Json = JSON.parse(response2.text);
+      testFund2.id = response2Json.data.fund.id;
+    })
+    afterEach(async ()=>{
+      await FundTestHelper.cleanTable();
+      StorageTestHelper.cleanStorage();
+    });
+    it('should response array of object fund corectly', async()=>{
+      const app = createServer(container);
+      const response = await request(app).get('/api/v1/myfund').auth(userTest.token, {type :'bearer'});
+      const responseJson = JSON.parse(response.text);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.status).toEqual('success');
+      expect(responseJson.data.funds).toBeDefined();
+      expect(responseJson.data.funds).toHaveLength(2);
+    });
+    it('should response users funds corectly', async ()=>{
+      const app = createServer(container);
+      const response = await request(app).get('/api/v1/myfund').auth(newUserTest.token, {type :'bearer'});
+      const responseJson = JSON.parse(response.text);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.status).toEqual('success');
+      expect(responseJson.data.funds).toBeDefined();
+      expect(responseJson.data.funds).toHaveLength(0);
+    })
+    it('should response 403 when request without auth', async ()=>{
+      const app = createServer(container);
+      const response = await request(app).get('/api/v1/myfund');
+      const responseJson = JSON.parse(response.text);
+      expect(response.statusCode).toEqual(403);
+      expect(responseJson.status).toEqual('fail');
+      expect(responseJson.message).toBeDefined();
+    });
+  })
 });

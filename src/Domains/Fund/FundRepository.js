@@ -26,5 +26,9 @@ class FundRepository {
   editFundById() {
     throw new Error('FundRepository is abstract class');
   }
+
+  getFundsByOwner() {
+    throw new Error('FundRepository is abstract class');
+  }
 }
 module.exports = FundRepository;

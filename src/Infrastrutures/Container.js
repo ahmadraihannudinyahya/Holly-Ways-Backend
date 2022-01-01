@@ -33,14 +33,17 @@ const RegisterUserUseCase = require('../Aplications/usecase/Register/RegisterUse
 const LoginUserUseCase = require('../Aplications/usecase/Login/LoginUserUseCase');
 const GetAllUserUseCase = require('../Aplications/usecase/User/GetAllUserUseCase');
 const DeleteUserByIdUseCase = require('../Aplications/usecase/User/DeleteUserByIdUseCase');
+const GetProfilUseCase = require('../Aplications/usecase/User/GetProfilUseCase');
 const AddFundUseCase = require('../Aplications/usecase/Fund/AddFundUseCase');
 const GetAllFundUseCase = require('../Aplications/usecase/Fund/GetAllFundUseCase');
 const DeleteFundByIdUseCase = require('../Aplications/usecase/Fund/DeleteFundByIdUseCase');
 const GetFundByIdUseCase = require('../Aplications/usecase/Fund/GetFundByIdUseCase');
 const EditFundByIdUseCase = require('../Aplications/usecase/Fund/EditFundByIdUseCase');
+const GetMyFundUseCase = require('../Aplications/usecase/Fund/GetMyFundUseCase');
 const AddDonationUseCase = require('../Aplications/usecase/Donations/AddDonationUseCase');
 const SetStatusSuccessDonationUseCase = require('../Aplications/usecase/Donations/SetStatusSuccessDonationUseCase');
 const GetDonationsByFundIdUseCase = require('../Aplications/usecase/Donations/GetDonationsByFundIdUseCase');
+const GetMyDonationsWithFundUseCase = require('../Aplications/usecase/Donations/GetMyDonationsWithFundUseCase');
 
 const container = createContainer();
 
@@ -80,6 +83,7 @@ container.register([
       dependencies: [
         { concrete: Funds },
         { concrete: nanoid },
+        { concrete : Donations}
       ],
     },
   },
@@ -91,6 +95,7 @@ container.register([
         { concrete: nanoid },
         { concrete: Donations },
         { concrete: Users },
+        { concrete : Funds },
       ],
     },
   },
@@ -209,6 +214,23 @@ container.register([
     },
   },
   {
+    key : GetProfilUseCase.name,
+    Class : GetProfilUseCase,
+    parameter : {
+      injectType : 'destructuring',
+      dependencies : [
+        {
+          name : 'tokenManager',
+          internal : TokenManager.name,
+        },
+        {
+          name : 'userRepository',
+          internal : UserRepository.name,
+        }
+      ]
+    }
+  },
+  {
     key: AddFundUseCase.name,
     Class: AddFundUseCase,
     parameter: {
@@ -314,6 +336,23 @@ container.register([
     },
   },
   {
+    key : GetMyFundUseCase.name,
+    Class : GetMyFundUseCase,
+    parameter : {
+      injectType : 'destructuring',
+      dependencies : [
+        {
+          name : 'tokenManager', 
+          internal : TokenManager.name,
+        },
+        {
+          name : 'fundRepository',
+          internal : FundRepository.name,
+        },
+      ]
+    }
+  },
+  {
     key: AddDonationUseCase.name,
     Class: AddDonationUseCase,
     parameter: {
@@ -392,6 +431,23 @@ container.register([
         {
           name: 'donationsRepository',
           internal: DonationRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key : GetMyDonationsWithFundUseCase.name,
+    Class : GetMyDonationsWithFundUseCase,
+    parameter : {
+      injectType : 'destructuring',
+      dependencies : [
+        {
+          name : 'tokenManager',
+          internal : TokenManager.name,
+        },
+        {
+          name : 'donationsRepository',
+          internal : DonationRepository.name
         },
       ],
     },

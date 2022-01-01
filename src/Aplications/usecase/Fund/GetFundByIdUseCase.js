@@ -16,6 +16,7 @@ class GetFundByIdUseCase {
       thumbnail : fund.thumbnail, 
       goal : fund.goal, 
       description : fund.description, 
+      createdAt : fund.createdAt, 
       donationObtained
     });
   }

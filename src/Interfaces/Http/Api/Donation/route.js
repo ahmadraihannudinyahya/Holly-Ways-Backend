@@ -5,6 +5,7 @@ const route = (handler, midleware) => {
   router.post('/donation/fund/:fundId', midleware.fileHandle('proofAttachment'), handler.addDonationHandler);
   router.patch('/donation/:donationId/fund/:fundId', handler.setStatusSuccessDonationHandler);
   router.get('/donation/fund/:fundId', handler.getDonationsByFundIdHandler);
+  router.get('/mydonation', handler.getMyDonationsHandler);
   return router;
 };
 module.exports = route;

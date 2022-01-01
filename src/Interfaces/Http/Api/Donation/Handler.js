@@ -1,6 +1,7 @@
 const AddDonationUseCase = require('../../../../Aplications/usecase/Donations/AddDonationUseCase');
 const SetStatusSuccessDonationUseCase = require('../../../../Aplications/usecase/Donations/SetStatusSuccessDonationUseCase');
 const GetDonationsByFundIdUseCase = require('../../../../Aplications/usecase/Donations/GetDonationsByFundIdUseCase');
+const GetMyDonationsWithFundUseCase = require('../../../../Aplications/usecase/Donations/GetMyDonationsWithFundUseCase');
 
 class DonationHandler {
   constructor(container) {
@@ -8,6 +9,7 @@ class DonationHandler {
     this.addDonationHandler = this.addDonationHandler.bind(this);
     this.setStatusSuccessDonationHandler = this.setStatusSuccessDonationHandler.bind(this);
     this.getDonationsByFundIdHandler = this.getDonationsByFundIdHandler.bind(this);
+    this.getMyDonationsHandler = this.getMyDonationsHandler.bind(this);
   }
 
   async addDonationHandler(req, res, next) {
@@ -58,6 +60,23 @@ class DonationHandler {
           donations,
         },
       });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getMyDonationsHandler(req, res, next) {
+    try {
+      const authHeader = req.header('Authorization');
+      const token = authHeader && authHeader.split(' ')[1];
+      const getMyDonationsWithFundUseCase = this.container.getInstance(GetMyDonationsWithFundUseCase.name);
+      const donations = await getMyDonationsWithFundUseCase.execute({token});
+      res.send({
+        status : 'success',
+        data : {
+          donations
+        }
+      })
     } catch (error) {
       next(error);
     }

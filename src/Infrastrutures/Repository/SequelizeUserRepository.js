@@ -34,6 +34,14 @@ class SequelizeUserRepository extends UserRepository {
       throw new NotFoundError('User deleted');
     }
   }
+
+  async getUserById(id) {
+    return this.Users.findOne({
+      where : {
+        id
+      },
+    })
+  }
 }
 
 module.exports = SequelizeUserRepository;
