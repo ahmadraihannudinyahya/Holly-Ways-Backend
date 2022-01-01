@@ -7,6 +7,7 @@ const FundTestHelper = require('../../../../test/FundTestHelper');
 const DonationTestHelper = require('../../../../test/DonationTestHelper');
 const StorageTestHelper = require('../../../../test/StorageTestHelper');
 const path = require("path");
+const exp = require("constants");
 const imagePathTest = path.join(__dirname, '../../../../test/testImage.jpg');
 
 describe('Donation interface test', ()=>{
@@ -361,5 +362,74 @@ describe('Donation interface test', ()=>{
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toBeDefined();
     });
+  });
+  describe('endPoint /mydonation', ()=>{
+    const donationTest1 = {
+      donateAmount : 40000
+    }
+    const donationTest2 = {
+      donateAmount : 50000
+    }
+    beforeEach(async ()=>{
+      const app = createServer(container);
+      // get id donationtest1
+      const responseDonation1 = await request(app)
+        .post(`/api/v1/donation/fund/${fundTest1.id}`)
+        .auth(userTest1.token, {type : 'bearer'})
+        .type('form-data')
+        .field('donateAmount', donationTest1.donateAmount)
+        .attach('proofAttachment', imagePathTest);
+      const responseDonation1Json = JSON.parse(responseDonation1.text);
+      donationTest1.id = responseDonation1Json.data.id;
+
+      // get id donationTest2
+      const responseDonation2 = await request(app)
+        .post(`/api/v1/donation/fund/${fundTest2.id}`)
+        .auth(userTest2.token, {type : 'bearer'})
+        .type('form-data')
+        .field('donateAmount', donationTest2.donateAmount)
+        .attach('proofAttachment', imagePathTest);
+      const responseDonation2Json = JSON.parse(responseDonation2.text);
+      donationTest2.id = responseDonation2Json.data.id;
+    });
+    it('should reponse object corectly', async ()=>{
+      const app = createServer(container);
+      const response = await request(app).get('/api/v1/mydonation').auth(userTest1.token, {type : 'bearer'});
+      const responseJson = JSON.parse(response.text);
+      const {id, donateAmount, status, proofAttachment, createdAt, fundTitle} =responseJson.data.donations[0]
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.status).toEqual('success');
+      expect(responseJson.data.donations).toBeDefined();
+      expect(responseJson.data.donations).toHaveLength(1);
+      expect(id).toBeDefined();
+      expect(donateAmount).toEqual(donationTest1.donateAmount);
+      expect(status).toEqual('pending');
+      expect(proofAttachment).toBeDefined();
+      expect(createdAt).toBeDefined();
+      expect(fundTitle).toEqual(fundTest1.title);
+    });
+    it('should response donations corectly when has added donation',async ()=>{
+      const app = createServer(container);
+      await request(app)
+        .post(`/api/v1/donation/fund/${fundTest1.id}`)
+        .auth(userTest2.token, {type : 'bearer'})
+        .type('form-data')
+        .field('donateAmount', 200000)
+        .attach('proofAttachment', imagePathTest);
+      const response = await request(app).get('/api/v1/mydonation').auth(userTest2.token, {type : 'bearer'});
+      const responseJson = JSON.parse(response.text);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.status).toEqual('success');
+      expect(responseJson.data.donations).toBeDefined();
+      expect(responseJson.data.donations).toHaveLength(2);
+    });
+    it('should response 403 when request without auth', async ()=>{
+      const app = createServer(container);
+      const response = await request(app).get('/api/v1/mydonation');
+      const responseJson = JSON.parse(response.text);
+      expect(response.statusCode).toEqual(403);
+      expect(responseJson.status).toEqual('fail');
+      expect(responseJson.message).toBeDefined();
+    })
   });
 });
