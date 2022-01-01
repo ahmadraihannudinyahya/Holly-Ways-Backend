@@ -236,7 +236,7 @@ describe('Donation interface test', ()=>{
         .get(`/api/v1/donation/fund/${fundTest1.id}`)
         .auth(userTest1.token, {type : 'bearer'});
       const responseJson = JSON.parse(response.text);
-      const {id, fullname, email, donateAmount, status, proofAttachment} = responseJson.data.donations[0];
+      const {id, fullname, email, donateAmount, status, proofAttachment, postAt} = responseJson.data.donations[0];
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.donations).toBeDefined()
@@ -247,6 +247,7 @@ describe('Donation interface test', ()=>{
       expect(donateAmount).toEqual(donationTest1.donateAmount);
       expect(status).toEqual('pending');
       expect(email).toEqual(userTest1.email);
+      expect(postAt).toBeDefined();
     });
     it('should add response data when donation added', async ()=>{
       const app = createServer(container);
