@@ -7,6 +7,7 @@ const route = (handler, midleware) => {
   router.delete('/fund/:fundId', handler.deleteFundByIdHandler);
   router.get('/fund/:fundId', handler.getFundByIdHandler);
   router.patch('/fund/:fundId', midleware.fileHandle('thumbnail'), handler.editFundByIdHandler);
+  router.get('/myfund', handler.getMyFundHandler);
   return router;
 };
 module.exports = route;

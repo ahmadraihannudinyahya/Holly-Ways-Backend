@@ -3,6 +3,7 @@ const GetAllFundUseCase = require('../../../../Aplications/usecase/Fund/GetAllFu
 const DeleteFundByIdUseCase = require('../../../../Aplications/usecase/Fund/DeleteFundByIdUseCase');
 const GetFundByIdUseCase = require('../../../../Aplications/usecase/Fund/GetFundByIdUseCase');
 const EditFundByIdUseCase = require('../../../../Aplications/usecase/Fund/EditFundByIdUseCase');
+const GetMyFundUseCase = require('../../../../Aplications/usecase/Fund/GetMyFundUseCase');
 
 class FundHandler {
   constructor(container) {
@@ -13,6 +14,7 @@ class FundHandler {
     this.deleteFundByIdHandler = this.deleteFundByIdHandler.bind(this);
     this.getFundByIdHandler = this.getFundByIdHandler.bind(this);
     this.editFundByIdHandler = this.editFundByIdHandler.bind(this);
+    this.getMyFundHandler = this.getMyFundHandler.bind(this);
   }
 
   async addFundHandler(req, res, next) {
@@ -93,6 +95,23 @@ class FundHandler {
           fund,
         },
       });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getMyFundHandler(req, res, next){
+    try {
+      const authHeader = req.header('Authorization');
+      const token = authHeader && authHeader.split(' ')[1];
+      const getMyFundUseCase = this.container.getInstance(GetMyFundUseCase.name);
+      const funds = await getMyFundUseCase.execute({token});
+      res.send({
+        status : 'success',
+        data : {
+          funds
+        }
+      })
     } catch (error) {
       next(error);
     }
