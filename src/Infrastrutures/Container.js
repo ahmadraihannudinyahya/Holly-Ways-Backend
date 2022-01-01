@@ -81,6 +81,7 @@ container.register([
       dependencies: [
         { concrete: Funds },
         { concrete: nanoid },
+        { concrete : Donations}
       ],
     },
   },
