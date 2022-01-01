@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
           name: "userId",
         },
       });
+      Donations.hasOne(models.Funds, {
+        as : 'fund',
+        foreignKey : {
+          name : 'fundId'
+        }
+      })
     }
   };
   Donations.init({
