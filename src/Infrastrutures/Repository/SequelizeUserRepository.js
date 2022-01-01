@@ -36,10 +36,10 @@ class SequelizeUserRepository extends UserRepository {
   }
 
   async getUserById(id) {
-    return this.Users.findAll({
+    return this.Users.findOne({
       where : {
         id
-      }
+      },
     })
   }
 }

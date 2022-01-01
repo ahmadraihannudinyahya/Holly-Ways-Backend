@@ -5,9 +5,10 @@ class GetProfilUseCase {
     this.tokenManager = tokenManager;
     this.userRepository = userRepository;
   }
-  async execute(){
+  async execute(payload){
     const { userId } = await this.tokenManager.verifyToken(payload.token);
-    const user = this.userRepository.getUserById(userId);
+    await this.userRepository.verifyUserFound(userId);
+    const user = await this.userRepository.getUserById(userId);
     return new GetUser(user);
   }
 }
