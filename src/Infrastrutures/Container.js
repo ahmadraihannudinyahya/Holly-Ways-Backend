@@ -93,6 +93,7 @@ container.register([
         { concrete: nanoid },
         { concrete: Donations },
         { concrete: Users },
+        { concrete : Funds },
       ],
     },
   },
