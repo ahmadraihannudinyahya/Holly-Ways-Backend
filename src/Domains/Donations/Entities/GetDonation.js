@@ -9,7 +9,7 @@ class GetDonation {
     this.donateAmount = donateAmount;
     this.status = status;
     this.proofAttachment = proofAttachment;
-    this.postAt = createdAt;
+    this.postAt = this.convertDate(createdAt);
   }
 
   verifyPayload({
@@ -33,6 +33,13 @@ class GetDonation {
     return ({
       id, fullname, email, donateAmount, status, proofAttachment, createdAt,
     });
+  }
+  convertDate(date){
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const day = days[date.getDay()];
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let month = months[date.getMonth()];
+    return `${day}, ${date.getDate()} ${month} ${date.getFullYear()}`;
   }
 }
 module.exports = GetDonation;
