@@ -1,7 +1,7 @@
 class GetDonation {
   constructor(payload) {
     const {
-      id, fullname, email, donateAmount, status, proofAttachment,
+      id, fullname, email, donateAmount, status, proofAttachment, createdAt
     } = this.verifyPayload(payload);
     this.id = id;
     this.fullname = fullname;
@@ -9,13 +9,14 @@ class GetDonation {
     this.donateAmount = donateAmount;
     this.status = status;
     this.proofAttachment = proofAttachment;
+    this.postAt = createdAt
   }
 
   verifyPayload({
-    id, user, donateAmount, status, proofAttachment,
+    id, user, donateAmount, status, proofAttachment, createdAt
   }) {
     const { fullname, email } = user;
-    if (!id || !fullname || !email || !donateAmount || !status || !proofAttachment) {
+    if (!id || !fullname || !email || !donateAmount || !status || !proofAttachment ||!createdAt) {
       throw new Error('Get_Donation.Not_Contain_Data_Spesification');
     }
     if (
@@ -25,11 +26,12 @@ class GetDonation {
       || typeof (donateAmount) !== 'number'
       || typeof (status) !== 'string'
       || typeof (proofAttachment) !== 'string'
+      || typeof (createdAt) !== 'string'
     ) {
       throw new Error('Get_Donation.Not_Meet_Data_Spesification');
     }
     return ({
-      id, fullname, email, donateAmount, status, proofAttachment,
+      id, fullname, email, donateAmount, status, proofAttachment, createdAt,
     });
   }
 }
