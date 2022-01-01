@@ -38,6 +38,7 @@ const GetAllFundUseCase = require('../Aplications/usecase/Fund/GetAllFundUseCase
 const DeleteFundByIdUseCase = require('../Aplications/usecase/Fund/DeleteFundByIdUseCase');
 const GetFundByIdUseCase = require('../Aplications/usecase/Fund/GetFundByIdUseCase');
 const EditFundByIdUseCase = require('../Aplications/usecase/Fund/EditFundByIdUseCase');
+const GetMyFundUseCase = require('../Aplications/usecase/Fund/GetMyFundUseCase');
 const AddDonationUseCase = require('../Aplications/usecase/Donations/AddDonationUseCase');
 const SetStatusSuccessDonationUseCase = require('../Aplications/usecase/Donations/SetStatusSuccessDonationUseCase');
 const GetDonationsByFundIdUseCase = require('../Aplications/usecase/Donations/GetDonationsByFundIdUseCase');
@@ -312,6 +313,23 @@ container.register([
         },
       ],
     },
+  },
+  {
+    key : GetMyFundUseCase.name,
+    Class : GetMyFundUseCase,
+    parameter : {
+      injectType : 'destructuring',
+      dependencies : [
+        {
+          name : 'tokenManager', 
+          internal : TokenManager.name,
+        },
+        {
+          name : 'fundRepository',
+          internal : FundRepository.name,
+        },
+      ]
+    }
   },
   {
     key: AddDonationUseCase.name,
