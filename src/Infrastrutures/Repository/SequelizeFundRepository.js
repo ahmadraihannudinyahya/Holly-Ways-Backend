@@ -66,6 +66,14 @@ class SequelizeFundRepository extends FundRepository {
       },
     });
   }
+
+  async getFundsByOwner(owner) {
+    return this.Funds.findAll({
+      where : {
+        owner
+      },
+    });
+  }
 }
 
 module.exports = SequelizeFundRepository;
