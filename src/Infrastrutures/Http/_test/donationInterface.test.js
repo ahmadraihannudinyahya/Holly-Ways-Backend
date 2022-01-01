@@ -317,22 +317,6 @@ describe('Donation interface test', ()=>{
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.id).toEqual(donationTest1.id);
     });
-    xit('should change status donation corectly', async ()=>{
-      // test cant be done because request cant run in syncronous
-      const app = createServer(container);
-      await request(app)
-        .patch(`/api/v1/donation/${donationTest1.id}/fund/${fundTest1.id}`)
-        .auth(userTest1.token, {type : 'bearer'});
-      const response = await request(app)
-        .get(`/api/v1/donation/fund/${fundTest1.id}`)
-        .auth(userTest1.token, {type : 'bearer'});
-      const responseJson = JSON.parse(response.text);
-      const {id, status} = responseJson.data.donations[0];
-      expect(response.statusCode).toEqual(200);
-      expect(responseJson.status).toEqual('success');
-      expect(id).toEqual(donationTest1.id);
-      expect(status).toEqual('success');
-    });
     it('should response 404 when donation not found', async ()=>{
       const app = createServer(container);
       const response = await request(app)

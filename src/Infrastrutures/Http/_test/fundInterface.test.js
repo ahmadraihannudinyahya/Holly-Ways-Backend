@@ -415,18 +415,6 @@ describe('Fund Interface Test', ()=>{
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.id).toEqual(testFund1.id);
     });
-    xit('should delete fund corectly', async ()=>{
-      // test cant be done because request cant run in syncronous
-      const app = createServer(container);
-      await request(app)
-        .delete(`/api/v1/fund/${testFund1.id}`)
-        .auth(userTest.token, {type : 'bearer'})
-      const response = await request(app).get(`/api/v1/fund/${testFund1.id}`);
-      const responseJson = JSON.parse(response.text);
-      expect(response.statusCode).toEqual(404);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toBeDefined();
-    });
     it('should response 404 when fund not found', async ()=>{
       const app = createServer(container);
       const response = await request(app)
