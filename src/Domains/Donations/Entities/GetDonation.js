@@ -9,7 +9,7 @@ class GetDonation {
     this.donateAmount = donateAmount;
     this.status = status;
     this.proofAttachment = proofAttachment;
-    this.postAt = createdAt
+    this.postAt = createdAt;
   }
 
   verifyPayload({
@@ -26,7 +26,7 @@ class GetDonation {
       || typeof (donateAmount) !== 'number'
       || typeof (status) !== 'string'
       || typeof (proofAttachment) !== 'string'
-      || typeof (createdAt) !== 'string'
+      || typeof (createdAt) !== 'object'
     ) {
       throw new Error('Get_Donation.Not_Meet_Data_Spesification');
     }
