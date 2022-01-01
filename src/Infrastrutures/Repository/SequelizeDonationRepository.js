@@ -3,11 +3,12 @@ const NotFoundError = require('../../Commons/Exceptions/NotFoundError');
 const AuthorizationError = require('../../Commons/Exceptions/AuthorizationError');
 
 class SequelizeDonationRepository extends DonationRepository {
-  constructor(idGenerator, Donations, Users) {
+  constructor(idGenerator, Donations, Users, Funds) {
     super();
     this.idGenerator = idGenerator;
     this.Donations = Donations;
     this.Users = Users;
+    this.Funds = Funds;
   }
 
   async addDonations(newDonation) {
@@ -88,6 +89,21 @@ class SequelizeDonationRepository extends DonationRepository {
 
   async getAllDonations(){
     return this.Donations.findAll();
+  }
+
+  async getDonationsByUserIdWithFund(userId) {
+    return this.Donations.findAll({
+      where : {
+        userId
+      },
+      include : {
+        model: this.Funds,
+        as: 'fund',
+        attributes: {
+          exclude: ['createdAt', 'updatedAt'],
+        },
+      }
+    })
   }
 }
 module.exports = SequelizeDonationRepository;
