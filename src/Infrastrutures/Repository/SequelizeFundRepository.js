@@ -89,6 +89,66 @@ class SequelizeFundRepository extends FundRepository {
       },
     });
   }
+
+  async getAllFundsWithDonations() {
+    return this.Funds.findAll({
+      order : [
+        ['createdAt', 'ASC']
+      ],
+      include: {
+        model: this.Donations,
+        as: 'donations',
+        attributes: {
+          exclude: ['createdAt', 'updatedAt'],
+        },
+        order : [
+          ['createdAt', 'ASC']
+        ],
+      },
+    });
+  }
+
+  async getFundsByIdWithDonations(id) {
+    return this.Funds.findOne({
+      where : {
+        id
+      },
+      order : [
+        ['createdAt', 'ASC']
+      ],
+      include: {
+        model: this.Donations,
+        as: 'donations',
+        attributes: {
+          exclude: ['createdAt', 'updatedAt'],
+        },
+        order : [
+          ['createdAt', 'ASC']
+        ],
+      },
+    });
+  }
+
+  async getFundsByOwnerWithDonations(owner) {
+    return this.Funds.findAll({
+      where : {
+        owner
+      },
+      order : [
+        ['createdAt', 'ASC']
+      ],
+      include: {
+        model: this.Donations,
+        as: 'donations',
+        attributes: {
+          exclude: ['createdAt', 'updatedAt'],
+        },
+        order : [
+          ['createdAt', 'ASC']
+        ],
+      },
+    });
+  }
 }
 
 module.exports = SequelizeFundRepository;

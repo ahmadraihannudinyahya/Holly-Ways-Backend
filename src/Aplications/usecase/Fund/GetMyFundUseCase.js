@@ -7,7 +7,7 @@ class GetMyFundUseCase{
   }
   async execute(payload){
     const { userId } = await this.tokenManager.verifyToken(payload.token);
-    const funds = await this.fundRepository.getFundsByOwner(userId);
+    const funds = await this.fundRepository.getFundsByOwnerWithDonations(userId);
     return funds.map(fund => {
       return new GetFund({
         id : fund.id, 
