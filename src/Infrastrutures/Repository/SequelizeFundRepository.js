@@ -18,6 +18,9 @@ class SequelizeFundRepository extends FundRepository {
 
   async getAllFund() {
     return this.Funds.findAll({
+      where : {
+        status : 'open'
+      },
       order : [
         ['createdAt', 'ASC']
       ]
@@ -37,7 +40,9 @@ class SequelizeFundRepository extends FundRepository {
   }
 
   async deleteFundById(id) {
-    this.Funds.destroy({
+    this.Funds.update({
+      status : 'closed',
+    },{
       where: {
         id,
       },
@@ -92,6 +97,9 @@ class SequelizeFundRepository extends FundRepository {
 
   async getAllFundsWithDonations() {
     return this.Funds.findAll({
+      where : {
+        status : 'open',
+      },
       order : [
         ['createdAt', 'ASC']
       ],
