@@ -1,7 +1,7 @@
 class GetFund {
   constructor(payload) {
     const {
-      id, title, thumbnail, goal, description, donationObtained, createdAt
+      id, title, thumbnail, goal, description, donationObtained, createdAt, donationCount
     } = this.verifyPayload(payload);
     this.id = id;
     this.title = title;
@@ -9,16 +9,17 @@ class GetFund {
     this.goal = goal;
     this.description = description;
     this.donationObtained = donationObtained;
+    this.donationCount = donationCount;
     this.postAt = this.convertDate(createdAt);
   }
 
   verifyPayload({
-    id, title, thumbnail, goal, description, donationObtained, createdAt
+    id, title, thumbnail, goal, description, donationObtained, createdAt, donationCount
   }) {
     if (!id || !title || !thumbnail || !goal || !description || !createdAt ) {
       throw new Error('Get_Fund.Not_Contain_Data_Spesification');
     }
-    if ( !donationObtained && donationObtained !== 0 ){
+    if ( !donationObtained && donationObtained !== 0 || !donationCount && donationCount !== 0){
       throw new Error('Get_Fund.Not_Contain_Data_Spesification');
     }
     if (typeof (id) !== 'string' || typeof (title) !== 'string' || typeof (thumbnail) !== 'string' || typeof (description) !== 'string' || typeof (goal) !== 'number' || typeof (createdAt) !== 'object' ) {
@@ -27,8 +28,11 @@ class GetFund {
     if (typeof (donationObtained) !== 'number' && typeof (donationObtained) !== 'boolean'){
       throw new Error('Get_Fund.Not_Meet_Data_Spesification');
     }
+    if (typeof (donationCount) !== 'number' && typeof (donationCount) !== 'boolean'){
+      throw new Error('Get_Fund.Not_Meet_Data_Spesification');
+    }
     return ({
-      id, title, thumbnail, goal, description, donationObtained, createdAt
+      id, title, thumbnail, goal, description, donationObtained, createdAt, donationCount
     });
   }
 
