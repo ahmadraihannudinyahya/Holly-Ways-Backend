@@ -34,5 +34,9 @@ class DonationRepository {
   getDonationsByUserIdWithFund() {
     throw new Error('DonationRepository is abstract class');
   }
+
+  getAprovedDonationCountByFundId(){
+    throw new Error('DonationRepository is abstract class');
+  }
 }
 module.exports = DonationRepository;
