@@ -256,7 +256,7 @@ describe('Donation interface test', ()=>{
         .post(`/api/v1/donation/fund/${fundTest1.id}`)
         .auth(userTest2.token, {type : 'bearer'})
         .type('form-data')
-        .field('donateAmount', 50000)
+        .field('donateAmount', 1000000)
         .attach('proofAttachment', imagePathTest);
 
       const response = await request(app)
@@ -266,6 +266,8 @@ describe('Donation interface test', ()=>{
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.donations).toHaveLength(2);
+      expect(responseJson.data.donations[0].id).toEqual(donationTest1.id);
+      expect(responseJson.data.donations[1].donateAmount).toEqual(1000000);
     });
     it('should response accepted only donations when user not owner fund', async ()=>{
       const app = createServer(container);
