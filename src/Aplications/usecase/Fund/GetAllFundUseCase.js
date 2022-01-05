@@ -16,6 +16,7 @@ class GetAllFundUseCase {
         goal : fund.goal, 
         description : fund.description, 
         createdAt : fund.createdAt, 
+        status : fund.status, 
         donationObtained : fund.donations.reduce((total, donation) => {
           if(donation.status === 'success'){
             return total + donation.donateAmount;

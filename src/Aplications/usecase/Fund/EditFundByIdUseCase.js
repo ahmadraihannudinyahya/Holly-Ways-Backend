@@ -32,6 +32,7 @@ class EditFundByIdUseCase {
       goal : fund.goal, 
       description : fund.description, 
       createdAt : fund.createdAt, 
+      status : fund.status,
       donationObtained : await this.donationRepository.getAprovedDonationCountByFundId(editFund.id),
       donationCount : await this.donationRepository.getAprovedDonationAmountCountByFundId(editFund.id),
     });
