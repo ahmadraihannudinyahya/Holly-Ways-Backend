@@ -143,7 +143,7 @@ describe('Donation interface test', ()=>{
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.fund).toBeDefined();
       expect(id).toEqual(fundTest1.id);
-      expect(donationObtained).toEqual(100000);
+      expect(donationObtained).toEqual(0);
     });
     it('should add donationObtained corectly when get all fund', async ()=>{
       const app = createServer(container);
@@ -162,7 +162,7 @@ describe('Donation interface test', ()=>{
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.funds).toBeDefined();
       expect(id).toEqual(fundTest1.id);
-      expect(donationObtained).toEqual(100000);
+      expect(donationObtained).toEqual(0);
     });
     it('should response fail when payload not contain data needed', async ()=>{
       const app = createServer(container);
