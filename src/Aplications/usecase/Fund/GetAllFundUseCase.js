@@ -19,7 +19,9 @@ class GetAllFundUseCase {
         createdAt : fund.createdAt, 
         donationObtained : donations.reduce((total, donation) => {
           if( donation.fundId === fund.id ){
-            return total + donation.donateAmount;
+            if(donation.status === 'success'){
+              return total + donation.donateAmount;
+            }
           };
           return total;
         }, 0)

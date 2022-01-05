@@ -9,7 +9,7 @@ class GetFundByIdUseCase {
   async execute(fundId) {
     await this.fundRepository.verifyFundFound(fundId);
     const fund = await this.fundRepository.getFundById(fundId);
-    const donationObtained = await this.donationRepository.getDonationCountByFundId(fundId);
+    const donationObtained = await this.donationRepository.getAprovedDonationCountByFundId(fundId);
     return new GetFund({
       id : fund.id, 
       title : fund.title,
