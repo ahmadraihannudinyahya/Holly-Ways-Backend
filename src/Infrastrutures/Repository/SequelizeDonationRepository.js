@@ -52,6 +52,9 @@ class SequelizeDonationRepository extends DonationRepository {
       where: {
         fundId,
       },
+      order : [
+        ['createdAt', 'ASC']
+      ],
       include: {
         model: this.Users,
         as: 'user',
@@ -68,6 +71,9 @@ class SequelizeDonationRepository extends DonationRepository {
         fundId,
         status: 'success',
       },
+      order : [
+        ['createdAt', 'ASC']
+      ],
       include: {
         model: this.Users,
         as: 'user',
@@ -88,7 +94,11 @@ class SequelizeDonationRepository extends DonationRepository {
   }
 
   async getAllDonations(){
-    return this.Donations.findAll();
+    return this.Donations.findAll({
+      order : [
+        ['createdAt', 'ASC']
+      ],
+    });
   }
 
   async getDonationsByUserIdWithFund(userId) {
@@ -96,6 +106,9 @@ class SequelizeDonationRepository extends DonationRepository {
       where : {
         userId
       },
+      order : [
+        ['createdAt', 'ASC']
+      ],
       include : {
         model: this.Funds,
         as: 'fund',

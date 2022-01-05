@@ -17,7 +17,11 @@ class SequelizeFundRepository extends FundRepository {
   }
 
   async getAllFund() {
-    return this.Funds.findAll();
+    return this.Funds.findAll({
+      order : [
+        ['createdAt', 'ASC']
+      ]
+    });
   }
 
   async verifyFundOwner(fundId, ownerId) {
@@ -73,6 +77,9 @@ class SequelizeFundRepository extends FundRepository {
       where : {
         owner
       },
+      order : [
+        ['createdAt', 'ASC']
+      ],
       include: {
         model: this.Donations,
         as: 'donations',
