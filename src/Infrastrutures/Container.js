@@ -290,6 +290,10 @@ container.register([
           name: 'tokenManager',
           internal: TokenManager.name,
         },
+        {
+          name : 'storageService',
+          internal : StorageServices.name, 
+        },
       ],
     },
   },
