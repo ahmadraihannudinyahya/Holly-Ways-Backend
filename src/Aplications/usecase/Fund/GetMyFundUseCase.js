@@ -17,11 +17,12 @@ class GetMyFundUseCase{
         description : fund.description, 
         createdAt : fund.createdAt, 
         donationObtained : fund.donations.reduce((total, donation) => {
-          if( donation.fundId === fund.id ){
+          if(donation.status === 'success'){
             return total + donation.donateAmount;
-          };
+          }
           return total;
-        }, 0)
+        }, 0),
+        donationCount : fund.donations.length
       })
     });
   }

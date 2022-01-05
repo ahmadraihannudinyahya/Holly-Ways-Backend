@@ -24,7 +24,15 @@ class GetAllFundUseCase {
             }
           };
           return total;
-        }, 0)
+        }, 0),
+        donationCount : donations.reduce((total, donation) => {
+          if( donation.fundId === fund.id ){
+            if(donation.status === 'success'){
+              return total ++
+            }
+          };
+          return total;
+        }, 0),
       })
     })
   }
