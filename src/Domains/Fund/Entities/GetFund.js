@@ -5,7 +5,7 @@ class GetFund {
     } = this.verifyPayload(payload);
     this.id = id;
     this.title = title;
-    this.thumbnail = thumbnail;
+    this.thumbnail = `${process.env.HOST}:${process.env.PORT}${process.env.ENDPOINT_FILE}/${thumbnail}`;
     this.goal = goal;
     this.description = description;
     this.donationObtained = donationObtained;

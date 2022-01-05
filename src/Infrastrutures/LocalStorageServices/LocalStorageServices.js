@@ -22,14 +22,13 @@ class LocalStorageServices extends StorageServices {
         if (error) {
           return reject(new Error(error));
         }
-        return resolve(`${process.env.HOST}:${process.env.PORT}${process.env.ENDPOINT_FILE}/${fileName}`);
+        return resolve(fileName);
       });
     });
   }
 
   async deleteFile(file) {
-    const fileName = file[file.length-1];
-    const pathFile = path.join(this.pathStorage, fileName);
+    const pathFile = path.join(this.pathStorage, file);
     if (fs.existsSync(pathFile)) {
       fs.unlinkSync(pathFile);
     }
