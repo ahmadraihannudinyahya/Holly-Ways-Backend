@@ -1,6 +1,7 @@
 const FundRepository = require('../../Domains/Fund/FundRepository');
 const AuthorizationError = require('../../Commons/Exceptions/AuthorizationError');
 const NotFoundError = require('../../Commons/Exceptions/NotFoundError');
+const InvariantError = require('../../Commons/Exceptions/InvariantError');
 
 class SequelizeFundRepository extends FundRepository {
   constructor(Funds, idGenerator, Donations) {
@@ -156,6 +157,17 @@ class SequelizeFundRepository extends FundRepository {
         ],
       },
     });
+  }
+
+  async verifyFundStatusOpenById(id){
+    const fund = await this.Funds.findOne({
+      where : {
+        id
+      },
+    });
+    if(fund.status === 'closed'){
+      throw new InvariantError('Fund is closed');
+    }
   }
 }
 
