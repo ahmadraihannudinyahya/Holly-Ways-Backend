@@ -1,7 +1,7 @@
 class GetFund {
   constructor(payload) {
     const {
-      id, title, thumbnail, goal, description, donationObtained, createdAt, donationCount
+      id, title, thumbnail, goal, description, donationObtained, createdAt, donationCount, status
     } = this.verifyPayload(payload);
     this.id = id;
     this.title = title;
@@ -10,19 +10,20 @@ class GetFund {
     this.description = description;
     this.donationObtained = donationObtained;
     this.donationCount = donationCount;
+    this.status = status;
     this.postAt = this.convertDate(createdAt);
   }
 
   verifyPayload({
-    id, title, thumbnail, goal, description, donationObtained, createdAt, donationCount
+    id, title, thumbnail, goal, description, donationObtained, createdAt, donationCount, status
   }) {
-    if (!id || !title || !thumbnail || !goal || !description || !createdAt ) {
+    if (!id || !title || !thumbnail || !goal || !description || !createdAt || !status ) {
       throw new Error('Get_Fund.Not_Contain_Data_Spesification');
     }
     if ( !donationObtained && donationObtained !== 0 || !donationCount && donationCount !== 0){
       throw new Error('Get_Fund.Not_Contain_Data_Spesification');
     }
-    if (typeof (id) !== 'string' || typeof (title) !== 'string' || typeof (thumbnail) !== 'string' || typeof (description) !== 'string' || typeof (goal) !== 'number' || typeof (createdAt) !== 'object' ) {
+    if (typeof (id) !== 'string' || typeof (title) !== 'string' || typeof (thumbnail) !== 'string' || typeof (description) !== 'string' || typeof (goal) !== 'number' || typeof (createdAt) !== 'object' || typeof(status) !== 'string' ) {
       throw new Error('Get_Fund.Not_Meet_Data_Spesification');
     }
     if (typeof (donationObtained) !== 'number' && typeof (donationObtained) !== 'boolean'){
@@ -32,7 +33,7 @@ class GetFund {
       throw new Error('Get_Fund.Not_Meet_Data_Spesification');
     }
     return ({
-      id, title, thumbnail, goal, description, donationObtained, createdAt, donationCount
+      id, title, thumbnail, goal, description, donationObtained, createdAt, donationCount, status
     });
   }
 
