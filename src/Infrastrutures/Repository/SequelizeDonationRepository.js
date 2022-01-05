@@ -119,7 +119,7 @@ class SequelizeDonationRepository extends DonationRepository {
     })
   }
 
-  async getAprovedDonationCountByFundId(fundId){
+  async getAprovedDonationAmountCountByFundId(fundId){
     const donations = await this.Donations.findAll({
       where: {
         fundId,
@@ -127,6 +127,16 @@ class SequelizeDonationRepository extends DonationRepository {
       },
     });
     return donations.reduce((total, donation)=> total + donation.donateAmount, 0);
+  }
+
+  async getAprovedDonationCountByFundId(fundId){
+    const donations = await this.Donations.findAll({
+      where: {
+        fundId,
+        status: 'success',
+      },
+    });
+    return donations.length;
   }
 }
 module.exports = SequelizeDonationRepository;
