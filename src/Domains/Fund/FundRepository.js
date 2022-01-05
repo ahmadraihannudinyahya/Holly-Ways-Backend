@@ -42,5 +42,9 @@ class FundRepository {
   getFundsByOwnerWithDonations() {
     throw new Error('FundRepository is abstract class');
   }
+
+  verifyFundStatusOpenById() {
+    throw new Error('FundRepository is abstract class');
+  }
 }
 module.exports = FundRepository;
