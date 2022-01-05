@@ -252,6 +252,10 @@ container.register([
           name: 'fundRepository',
           internal: FundRepository.name,
         },
+        {
+          name : 'userRepository',
+          internal : UserRepository.name
+        }
       ],
     },
   },
