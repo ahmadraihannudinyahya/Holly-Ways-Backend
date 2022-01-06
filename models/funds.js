@@ -28,7 +28,8 @@ module.exports = (sequelize, DataTypes) => {
     thumbnail: DataTypes.TEXT,
     goal: DataTypes.INTEGER,
     description: DataTypes.TEXT,
-    owner: DataTypes.STRING
+    owner: DataTypes.STRING,
+    status: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Funds',

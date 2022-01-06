@@ -1,7 +1,8 @@
 class DeleteFundByIdUseCase {
-  constructor({ fundRepository, tokenManager }) {
+  constructor({ fundRepository, tokenManager , storageService}) {
     this.fundRepository = fundRepository;
     this.tokenManager = tokenManager;
+    this.storageService = storageService;
   }
 
   async execute(payload) {

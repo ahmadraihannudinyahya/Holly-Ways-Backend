@@ -7,8 +7,7 @@ class GetAllFundUseCase {
   }
 
   async execute() {
-    const funds = await this.fundRepository.getAllFund();
-    const donations = await this.donationRepository.getAllDonations();
+    const funds = await this.fundRepository.getAllFundsWithDonations();
     return funds.map(fund => {
       return new GetFund({
         id : fund.id, 
@@ -17,12 +16,14 @@ class GetAllFundUseCase {
         goal : fund.goal, 
         description : fund.description, 
         createdAt : fund.createdAt, 
-        donationObtained : donations.reduce((total, donation) => {
-          if( donation.fundId === fund.id ){
+        status : fund.status, 
+        donationObtained : fund.donations.reduce((total, donation) => {
+          if(donation.status === 'success'){
             return total + donation.donateAmount;
           };
           return total;
-        }, 0)
+        }, 0),
+        donationCount : fund.donations.length
       })
     })
   }

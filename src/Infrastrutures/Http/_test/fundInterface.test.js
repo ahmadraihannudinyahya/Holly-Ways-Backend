@@ -247,7 +247,7 @@ describe('Fund Interface Test', ()=>{
       const app = createServer(container);
       const response = await request(app).get(`/api/v1/fund/${testFund1.id}`);
       const responseJson = JSON.parse(response.text);
-      const {id, title, thumbnail, goal, description, donationObtained, postAt} = responseJson.data.fund;
+      const {id, title, thumbnail, goal, description, donationObtained, postAt, donationCount } = responseJson.data.fund;
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.fund).toBeDefined();
@@ -257,6 +257,7 @@ describe('Fund Interface Test', ()=>{
       expect(goal).toEqual(testFund1.goal);
       expect(description).toEqual(testFund1.description);
       expect(donationObtained).toEqual(0);
+      expect(donationCount).toEqual(0);
       expect(postAt).toBeDefined();
     });
     it('should response fail 404 when fund id not found', async ()=>{
@@ -493,6 +494,8 @@ describe('Fund Interface Test', ()=>{
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.funds).toBeDefined();
       expect(responseJson.data.funds).toHaveLength(2);
+      expect(responseJson.data.funds[0].id).toEqual(testFund1.id);
+      expect(responseJson.data.funds[1].id).toEqual(testFund2.id);
     });
     it('should response users funds corectly', async ()=>{
       const app = createServer(container);
@@ -502,6 +505,22 @@ describe('Fund Interface Test', ()=>{
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.funds).toBeDefined();
       expect(responseJson.data.funds).toHaveLength(0);
+    });
+    it('should response fund object corectlty', async ()=>{
+      const app = createServer(container);
+      const response = await request(app).get('/api/v1/myfund').auth(userTest.token, {type :'bearer'});
+      const responseJson = JSON.parse(response.text);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.status).toEqual('success');
+      expect(responseJson.data.funds).toBeDefined();
+      expect(responseJson.data.funds).toHaveLength(2);
+      const {id, title, thumbnail, description, goal, donationObtained} = responseJson.data.funds[0];
+      expect(id).toEqual(testFund1.id);
+      expect(title).toEqual(testFund1.title);
+      expect(thumbnail).toBeDefined()
+      expect(description).toEqual(testFund1.description);
+      expect(goal).toEqual(testFund1.goal);
+      expect(donationObtained).toEqual(0);
     })
     it('should response 403 when request without auth', async ()=>{
       const app = createServer(container);

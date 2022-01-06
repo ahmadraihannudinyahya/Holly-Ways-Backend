@@ -7,7 +7,7 @@ class GetMyFundUseCase{
   }
   async execute(payload){
     const { userId } = await this.tokenManager.verifyToken(payload.token);
-    const funds = await this.fundRepository.getFundsByOwner(userId);
+    const funds = await this.fundRepository.getFundsByOwnerWithDonations(userId);
     return funds.map(fund => {
       return new GetFund({
         id : fund.id, 
@@ -16,12 +16,14 @@ class GetMyFundUseCase{
         goal : fund.goal, 
         description : fund.description, 
         createdAt : fund.createdAt, 
+        status : fund.status, 
         donationObtained : fund.donations.reduce((total, donation) => {
-          if( donation.fundId === fund.id ){
+          if(donation.status === 'success'){
             return total + donation.donateAmount;
-          };
+          }
           return total;
-        }, 0)
+        }, 0),
+        donationCount : fund.donations.length
       })
     });
   }

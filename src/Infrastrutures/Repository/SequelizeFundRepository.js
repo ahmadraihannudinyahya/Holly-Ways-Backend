@@ -1,6 +1,7 @@
 const FundRepository = require('../../Domains/Fund/FundRepository');
 const AuthorizationError = require('../../Commons/Exceptions/AuthorizationError');
 const NotFoundError = require('../../Commons/Exceptions/NotFoundError');
+const InvariantError = require('../../Commons/Exceptions/InvariantError');
 
 class SequelizeFundRepository extends FundRepository {
   constructor(Funds, idGenerator, Donations) {
@@ -17,7 +18,14 @@ class SequelizeFundRepository extends FundRepository {
   }
 
   async getAllFund() {
-    return this.Funds.findAll();
+    return this.Funds.findAll({
+      where : {
+        status : 'open'
+      },
+      order : [
+        ['createdAt', 'ASC']
+      ]
+    });
   }
 
   async verifyFundOwner(fundId, ownerId) {
@@ -33,7 +41,9 @@ class SequelizeFundRepository extends FundRepository {
   }
 
   async deleteFundById(id) {
-    this.Funds.destroy({
+    this.Funds.update({
+      status : 'closed',
+    },{
       where: {
         id,
       },
@@ -73,6 +83,9 @@ class SequelizeFundRepository extends FundRepository {
       where : {
         owner
       },
+      order : [
+        ['createdAt', 'ASC']
+      ],
       include: {
         model: this.Donations,
         as: 'donations',
@@ -81,6 +94,80 @@ class SequelizeFundRepository extends FundRepository {
         },
       },
     });
+  }
+
+  async getAllFundsWithDonations() {
+    return this.Funds.findAll({
+      where : {
+        status : 'open',
+      },
+      order : [
+        ['createdAt', 'ASC']
+      ],
+      include: {
+        model: this.Donations,
+        as: 'donations',
+        attributes: {
+          exclude: ['createdAt', 'updatedAt'],
+        },
+        order : [
+          ['createdAt', 'ASC']
+        ],
+      },
+    });
+  }
+
+  async getFundsByIdWithDonations(id) {
+    return this.Funds.findOne({
+      where : {
+        id
+      },
+      order : [
+        ['createdAt', 'ASC']
+      ],
+      include: {
+        model: this.Donations,
+        as: 'donations',
+        attributes: {
+          exclude: ['createdAt', 'updatedAt'],
+        },
+        order : [
+          ['createdAt', 'ASC']
+        ],
+      },
+    });
+  }
+
+  async getFundsByOwnerWithDonations(owner) {
+    return this.Funds.findAll({
+      where : {
+        owner
+      },
+      order : [
+        ['createdAt', 'ASC']
+      ],
+      include: {
+        model: this.Donations,
+        as: 'donations',
+        attributes: {
+          exclude: ['createdAt', 'updatedAt'],
+        },
+        order : [
+          ['createdAt', 'ASC']
+        ],
+      },
+    });
+  }
+
+  async verifyFundStatusOpenById(id){
+    const fund = await this.Funds.findOne({
+      where : {
+        id
+      },
+    });
+    if(fund.status === 'closed'){
+      throw new InvariantError('Fund is closed');
+    }
   }
 }
 

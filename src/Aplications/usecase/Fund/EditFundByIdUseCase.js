@@ -25,7 +25,6 @@ class EditFundByIdUseCase {
     }
     await this.fundRepostory.editFundById(editFund);
     const fund = await this.fundRepostory.getFundById(editFund.id);
-    const donationObtained = await this.donationRepository.getDonationCountByFundId(editFund.id);
     return new GetFund({
       id : fund.id, 
       title : fund.title,
@@ -33,7 +32,9 @@ class EditFundByIdUseCase {
       goal : fund.goal, 
       description : fund.description, 
       createdAt : fund.createdAt, 
-      donationObtained
+      status : fund.status,
+      donationObtained : await this.donationRepository.getAprovedDonationCountByFundId(editFund.id),
+      donationCount : await this.donationRepository.getAprovedDonationAmountCountByFundId(editFund.id),
     });
   }
 }

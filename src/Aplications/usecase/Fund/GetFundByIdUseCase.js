@@ -8,8 +8,7 @@ class GetFundByIdUseCase {
 
   async execute(fundId) {
     await this.fundRepository.verifyFundFound(fundId);
-    const fund = await this.fundRepository.getFundById(fundId);
-    const donationObtained = await this.donationRepository.getDonationCountByFundId(fundId);
+    const fund = await this.fundRepository.getFundsByIdWithDonations(fundId);
     return new GetFund({
       id : fund.id, 
       title : fund.title,
@@ -17,7 +16,14 @@ class GetFundByIdUseCase {
       goal : fund.goal, 
       description : fund.description, 
       createdAt : fund.createdAt, 
-      donationObtained
+      status : fund.status, 
+      donationObtained : fund.donations.reduce((total, donation) => {
+        if(donation.status === 'success'){
+          return total + donation.donateAmount;
+        };
+        return total;
+      }, 0),
+      donationCount : fund.donations.length
     });
   }
 }
