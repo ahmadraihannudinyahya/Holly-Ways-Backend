@@ -28,6 +28,8 @@ jobs:
         npm run test
       env:
         CI: true
+        HOST: http://localhost
+        PORT: 5000
         ENDPOINT_FILE: /file
         DB_HOST: ${{ secrets.DBTEST_HOST }}
         DB_USER: ${{ secrets.DBTEST_USER }}
