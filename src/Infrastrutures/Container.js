@@ -3,7 +3,8 @@ const { createContainer } = require('instances-container');
 const { nanoid } = require('nanoid');
 const brycpt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const io = require("socket.io-client");
+
+const socket = require('./SocketIoNotification/config');
 
 const Joi = require('joi');
 const { Users, Funds, Donations } = require('../../models');
@@ -138,7 +139,7 @@ container.register([
     Class : SocketIoNotificationServices,
     parameter : {
       dependencies : [
-        {concrete : io }
+        {concrete : socket }
       ]
     }
   },
