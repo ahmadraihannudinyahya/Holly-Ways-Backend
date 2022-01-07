@@ -1,6 +1,8 @@
 const request = require("supertest");
 const createServer = require('../createServer');
 const container = require('../../Container');
+const socket = require('../../SocketIoNotification/config');
+
 
 const UserTestHelper = require('../../../../test/UserTestHelper');
 
@@ -17,6 +19,9 @@ describe('test User Interface', ()=>{
     beforeEach(async ()=>{
       const app = createServer(container);
       await request(app).post('/api/v1/register').send(userRegistered);
+    })
+    afterAll(()=>{
+      socket.disconnect();
     })
     it('should response All user registered', async ()=>{
       const app = createServer(container);

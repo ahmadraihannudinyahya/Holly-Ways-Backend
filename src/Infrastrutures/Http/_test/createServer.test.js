@@ -6,9 +6,14 @@ const UserTestHelper = require('../../../../test/UserTestHelper');
 const FundTestHelper = require('../../../../test/FundTestHelper');
 const StorageTestHelper = require('../../../../test/StorageTestHelper');
 const path = require("path");
-const imagePathTest = path.join(__dirname, '../../../../test/testImage.jpg')
+const imagePathTest = path.join(__dirname, '../../../../test/testImage.jpg');
+const socket = require('../../SocketIoNotification/config');
+
 
 describe('create server test', ()=>{
+  afterAll(()=>{
+    socket.disconnect();
+  })
   it('should return app object corectly', ()=>{
     const app = createServer(container);
     expect(app).toBeDefined();

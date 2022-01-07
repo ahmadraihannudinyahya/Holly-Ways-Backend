@@ -6,7 +6,8 @@ const UserTestHelper = require('../../../../test/UserTestHelper');
 const FundTestHelper = require('../../../../test/FundTestHelper');
 const StorageTestHelper = require('../../../../test/StorageTestHelper');
 const path = require("path");
-const imagePathTest = path.join(__dirname, '../../../../test/testImage.jpg')
+const imagePathTest = path.join(__dirname, '../../../../test/testImage.jpg');
+const socket = require('../../SocketIoNotification/config');
 describe('Fund Interface Test', ()=>{
   const userTest = {
     email : 'usertest@mail.com',
@@ -53,6 +54,7 @@ describe('Fund Interface Test', ()=>{
 
   afterAll(async ()=>{
     await UserTestHelper.cleanTable();
+    socket.disconnect();
   })
   describe('endpoint post /fund', ()=>{
     afterEach(async ()=>{
