@@ -3,6 +3,7 @@ const { createContainer } = require('instances-container');
 const { nanoid } = require('nanoid');
 const brycpt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { io } = require('socket.io-client');
 
 const Joi = require('joi');
 const { Users, Funds, Donations } = require('../../models');
@@ -17,6 +18,7 @@ const PasswordHash = require('../Aplications/Security/PasswordHash');
 const TokenManager = require('../Aplications/Security/TokenManager');
 const Validation = require('../Aplications/Validation/Validation');
 const StorageServices = require('../Aplications/Storage/StorageServices');
+const NotificationServices = require('../Aplications/Notification/NotificationServices');
 
 const SequelizeRegisterRepository = require('./Repository/SequelizeRegisterRepository');
 const SequelizeLoginUserRepository = require('./Repository/SequelizeLoginUserRepository');
@@ -28,6 +30,7 @@ const BcryptPasswordhash = require('./Security/BcryptPasswordhash');
 const JwtTokenManager = require('./Security/JwtTokenManager');
 const JoiValidation = require('./JoiValidation/JoiValidation');
 const LocalStorageServices = require('./LocalStorageServices/LocalStorageServices');
+const SocketIoNotificationServices = require('./SocketIoNotification/SocketIoNotificationServices');
 
 const RegisterUserUseCase = require('../Aplications/usecase/Register/RegisterUserUseCase');
 const LoginUserUseCase = require('../Aplications/usecase/Login/LoginUserUseCase');
@@ -129,6 +132,15 @@ container.register([
   {
     key: StorageServices.name,
     Class: LocalStorageServices,
+  },
+  {
+    key : NotificationServices.name,
+    Class : SocketIoNotificationServices,
+    parameter : {
+      dependencies : [
+        {concrete : io }
+      ]
+    }
   },
 ]);
 
@@ -390,6 +402,10 @@ container.register([
           name: 'donationsRepository',
           internal: DonationRepository.name,
         },
+        {
+          name : 'notificationServices',
+          internal : NotificationServices.name,
+        }
       ],
     },
   },

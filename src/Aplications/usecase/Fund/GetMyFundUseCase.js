@@ -23,7 +23,12 @@ class GetMyFundUseCase{
           }
           return total;
         }, 0),
-        donationCount : fund.donations.length
+        donationCount : fund.donations.reduce((total, donation)=>{
+          if(donation.status === 'success'){
+            return total ++;
+          };
+          return total;
+        }, 0),
       })
     });
   }
