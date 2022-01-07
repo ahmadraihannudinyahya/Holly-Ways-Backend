@@ -24,7 +24,7 @@ class EditFundByIdUseCase {
       editFund.setThumbnail = await this.storageService.uploadFile(payload.thumbnail);
     }
     await this.fundRepostory.editFundById(editFund);
-    const fund = await this.fundRepostory.getFundById(editFund.id);
+    const fund = await this.fundRepostory.getFundsByIdWithDonations(editFund.id);
     return new GetFund({
       id : fund.id, 
       title : fund.title,
@@ -33,8 +33,18 @@ class EditFundByIdUseCase {
       description : fund.description, 
       createdAt : fund.createdAt, 
       status : fund.status,
-      donationObtained : await this.donationRepository.getAprovedDonationCountByFundId(editFund.id),
-      donationCount : await this.donationRepository.getAprovedDonationAmountCountByFundId(editFund.id),
+      donationObtained : fund.donations.reduce((total, donation) => {
+        if(donation.status === 'success'){
+          return total + donation.donateAmount;
+        };
+        return total;
+      }, 0),
+      donationCount : fund.donations.reduce((total, donation)=>{
+        if(donation.status === 'success'){
+          return total ++;
+        };
+        return total;
+      }, 0),
     });
   }
 }
