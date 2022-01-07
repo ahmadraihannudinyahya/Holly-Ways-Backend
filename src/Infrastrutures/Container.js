@@ -3,7 +3,7 @@ const { createContainer } = require('instances-container');
 const { nanoid } = require('nanoid');
 const brycpt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { io } = require('socket.io-client');
+const io = require("socket.io-client");
 
 const Joi = require('joi');
 const { Users, Funds, Donations } = require('../../models');
