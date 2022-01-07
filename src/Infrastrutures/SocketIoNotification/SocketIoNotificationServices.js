@@ -6,7 +6,7 @@ class SocketIoNotificationServices extends NotificationServices{
     super();
   }
   broadNotification(message){
-    const socket = io('http://localhost:5000');
+    const socket = io(process.env.SOCKET_HOST||`http://localhost:5000`);
     socket.on('connect', ()=>{
       socket.emit('broadNotification', message);
     });
