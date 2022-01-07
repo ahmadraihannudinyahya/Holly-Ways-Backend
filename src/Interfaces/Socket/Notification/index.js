@@ -1,7 +1,7 @@
 module.exports = (io) => {
-  io.on('connection',async (socket) =>{
-    socket.on('broadNotification', async (message)=>{
-      socket.send(message);
+  io.on('connection', (socket) =>{
+    socket.on('broadNotification',  (message)=>{
+      io.emit('message', message);
     });
   })
 }
