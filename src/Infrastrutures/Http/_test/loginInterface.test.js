@@ -1,6 +1,8 @@
 const request = require("supertest");
 const createServer = require('../createServer');
 const container = require('../../Container');
+const socket = require('../../SocketIoNotification/config');
+
 
 const UserTestHelper = require('../../../../test/UserTestHelper');
 
@@ -18,6 +20,7 @@ describe('test interface login', ()=>{
   })
   afterAll(async ()=>{
     await UserTestHelper.cleanTable();
+    socket.disconnect();
   })
   describe('test endpoint post /login', ()=>{
     it('should response corectly', async ()=>{

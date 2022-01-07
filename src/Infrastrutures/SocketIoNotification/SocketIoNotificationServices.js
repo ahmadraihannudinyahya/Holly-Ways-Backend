@@ -1,15 +1,15 @@
 const NotificationServices = require("../../Aplications/Notification/NotificationServices");
 
 class SocketIoNotificationServices extends NotificationServices{
-  constructor(io){
+  constructor(socket){
     super();
-    this.io = io;
+    this.socket = socket;
   }
   broadNotification(message){
-    const socket = this.io(process.env.SOCKET_HOST||`http://localhost:5000`);
-    socket.on('connect', ()=>{
-      socket.emit('broadNotification', message);
-    });
+    if(!this.socket.connected){
+      this.socket.connect();
+    }
+    this.socket.emit('broadNotification', message);
   }
 }
 module.exports = SocketIoNotificationServices;

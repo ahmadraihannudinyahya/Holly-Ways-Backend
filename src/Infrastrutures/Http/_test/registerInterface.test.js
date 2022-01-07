@@ -1,12 +1,17 @@
 const request = require("supertest");
 const createServer = require('../createServer');
 const container = require('../../Container');
+const socket = require('../../SocketIoNotification/config');
+
 
 const UserTestHelper = require('../../../../test/UserTestHelper');
 
 describe('test register interface', ()=>{
   afterEach(async ()=>{
     await UserTestHelper.cleanTable();
+  });
+  afterAll(()=>{
+    socket.disconnect();
   })
   describe('when post /register', ()=>{
     it('should return response corectly', async()=>{

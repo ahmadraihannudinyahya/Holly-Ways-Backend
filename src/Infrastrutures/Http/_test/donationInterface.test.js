@@ -9,6 +9,7 @@ const StorageTestHelper = require('../../../../test/StorageTestHelper');
 const path = require("path");
 const exp = require("constants");
 const imagePathTest = path.join(__dirname, '../../../../test/testImage.jpg');
+const socket = require('../../SocketIoNotification/config');
 
 describe('Donation interface test', ()=>{
   const userTest1 = {
@@ -89,6 +90,7 @@ describe('Donation interface test', ()=>{
     await FundTestHelper.cleanTable();
     await UserTestHelper.cleanTable();
     StorageTestHelper.cleanStorage();
+    socket.disconnect();
   })
   afterEach(async ()=>{
     await DonationTestHelper.cleanTable();
