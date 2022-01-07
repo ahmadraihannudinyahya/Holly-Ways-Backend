@@ -25,7 +25,7 @@ class GetMyFundUseCase{
         }, 0),
         donationCount : fund.donations.reduce((total, donation)=>{
           if(donation.status === 'success'){
-            return total ++;
+            return total++;
           };
           return total;
         }, 0),
