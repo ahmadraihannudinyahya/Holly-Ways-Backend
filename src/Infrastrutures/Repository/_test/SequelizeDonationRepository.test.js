@@ -77,7 +77,7 @@ describe('test SequelizeDonationRepository', ()=>{
     beforeEach(async ()=>{
       await DonationTestHelper.addDonation(donationTest);
     });
-    xit('should change status donation corectly', async ()=>{
+    it('should change status donation corectly', async ()=>{
       const sequelizeDonationRepository = new SequelizeDonationRepository({}, Donations);
       await sequelizeDonationRepository.setStatusSuccessDonation(donationTest.id);
       const expectedDonation = await DonationTestHelper.getDonationById(donationTest.id);

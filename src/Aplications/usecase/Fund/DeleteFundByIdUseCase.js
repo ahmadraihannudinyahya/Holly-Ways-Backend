@@ -9,7 +9,7 @@ class DeleteFundByIdUseCase {
     const { userId } = await this.tokenManager.verifyToken(payload.token);
     await this.fundRepository.verifyFundFound(payload.fundId);
     await this.fundRepository.verifyFundOwner(payload.fundId, userId);
-    this.fundRepository.deleteFundById(payload.fundId);
+    await this.fundRepository.deleteFundById(payload.fundId);
   }
 }
 module.exports = DeleteFundByIdUseCase;

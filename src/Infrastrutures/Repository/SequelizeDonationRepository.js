@@ -18,7 +18,7 @@ class SequelizeDonationRepository extends DonationRepository {
   }
 
   async setStatusSuccessDonation(id) {
-    this.Donations.update({ status: 'success' }, {
+    await this.Donations.update({ status: 'success' }, {
       where: {
         id,
       },

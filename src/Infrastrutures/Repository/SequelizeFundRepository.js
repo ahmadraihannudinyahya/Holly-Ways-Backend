@@ -41,7 +41,7 @@ class SequelizeFundRepository extends FundRepository {
   }
 
   async deleteFundById(id) {
-    this.Funds.update({
+    await this.Funds.update({
       status : 'closed',
     },{
       where: {
@@ -86,13 +86,6 @@ class SequelizeFundRepository extends FundRepository {
       order : [
         ['createdAt', 'ASC']
       ],
-      include: {
-        model: this.Donations,
-        as: 'donations',
-        attributes: {
-          exclude: ['createdAt', 'updatedAt'],
-        },
-      },
     });
   }
 

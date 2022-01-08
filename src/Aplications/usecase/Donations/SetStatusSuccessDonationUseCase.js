@@ -15,7 +15,7 @@ class SetStatusSuccessDonationUseCase {
     await this.fundRepository.verifyFundOwner(payload.fundId, userId);
     await this.donationsRepository.verifyDonationFound(payload.donationId);
     await this.donationsRepository.verifyDonationInFund(payload.donationId, payload.fundId);
-    this.donationsRepository.setStatusSuccessDonation(payload.donationId);
+    await this.donationsRepository.setStatusSuccessDonation(payload.donationId);
   }
 }
 module.exports = SetStatusSuccessDonationUseCase;

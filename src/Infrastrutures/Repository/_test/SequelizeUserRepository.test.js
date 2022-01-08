@@ -30,7 +30,7 @@ describe('test SequelizeUserRepository', ()=>{
     });
   });
   describe('method deleteUserById', ()=>{
-    xit('should delete user corectly', async()=>{
+    it('should delete user corectly', async()=>{
       const sequelizeUserRepository = new SequelizeUserRepository(Users);
       await sequelizeUserRepository.deleteUserById(user.id);
       const userDeleted = await UserTestHelper.getUserById(user.id);
@@ -52,7 +52,7 @@ describe('test SequelizeUserRepository', ()=>{
       const sequelizeUserRepository = new SequelizeUserRepository(Users);
       await expect(sequelizeUserRepository.verifyUserFound(user.id)).resolves.not.toThrowError();
     });
-    xit('should throw error when user not found in database', async()=>{
+    it('should throw error when user not found in database', async()=>{
       const sequelizeUserRepository = new SequelizeUserRepository(Users);
       await expect(sequelizeUserRepository.verifyUserFound('unregister-user-id')).rejects.toThrowError(NotFoundError);
     });

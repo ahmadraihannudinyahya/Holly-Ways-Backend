@@ -13,7 +13,7 @@ class SequelizeUserRepository extends UserRepository {
   }
 
   async deleteUserById(id) {
-    this.Users.destroy({
+    await this.Users.destroy({
       where: {
         id,
       },
@@ -25,7 +25,7 @@ class SequelizeUserRepository extends UserRepository {
   }
 
   async verifyUserFound(id) {
-    const user = this.Users.findOne({
+    const user = await this.Users.findOne({
       where: {
         id,
       },

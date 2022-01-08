@@ -133,7 +133,7 @@ describe('test SequelizeFundRepository', ()=>{
     beforeEach(async ()=>{
       await FundTestHelper.addFund(testFund);
     });
-    xit('should soft delete fund corectly',async ()=>{
+    it('should soft delete fund corectly',async ()=>{
       const sequelizeFundRepository = new SequelizeFundRepository(Funds);
       await sequelizeFundRepository.deleteFundById(testFund.id);
       const expectedFund = await FundTestHelper.getFundById(testFund.id);
@@ -233,7 +233,7 @@ describe('test SequelizeFundRepository', ()=>{
       await FundTestHelper.addFund(fund1);
       await FundTestHelper.addFund(fund2);
     });
-    xit('should return fund by owner corectly', async ()=>{
+    it('should return fund by owner corectly', async ()=>{
       const sequelizeFundRepository = new SequelizeFundRepository(Funds);
       const expectedFunds = await sequelizeFundRepository.getFundsByOwner(newUser.id);
       expect(expectedFunds).toHaveLength(1);
