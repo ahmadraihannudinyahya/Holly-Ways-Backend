@@ -1,9 +1,9 @@
 class StorageServices {
-  uploadFile() {
+  async uploadFile() {
     throw new Error('StorageServices is abstract class');
   }
 
-  deleteFile() {
+  async deleteFile() {
     throw new Error('StorageServices is abstract class');
   }
 }
