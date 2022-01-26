@@ -13,15 +13,12 @@ class LocalStorageServices extends StorageServices {
     this.pathStorage = pathStorage;
   }
 
-  async uploadFile(file) {
+  uploadFile(file) {
     return new Promise((resolve, reject) => {
       const fileExt = file.originalname.substring(file.originalname.lastIndexOf('.')).toLowerCase();
       const fileName = Date.now() + fileExt;
       const filepath = path.join(this.pathStorage, fileName);
-      fs.writeFile(filepath, file.buffer, (error) => {
-        if (error) {
-          return reject(new Error(error));
-        }
+      fs.writeFile(filepath, file.buffer, () => {
         return resolve(fileName);
       });
     });
