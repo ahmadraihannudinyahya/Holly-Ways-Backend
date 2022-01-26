@@ -280,7 +280,17 @@ describe('Donation interface test', ()=>{
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.donations).toHaveLength(0);
-    })
+    });
+    it('should response fail when request without auth', async () => {
+      const app = createServer(container);
+      const response = await request(app)
+        .get(`/api/v1/donation/fund/${fundTest1.id}`);
+
+      const responseJson = JSON.parse(response.text);
+      expect(response.statusCode).toEqual(403);
+      expect(responseJson.status).toEqual('fail');
+      expect(responseJson.message).toBeDefined();
+    });
   });
   describe('endpoint Patch /donation/:donationId/fund/:fundId', ()=>{
     const donationTest1 = {

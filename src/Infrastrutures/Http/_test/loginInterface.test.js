@@ -38,6 +38,19 @@ describe('test interface login', ()=>{
       expect(responseJson.data.user.email).toEqual(UserRegistered.email);
       expect(responseJson.data.user.token).toBeDefined();
     });
+    it('should response fail when request with bad payload', async () => {
+      const app = createServer(container);
+      const response = await request(app)
+      .post('/api/v1/login')
+      .send({
+        email : ['email.com'],
+        password : 23987489
+      });
+      const responseJson = JSON.parse(response.text);
+      expect(response.statusCode).toEqual(400);
+      expect(responseJson.status).toEqual('fail');
+      expect(responseJson.message).toBeDefined();
+    });
     it('should response fail when user uregistered', async ()=>{
       const app = createServer(container);
       const response = await request(app)

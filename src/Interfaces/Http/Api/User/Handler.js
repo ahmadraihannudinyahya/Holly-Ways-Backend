@@ -22,6 +22,7 @@ class UserHandler {
         },
       });
     } catch (error) {
+      /* istanbul ignore next */
       next(error);
     }
   }

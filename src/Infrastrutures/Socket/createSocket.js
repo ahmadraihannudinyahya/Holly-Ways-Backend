@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const {Server} = require('socket.io')
 
 const createSocket = (server) =>{
