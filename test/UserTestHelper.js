@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const {Users} = require('../models')
 const UserTestHelper = {
   async cleanTable(){

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const NotificationServices = require("../../Aplications/Notification/NotificationServices");
 
 class SocketIoNotificationServices extends NotificationServices{

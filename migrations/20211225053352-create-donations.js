@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
