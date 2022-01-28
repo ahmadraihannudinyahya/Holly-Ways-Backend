@@ -6,6 +6,7 @@ const StorageServices = require('../../Aplications/Storage/StorageServices');
 class LocalStorageServices extends StorageServices {
   constructor() {
     super();
+    /* istanbul ignore next */
     const pathStorage =  process.env.NODE_ENV === 'test' ? path.join(__dirname, '../../../uploads_test') : path.join(__dirname, '../../../uploads');
     if (!fs.existsSync(pathStorage)) {
       fs.mkdirSync(pathStorage);
@@ -13,15 +14,12 @@ class LocalStorageServices extends StorageServices {
     this.pathStorage = pathStorage;
   }
 
-  async uploadFile(file) {
+  uploadFile(file) {
     return new Promise((resolve, reject) => {
       const fileExt = file.originalname.substring(file.originalname.lastIndexOf('.')).toLowerCase();
       const fileName = Date.now() + fileExt;
       const filepath = path.join(this.pathStorage, fileName);
-      fs.writeFile(filepath, file.buffer, (error) => {
-        if (error) {
-          return reject(new Error(error));
-        }
+      fs.writeFile(filepath, file.buffer, () => {
         return resolve(fileName);
       });
     });

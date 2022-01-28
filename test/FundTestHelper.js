@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 const {Funds} = require('../models');
 
 const FundTestHelper = {

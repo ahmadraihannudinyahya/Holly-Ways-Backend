@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const { Donations } = require('../models');
 const DonationTestHelper = {
   async cleanTable(){

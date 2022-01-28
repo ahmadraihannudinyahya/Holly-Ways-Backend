@@ -1,45 +1,45 @@
 class DonationRepository {
-  addDonations() {
+  async addDonations() {
     throw new Error('DonationRepository is abstract class');
   }
 
-  setStatusSuccessDonation() {
+  async setStatusSuccessDonation() {
     throw new Error('DonationRepository is abstract class');
   }
 
-  verifyDonationFound() {
+  async verifyDonationFound() {
     throw new Error('DonationRepository is abstract class');
   }
 
-  verifyDonationInFund() {
+  async verifyDonationInFund() {
     throw new Error('DonationRepository is abstract class');
   }
 
-  getAllDonationsByFundId() {
+  async getAllDonationsByFundId() {
     throw new Error('DonationRepository is abstract class');
   }
 
-  getSuccessDonationsByFundId() {
+  async getSuccessDonationsByFundId() {
     throw new Error('DonationRepository is abstract class');
   }
 
-  getDonationCountByFundId() {
+  async getDonationCountByFundId() {
     throw new Error('DonationRepository is abstract class');
   }
 
-  getAllDonations() {
+  async getAllDonations() {
     throw new Error('DonationRepository is abstract class');
   }
 
-  getDonationsByUserIdWithFund() {
+  async getDonationsByUserIdWithFund() {
     throw new Error('DonationRepository is abstract class');
   }
 
-  getAprovedDonationCountByFundId(){
+  async getAprovedDonationCountByFundId(){
     throw new Error('DonationRepository is abstract class');
   }
 
-  getAprovedDonationAmountCountByFundId() {
+  async getAprovedDonationAmountCountByFundId() {
     throw new Error('DonationRepository is abstract class');
   }
 }

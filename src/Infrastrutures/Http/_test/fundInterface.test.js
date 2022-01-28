@@ -337,11 +337,25 @@ describe('Fund Interface Test', ()=>{
         .patch(`/api/v1/fund/${testFund1.id}`)
         .auth(userTest.token, {type : 'bearer'})
         .type('form-data')
-        .field('title', 'edited title');
+        .field('title', 'edited title')
+        .attach('thumbnail', imagePathTest);
 
       const response = await request(app).get(`/api/v1/fund/${testFund1.id}`);
       const responseJson = JSON.parse(response.text);
       expect(responseJson.data.fund.title).toEqual('edited title');
+    });
+    it('should response fail when request with bad payload', async () => {
+      const app = createServer(container);
+      const response = await request(app)
+        .patch(`/api/v1/fund/${testFund1.id}`)
+        .auth(userTest.token, {type : 'bearer'})
+        .type('form-data')
+        .field('title', 'title')
+        .field('goal', 'not number');
+      const responseJson = JSON.parse(response.text);
+      expect(response.statusCode).toEqual(400);
+      expect(responseJson.status).toEqual('fail');
+      expect(responseJson.message).toBeDefined();
     });
     it('should response fail when edit fund with other user', async ()=>{
       const app = createServer(container);

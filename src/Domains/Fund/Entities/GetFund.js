@@ -17,10 +17,7 @@ class GetFund {
   verifyPayload({
     id, title, thumbnail, goal, description, donationObtained, createdAt, donationCount, status
   }) {
-    if (!id || !title || !thumbnail || !goal || !description || !createdAt || !status ) {
-      throw new Error('Get_Fund.Not_Contain_Data_Spesification');
-    }
-    if ( !donationObtained && donationObtained !== 0 || !donationCount && donationCount !== 0){
+    if (!id || !title || !thumbnail || !goal || !description || !createdAt || !status || !donationObtained && donationObtained !== 0 || !donationCount && donationCount !== 0) {
       throw new Error('Get_Fund.Not_Contain_Data_Spesification');
     }
     if (typeof (id) !== 'string' || typeof (title) !== 'string' || typeof (thumbnail) !== 'string' || typeof (description) !== 'string' || typeof (goal) !== 'number' || typeof (createdAt) !== 'object' || typeof(status) !== 'string' ) {

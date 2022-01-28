@@ -1,5 +1,5 @@
 class NotificationServices {
-  broadNotification() {
+  async broadNotification() {
     throw new Error('NotificationServices is abstract class');
   }
 }

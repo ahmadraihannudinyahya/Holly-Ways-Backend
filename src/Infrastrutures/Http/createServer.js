@@ -19,6 +19,7 @@ const createServer = (container) => {
   };
   app.use(express.json());
   app.use(cors());
+  /* istanbul ignore next */
   const pathFile = process.env.NODE_ENV === 'test' ? '../../../uploads_test' : '../../../uploads';
   app.use(process.env.ENDPOINT_FILE, express.static(path.join(__dirname, pathFile)));
 
@@ -29,6 +30,7 @@ const createServer = (container) => {
   app.use('/api/v1', Donation(container, midleware));
 
   app.use((error, req, res, next) => {
+    /* istanbul ignore next */
     if (error) {
       if (error instanceof ClientError) {
         return res.status(error.statusCode).send({ status: 'fail', message: error.message });

@@ -1,49 +1,49 @@
 class FundRepository {
-  addFund() {
+  async addFund() {
     throw new Error('FundRepository is abstract class');
   }
 
-  getAllFund() {
+  async getAllFund() {
     throw new Error('FundRepository is abstract class');
   }
 
-  verifyFundOwner() {
+  async verifyFundOwner() {
     throw new Error('FundRepository is abstract class');
   }
 
-  deleteFundById() {
+  async deleteFundById() {
     throw new Error('FundRepository is abstract class');
   }
 
-  verifyFundFound() {
+  async verifyFundFound() {
     throw new Error('FundRepository is abstract class');
   }
 
-  getFundById() {
+  async getFundById() {
     throw new Error('FundRepository is abstract class');
   }
 
-  editFundById() {
+  async editFundById() {
     throw new Error('FundRepository is abstract class');
   }
 
-  getFundsByOwner() {
+  async getFundsByOwner() {
     throw new Error('FundRepository is abstract class');
   }
 
-  getAllFundsWithDonations() {
+  async getAllFundsWithDonations() {
     throw new Error('FundRepository is abstract class');
   }
 
-  getFundsByIdWithDonations() {
+  async getFundsByIdWithDonations() {
     throw new Error('FundRepository is abstract class');
   }
 
-  getFundsByOwnerWithDonations() {
+  async getFundsByOwnerWithDonations() {
     throw new Error('FundRepository is abstract class');
   }
 
-  verifyFundStatusOpenById() {
+  async verifyFundStatusOpenById() {
     throw new Error('FundRepository is abstract class');
   }
 }
