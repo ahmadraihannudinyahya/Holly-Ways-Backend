@@ -4,7 +4,7 @@ class MyDonation{
     this.id = id;
     this.donateAmount = donateAmount;
     this.status = status;
-    this.proofAttachment = `${process.env.HOST}:${process.env.PORT}${process.env.ENDPOINT_FILE}/${proofAttachment}`;
+    this.proofAttachment = `${process.env.HOST}${process.env.ENDPOINT_FILE}/${proofAttachment}`;
     this.createdAt = this.convertDate(createdAt);
     this.fundTitle = fundTitle
   }

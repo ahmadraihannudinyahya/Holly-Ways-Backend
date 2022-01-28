@@ -5,7 +5,7 @@ class AddedFund {
     } = this.verifyPayload(payload);
     this.id = id;
     this.title = title;
-    this.thumbnail = `${process.env.HOST}:${process.env.PORT}${process.env.ENDPOINT_FILE}/${thumbnail}`;
+    this.thumbnail = `${process.env.HOST}${process.env.ENDPOINT_FILE}/${thumbnail}`;
     this.goal = goal;
     this.description = description;
   }
