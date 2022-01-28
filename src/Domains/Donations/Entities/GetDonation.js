@@ -8,7 +8,7 @@ class GetDonation {
     this.email = email;
     this.donateAmount = donateAmount;
     this.status = status;
-    this.proofAttachment = `${process.env.HOST}:${process.env.PORT}${process.env.ENDPOINT_FILE}/${proofAttachment}`;
+    this.proofAttachment = `${process.env.HOST}${process.env.ENDPOINT_FILE}/${proofAttachment}`;
     this.postAt = this.convertDate(createdAt);
   }
 
