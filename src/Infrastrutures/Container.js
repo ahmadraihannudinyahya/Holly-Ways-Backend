@@ -39,7 +39,6 @@ const LoginUserUseCase = require('../Aplications/usecase/Login/LoginUserUseCase'
 const GetAllUserUseCase = require('../Aplications/usecase/User/GetAllUserUseCase');
 const DeleteUserByIdUseCase = require('../Aplications/usecase/User/DeleteUserByIdUseCase');
 const GetProfilUseCase = require('../Aplications/usecase/User/GetProfilUseCase');
-const EditProfileUseCase = require('../Aplications/usecase/User/EditProfileUseCase');
 const AddFundUseCase = require('../Aplications/usecase/Fund/AddFundUseCase');
 const GetAllFundUseCase = require('../Aplications/usecase/Fund/GetAllFundUseCase');
 const DeleteFundByIdUseCase = require('../Aplications/usecase/Fund/DeleteFundByIdUseCase');
@@ -247,31 +246,6 @@ container.register([
       ]
     }
   },
-  {
-    key : EditProfileUseCase.name,
-    Class : EditProfileUseCase, 
-    parameter : {
-      injectType : 'destructuring', 
-      dependencies : [
-        {
-          name : 'validation', 
-          internal : Validation.name, 
-        }, 
-        {
-          name : 'tokenManager', 
-          internal : TokenManager.name, 
-        }, 
-        {
-          name : 'userRepository', 
-          internal : UserRepository.name, 
-        }, 
-        {
-          name : 'storageServies', 
-          internal : StorageServices.name, 
-        }, 
-      ], 
-    }, 
-  }, 
   {
     key: AddFundUseCase.name,
     Class: AddFundUseCase,

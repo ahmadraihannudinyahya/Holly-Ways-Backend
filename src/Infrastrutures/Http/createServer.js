@@ -25,7 +25,7 @@ const createServer = (container) => {
 
   app.use('/api/v1', register(container));
   app.use('/api/v1', Login(container));
-  app.use('/api/v1', User(container, midleware));
+  app.use('/api/v1', User(container));
   app.use('/api/v1', Fund(container, midleware));
   app.use('/api/v1', Donation(container, midleware));
 

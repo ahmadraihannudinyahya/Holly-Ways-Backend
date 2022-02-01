@@ -49,21 +49,6 @@ class SequelizeUserRepository extends UserRepository {
     })
   }
 
-  async editProfile(payload, userId) {
-    if(payload.fullname){
-      await this.Users.update(payload, {
-        where : {
-          id : userId, 
-        }, 
-      });
-    };
-    await this.Profiles.update(payload, {
-      where : {
-        userId, 
-      }, 
-    });
-  }
-
   async getProfile(userId) {
     const result = await this.Users.findOne({
       where : {

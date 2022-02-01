@@ -1,7 +1,7 @@
 const UserHandler = require('./Handler');
 const route = require('./route');
 
-module.exports = (container, midleware) => {
+module.exports = (container) => {
   const userHandler = new UserHandler(container);
-  return route(userHandler, midleware);
+  return route(userHandler);
 };

@@ -18,10 +18,6 @@ class Validation {
   async validateNewDonationPayload() {
     throw new Error('Validation is abstract class');
   }
-
-  async validateEditProfilePayload() {
-    throw new Error('Validation is abstract class');
-  }
 }
 
 module.exports = Validation;
