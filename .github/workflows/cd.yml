@@ -31,4 +31,4 @@ jobs:
           npm run migrate
           npm run migrate:test
           npm run test
-          pm2 restart dumbsound-api
+          pm2 restart holly-ways-api
