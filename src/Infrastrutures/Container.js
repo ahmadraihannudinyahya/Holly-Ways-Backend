@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const socket = require('./SocketIoNotification/config');
 
 const Joi = require('joi');
-const { Users, Funds, Donations } = require('../../models');
+const { Users, Funds, Donations, Profiles } = require('../../models');
 
 const RegisterRepository = require('../Domains/RegisterUsers/RegisterRepository');
 const LoginUserRepository = require('../Domains/LoginUser/LoginUserRepository');
@@ -39,6 +39,7 @@ const LoginUserUseCase = require('../Aplications/usecase/Login/LoginUserUseCase'
 const GetAllUserUseCase = require('../Aplications/usecase/User/GetAllUserUseCase');
 const DeleteUserByIdUseCase = require('../Aplications/usecase/User/DeleteUserByIdUseCase');
 const GetProfilUseCase = require('../Aplications/usecase/User/GetProfilUseCase');
+const EditProfileUseCase = require('../Aplications/usecase/User/EditProfileUseCase');
 const AddFundUseCase = require('../Aplications/usecase/Fund/AddFundUseCase');
 const GetAllFundUseCase = require('../Aplications/usecase/Fund/GetAllFundUseCase');
 const DeleteFundByIdUseCase = require('../Aplications/usecase/Fund/DeleteFundByIdUseCase');
@@ -59,7 +60,8 @@ container.register([
     parameter: {
       dependencies: [
         { concrete: Users },
-        { concrete: nanoid },
+        { concrete: nanoid }, 
+        { concrete: Profiles}, 
       ],
     },
   },
@@ -77,7 +79,8 @@ container.register([
     Class: SequelizeUserRepository,
     parameter: {
       dependencies: [
-        { concrete: Users },
+        { concrete: Users }, 
+        { concrete: Profiles }, 
       ],
     },
   },
@@ -244,6 +247,31 @@ container.register([
       ]
     }
   },
+  {
+    key : EditProfileUseCase.name,
+    Class : EditProfileUseCase, 
+    parameter : {
+      injectType : 'destructuring', 
+      dependencies : [
+        {
+          name : 'validation', 
+          internal : Validation.name, 
+        }, 
+        {
+          name : 'tokenManager', 
+          internal : TokenManager.name, 
+        }, 
+        {
+          name : 'userRepository', 
+          internal : UserRepository.name, 
+        }, 
+        {
+          name : 'storageServies', 
+          internal : StorageServices.name, 
+        }, 
+      ], 
+    }, 
+  }, 
   {
     key: AddFundUseCase.name,
     Class: AddFundUseCase,

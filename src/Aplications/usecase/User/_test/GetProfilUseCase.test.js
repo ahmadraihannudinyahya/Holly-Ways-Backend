@@ -3,7 +3,7 @@ const GetProfilUseCase = require('../GetProfilUseCase');
 const TokenManager = require('../../../Security/TokenManager');
 const UserRepository = require('../../../../Domains/User/UserRepository');
 
-const GetUser = require('../../../../Domains/User/Entities/GetUser');
+const GetProfile = require('../../../../Domains/User/Entities/GetProfile');
 
 describe('test GetProfilUseCase', ()=>{
   it('should orchestrating GetProfilUseCase corectly', async ()=>{
@@ -13,9 +13,11 @@ describe('test GetProfilUseCase', ()=>{
     const user = {
       id : 'user-123',
       fullname : 'user test',
-      email : 'test@mail.com'
+      email : 'test@mail.com', 
+      phone : '087653787', 
+      image : 'image.jpeg',
     }
-    const expectedProfil = new GetUser(user);
+    const expectedProfil = new GetProfile(user);
 
     const mockTokenManager = new TokenManager();
     const mockUserRepository = new UserRepository();
@@ -24,7 +26,7 @@ describe('test GetProfilUseCase', ()=>{
       .mockImplementation(()=>Promise.resolve({userId : user.id}))
     mockUserRepository.verifyUserFound = jest.fn()
       .mockImplementation(()=>Promise.resolve());
-    mockUserRepository.getUserById = jest.fn()
+    mockUserRepository.getProfile = jest.fn()
       .mockImplementation(()=>Promise.resolve(user));
 
     const getProfilUseCase = new GetProfilUseCase({
@@ -36,6 +38,6 @@ describe('test GetProfilUseCase', ()=>{
     expect(result).toEqual(expectedProfil);
     expect(mockTokenManager.verifyToken).toBeCalledWith(payload.token);
     expect(mockUserRepository.verifyUserFound).toBeCalledWith(user.id);
-    expect(mockUserRepository.getUserById).toBeCalledWith(user.id);
+    expect(mockUserRepository.getProfile).toBeCalledWith(user.id);
   });
 });

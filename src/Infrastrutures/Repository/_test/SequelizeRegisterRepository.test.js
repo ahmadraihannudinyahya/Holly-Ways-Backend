@@ -1,5 +1,5 @@
 const SequelizeRegisterRepository = require('../SequelizeRegisterRepository');
-const { Users } = require('../../../../models');
+const { Users, Profiles } = require('../../../../models');
 const RegisterUser = require('../../../Domains/RegisterUsers/Entities/RegisterUser');
 
 const NotFoundError = require('../../../Commons/Exceptions/NotFoundError');
@@ -19,7 +19,7 @@ describe('SequelizeRegisterRepository test', ()=>{
       }
       const fakeIdGenerator = () => '123';
       const registerUser = new RegisterUser(payload)
-      const sequelizeRegisterRepository = new SequelizeRegisterRepository(Users, fakeIdGenerator);
+      const sequelizeRegisterRepository = new SequelizeRegisterRepository(Users, fakeIdGenerator, Profiles);
       const idUser = await sequelizeRegisterRepository.addUser(registerUser);
       expect(idUser).toEqual(`user-123`);
     });
@@ -31,12 +31,27 @@ describe('SequelizeRegisterRepository test', ()=>{
       }
       const fakeIdGenerator = () => '123';
       const registerUser = new RegisterUser(payload)
-      const sequelizeRegisterRepository = new SequelizeRegisterRepository(Users, fakeIdGenerator);
+      const sequelizeRegisterRepository = new SequelizeRegisterRepository(Users, fakeIdGenerator, Profiles);
       const idUser = await sequelizeRegisterRepository.addUser(registerUser);
       const expectedUser = await UserTestHelper.getUserById(idUser);
       expect(expectedUser.fullname).toEqual(payload.fullname);
       expect(expectedUser.email).toEqual(payload.email);
       expect(expectedUser.password).toEqual(payload.password);
+    });
+    it('should add profile corectly', async () => {
+      const payload = {
+        email : 'test@mail.com',
+        password : 'supersecretpass',
+        fullname : 'user test',
+      }
+      const fakeIdGenerator = () => '123';
+      const registerUser = new RegisterUser(payload)
+      const sequelizeRegisterRepository = new SequelizeRegisterRepository(Users, fakeIdGenerator, Profiles);
+      const idUser = await sequelizeRegisterRepository.addUser(registerUser);
+      const expectedProfile = await UserTestHelper.getProfileByUserId(idUser);
+      expect(expectedProfile.profile).not.toEqual(null);
+      expect(expectedProfile.profile.id).toEqual('profile-123');
+      expect(expectedProfile.profile.userId).toEqual(idUser);
     });
   });
   describe('method verifyAvailableEmail', ()=>{
