@@ -43,5 +43,12 @@ class JoiValidation extends Validation {
       throw new InvariantError(validationResult.error.message);
     }
   }
+
+  validateEditProfilePayload(payload){
+    const validationResult = this.schema.editProfilePayloadSchema.validate(payload);
+    if (validationResult.error) {
+      throw new InvariantError(validationResult.error.message);
+    }
+  }
 }
 module.exports = JoiValidation;

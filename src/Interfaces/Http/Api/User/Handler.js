@@ -1,6 +1,7 @@
 const GetAllUserUseCase = require('../../../../Aplications/usecase/User/GetAllUserUseCase');
 const DeleteUserByIdUseCase = require('../../../../Aplications/usecase/User/DeleteUserByIdUseCase');
 const GetProfilUseCase = require('../../../../Aplications/usecase/User/GetProfilUseCase');
+const EditProfileUseCase = require('../../../../Aplications/usecase/User/EditProfileUseCase');
 
 class UserHandler {
   constructor(container) {
@@ -9,6 +10,7 @@ class UserHandler {
     this.getAllUserHandler = this.getAllUserHandler.bind(this);
     this.deleteUserByIdHandler = this.deleteUserByIdHandler.bind(this);
     this.getProfilHandler = this.getProfilHandler.bind(this);
+    this.editProfileHandler = this.editProfileHandler.bind(this);
   }
 
   async getAllUserHandler(req, res, next) {
@@ -59,6 +61,20 @@ class UserHandler {
     } catch (error) {
       next(error);
     }
+  }
+
+  async editProfileHandler(req, res, next){
+    try {
+      const authHeader = req.header('Authorization');
+      const token = authHeader && authHeader.split(' ')[1];
+      const editProfileUseCase = this.container.getInstance(EditProfileUseCase.name);
+      await editProfileUseCase.execute({token, ...req.body, image : req.file});
+      res.send({
+        status : 'success', 
+      });
+    } catch (error) {
+      next(error);
+    };
   }
 }
 
