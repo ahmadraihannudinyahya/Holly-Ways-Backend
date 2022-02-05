@@ -20,7 +20,7 @@ describe('GetDonation test', () => {
     expect(getDonation.email).toEqual(payload.user.email);
     expect(getDonation.donateAmount).toEqual(payload.donateAmount);
     expect(getDonation.status).toEqual(payload.status);
-    expect(getDonation.proofAttachment).not.toEqual(payload.proofAttachment);
+    expect(getDonation.proofAttachment).toEqual(payload.proofAttachment);
     expect(getDonation.createdAt).not.toEqual(payload.createdAt);
   });
   it('should throw error when payload not contain data needed', () => {

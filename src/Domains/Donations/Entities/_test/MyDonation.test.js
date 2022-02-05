@@ -14,7 +14,7 @@ describe('MyDonation test', () => {
     expect(myDonation.id).toEqual(payload.id);
     expect(myDonation.donateAmount).toEqual(payload.donateAmount);
     expect(myDonation.status).toEqual(payload.status);
-    expect(myDonation.proofAttachment).not.toEqual(payload.proofAttachment);
+    expect(myDonation.proofAttachment).toEqual(payload.proofAttachment);
     expect(myDonation.createdAt).not.toEqual(payload.createdAt);
     expect(myDonation.fundTitle).toEqual(payload.fundTitle);
   });

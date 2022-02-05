@@ -27,7 +27,7 @@ describe('GetProfile test', () => {
     expect(getProfile.email).toEqual(payload.email);
     expect(getProfile.phone).toEqual(payload.phone);
     expect(getProfile.image).toBeDefined();
-    expect(getProfile.image).not.toEqual(null);
+    expect(getProfile.image).toEqual(payload.image);
   });
   it('should throw error when payload not contain data needed', () => {
     const payload = {

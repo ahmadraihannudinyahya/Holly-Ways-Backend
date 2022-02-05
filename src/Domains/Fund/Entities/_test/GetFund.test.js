@@ -16,7 +16,7 @@ describe('GetFund test', () => {
     const getFund = new GetFund(payload);
     expect(getFund.id).toEqual(payload.id);
     expect(getFund.title).toEqual(payload.title);
-    expect(getFund.thumbnail).not.toEqual(payload.thumbnail);
+    expect(getFund.thumbnail).toEqual(payload.thumbnail);
     expect(getFund.goal).toEqual(payload.goal);
     expect(getFund.description).toEqual(payload.description);
     expect(getFund.donationObtained).toEqual(payload.donationObtained);
