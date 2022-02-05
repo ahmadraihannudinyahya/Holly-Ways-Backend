@@ -25,16 +25,18 @@ const createServer = (container) => {
 
   app.use('/api/v1', register(container));
   app.use('/api/v1', Login(container));
-  app.use('/api/v1', User(container));
+  app.use('/api/v1', User(container, midleware));
   app.use('/api/v1', Fund(container, midleware));
   app.use('/api/v1', Donation(container, midleware));
 
   app.use((error, req, res, next) => {
     /* istanbul ignore next */
     if (error) {
+
       if (error instanceof ClientError) {
         return res.status(error.statusCode).send({ status: 'fail', message: error.message });
       }
+      console.log(error);
       return res.status(500).send({ status: 'error', message: 'Internal Server Error' });
     }
   });

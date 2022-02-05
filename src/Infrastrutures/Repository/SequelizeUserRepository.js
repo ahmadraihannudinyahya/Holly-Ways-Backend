@@ -64,6 +64,21 @@ class SequelizeUserRepository extends UserRepository {
     });
     return({...result.dataValues, ...result.dataValues.profile.dataValues});
   }
+
+  async editProfile(payload, userId){
+    if(payload.fullname){
+      await this.Users.update(payload, {
+        where : {
+          id : userId, 
+        }, 
+      });
+    };
+    await this.Profiles.update(payload, {
+      where : {
+        userId, 
+      }, 
+    });
+  }
 }
 
 module.exports = SequelizeUserRepository;
