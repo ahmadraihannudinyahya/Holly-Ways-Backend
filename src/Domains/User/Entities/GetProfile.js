@@ -6,7 +6,7 @@ class GetProfile{
     this.email = email;
     this.phone = phone;
     if(image){
-      this.image = `${process.env.HOST}${process.env.ENDPOINT_FILE}/${image}`;
+      this.image = image;
     } else {
       this.image = null;
     }

@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken');
 
 const socket = require('./SocketIoNotification/config');
 
+const cloudenary = require('./CloudenarySotorageServices/config');
+
 const Joi = require('joi');
 const { Users, Funds, Donations, Profiles } = require('../../models');
 
@@ -33,6 +35,7 @@ const JwtTokenManager = require('./Security/JwtTokenManager');
 const JoiValidation = require('./JoiValidation/JoiValidation');
 const LocalStorageServices = require('./LocalStorageServices/LocalStorageServices');
 const SocketIoNotificationServices = require('./SocketIoNotification/SocketIoNotificationServices');
+const ClodenarySotorageServices = require('./CloudenarySotorageServices/ClodenarySotorageServices');
 
 const RegisterUserUseCase = require('../Aplications/usecase/Register/RegisterUserUseCase');
 const LoginUserUseCase = require('../Aplications/usecase/Login/LoginUserUseCase');
@@ -136,7 +139,12 @@ container.register([
   },
   {
     key: StorageServices.name,
-    Class: LocalStorageServices,
+    Class: ClodenarySotorageServices,
+    parameter : {
+      dependencies : [
+        { concrete : cloudenary }
+      ]
+    }
   },
   {
     key : NotificationServices.name,
