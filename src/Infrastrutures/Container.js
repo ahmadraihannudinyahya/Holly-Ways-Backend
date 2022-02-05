@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const socket = require('./SocketIoNotification/config');
 
 const Joi = require('joi');
-const { Users, Funds, Donations } = require('../../models');
+const { Users, Funds, Donations, Profiles } = require('../../models');
 
 const RegisterRepository = require('../Domains/RegisterUsers/RegisterRepository');
 const LoginUserRepository = require('../Domains/LoginUser/LoginUserRepository');
@@ -59,7 +59,8 @@ container.register([
     parameter: {
       dependencies: [
         { concrete: Users },
-        { concrete: nanoid },
+        { concrete: nanoid }, 
+        { concrete: Profiles}, 
       ],
     },
   },
@@ -77,7 +78,8 @@ container.register([
     Class: SequelizeUserRepository,
     parameter: {
       dependencies: [
-        { concrete: Users },
+        { concrete: Users }, 
+        { concrete: Profiles }, 
       ],
     },
   },

@@ -1,7 +1,10 @@
 /* istanbul ignore file */
-const {Users} = require('../models')
+const {Users, Profiles} = require('../models')
 const UserTestHelper = {
   async cleanTable(){
+    await Profiles.destroy({
+      where : {}, 
+    });
     await Users.destroy({
       where : {},
     });
@@ -19,6 +22,22 @@ const UserTestHelper = {
     await Users.create({
       id, email, fullname , password
     });
+    await Profiles.create({id : `profile-${id}`, userId : id});
+  }, 
+
+  async getProfileByUserId(id) {
+    return Users.findOne({
+      where : {
+        id, 
+      }, 
+      include: {
+        model: Profiles,
+        as: 'profile',
+        attributes: {
+          exclude: ['createdAt', 'updatedAt'],
+        }
+      },
+    })
   }
 }
 

@@ -49,5 +49,5 @@ module.exports = (Joi) => ({
       size: Joi.number().max(4000000).required(),
     }).required(),
     token: Joi.string(),
-  }),
+  })
 });

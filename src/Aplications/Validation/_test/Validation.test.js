@@ -7,5 +7,6 @@ describe('Validation test', () => {
     await expect(validation.validateNewFundPayload()).rejects.toThrowError('Validation is abstract class');
     await expect(validation.validateEditFundPayload()).rejects.toThrowError('Validation is abstract class');
     await expect(validation.validateNewDonationPayload()).rejects.toThrowError('Validation is abstract class');
+    await expect(validation.validateEditProfilePayload()).rejects.toThrowError('Validation is abstract class');
   });
 });

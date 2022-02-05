@@ -1,4 +1,4 @@
-const GetUser = require("../../../Domains/User/Entities/GetUser");
+const GetProfile = require("../../../Domains/User/Entities/GetProfile");
 
 class GetProfilUseCase {
   constructor({tokenManager, userRepository}){
@@ -8,8 +8,8 @@ class GetProfilUseCase {
   async execute(payload){
     const { userId } = await this.tokenManager.verifyToken(payload.token);
     await this.userRepository.verifyUserFound(userId);
-    const user = await this.userRepository.getUserById(userId);
-    return new GetUser(user);
+    const user = await this.userRepository.getProfile(userId);
+    return new GetProfile(user);
   }
 }
 module.exports = GetProfilUseCase;

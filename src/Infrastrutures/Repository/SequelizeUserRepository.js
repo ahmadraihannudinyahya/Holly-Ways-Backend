@@ -3,9 +3,10 @@ const AuthorizationError = require('../../Commons/Exceptions/AuthorizationError'
 const NotFoundError = require('../../Commons/Exceptions/NotFoundError');
 
 class SequelizeUserRepository extends UserRepository {
-  constructor(Users) {
+  constructor(Users, Profiles) {
     super();
     this.Users = Users;
+    this.Profiles = Profiles;
   }
 
   async getAllUsers() {
@@ -13,6 +14,11 @@ class SequelizeUserRepository extends UserRepository {
   }
 
   async deleteUserById(id) {
+    await this.Profiles.destroy({
+      where : {
+        userId : id, 
+      }, 
+    });
     await this.Users.destroy({
       where: {
         id,
@@ -41,6 +47,22 @@ class SequelizeUserRepository extends UserRepository {
         id
       },
     })
+  }
+
+  async getProfile(userId) {
+    const result = await this.Users.findOne({
+      where : {
+        id : userId, 
+      }, 
+      include: {
+        model: this.Profiles,
+        as: 'profile',
+        attributes: {
+          exclude: ['createdAt', 'updatedAt'],
+        }
+      },
+    });
+    return({...result.dataValues, ...result.dataValues.profile.dataValues});
   }
 }
 
