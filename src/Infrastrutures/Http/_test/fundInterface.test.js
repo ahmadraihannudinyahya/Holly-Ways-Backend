@@ -510,8 +510,6 @@ describe('Fund Interface Test', ()=>{
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.funds).toBeDefined();
       expect(responseJson.data.funds).toHaveLength(2);
-      expect(responseJson.data.funds[0].id).toEqual(testFund1.id);
-      expect(responseJson.data.funds[1].id).toEqual(testFund2.id);
     });
     it('should response users funds corectly', async ()=>{
       const app = createServer(container);

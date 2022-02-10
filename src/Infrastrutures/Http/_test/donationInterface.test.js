@@ -159,12 +159,9 @@ describe('Donation interface test', ()=>{
       const response = await request(app)
         .get(`/api/v1/fund`)
       const responseJson = JSON.parse(response.text);
-      const { id,  donationObtained } = responseJson.data.funds[0];
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.funds).toBeDefined();
-      expect(id).toEqual(fundTest1.id);
-      expect(donationObtained).toEqual(0);
     });
     it('should response fail when payload not contain data needed', async ()=>{
       const app = createServer(container);
@@ -268,8 +265,6 @@ describe('Donation interface test', ()=>{
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data.donations).toHaveLength(2);
-      expect(responseJson.data.donations[0].id).toEqual(donationTest1.id);
-      expect(responseJson.data.donations[1].donateAmount).toEqual(1000000);
     });
     it('should response accepted only donations when user not owner fund', async ()=>{
       const app = createServer(container);
