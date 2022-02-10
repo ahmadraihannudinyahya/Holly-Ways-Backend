@@ -11,6 +11,16 @@ jobs:
   test:
     runs-on: ubuntu-latest
     
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: holly_ways_test
+        ports:
+        - 32574:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        
     strategy:
       matrix:
         node-version: [14.x]
@@ -21,6 +31,7 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
+        
     - name: npm install migrate and test
       run: |
         npm install
@@ -31,16 +42,16 @@ jobs:
         HOST: http://localhost
         PORT: 5000
         ENDPOINT_FILE: /file
-        DB_HOST: ${{ secrets.DBTEST_HOST }}
-        DB_USER: ${{ secrets.DBTEST_USER }}
-        DB_PASSSWORD: ${{ secrets.DBTEST_PASSWORD }}
-        DB_NAME: ${{ secrets.DBTEST_NAME }}
-        DB_PORT:  ${{ secrets.DBTEST_PORT }}
-        DB_DIALECT: ${{ secrets.DBTEST_DIALECT }}
-        DBTEST_HOST: ${{ secrets.DBTEST_HOST }}
-        DBTEST_USER: ${{ secrets.DBTEST_USER }}
-        DBTEST_PASSSWORD: ${{ secrets.DBTEST_PASSWORD }}
-        DBTEST_NAME: ${{ secrets.DBTEST_NAME }}
-        DBTEST_PORT: ${{ secrets.DBTEST_PORT }}
-        DBTEST_DIALECT: ${{ secrets.DBTEST_DIALECT }}
+        DB_HOST: 127.0.0.1
+        DB_USER: root
+        DB_PASSSWORD: password
+        DB_NAME: holly_ways_test
+        DB_PORT:  32574
+        DB_DIALECT: mysql
+        DBTEST_HOST: 127.0.0.1
+        DBTEST_USER: root
+        DBTEST_PASSSWORD: password
+        DBTEST_NAME: holly_ways_test
+        DBTEST_PORT: 32574
+        DBTEST_DIALECT: mysql
         TOKENKEY: ${{ secrets.TOKENKEY }}
