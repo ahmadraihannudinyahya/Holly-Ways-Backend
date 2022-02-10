@@ -19,12 +19,12 @@ class SequelizeFundRepository extends FundRepository {
 
   async getAllFund() {
     return this.Funds.findAll({
-      where : {
-        status : 'open'
+      where: {
+        status: 'open',
       },
-      order : [
-        ['createdAt', 'ASC']
-      ]
+      order: [
+        ['createdAt', 'ASC'],
+      ],
     });
   }
 
@@ -42,8 +42,8 @@ class SequelizeFundRepository extends FundRepository {
 
   async deleteFundById(id) {
     await this.Funds.update({
-      status : 'closed',
-    },{
+      status: 'closed',
+    }, {
       where: {
         id,
       },
@@ -80,22 +80,22 @@ class SequelizeFundRepository extends FundRepository {
 
   async getFundsByOwner(owner) {
     return this.Funds.findAll({
-      where : {
-        owner
+      where: {
+        owner,
       },
-      order : [
-        ['createdAt', 'ASC']
+      order: [
+        ['createdAt', 'ASC'],
       ],
     });
   }
 
   async getAllFundsWithDonations() {
     return this.Funds.findAll({
-      where : {
-        status : 'open',
+      where: {
+        status: 'open',
       },
-      order : [
-        ['createdAt', 'ASC']
+      order: [
+        ['createdAt', 'ASC'],
       ],
       include: {
         model: this.Donations,
@@ -103,8 +103,8 @@ class SequelizeFundRepository extends FundRepository {
         attributes: {
           exclude: ['createdAt', 'updatedAt'],
         },
-        order : [
-          ['createdAt', 'ASC']
+        order: [
+          ['createdAt', 'ASC'],
         ],
       },
     });
@@ -112,11 +112,11 @@ class SequelizeFundRepository extends FundRepository {
 
   async getFundsByIdWithDonations(id) {
     return this.Funds.findOne({
-      where : {
-        id
+      where: {
+        id,
       },
-      order : [
-        ['createdAt', 'ASC']
+      order: [
+        ['createdAt', 'ASC'],
       ],
       include: {
         model: this.Donations,
@@ -124,8 +124,8 @@ class SequelizeFundRepository extends FundRepository {
         attributes: {
           exclude: ['createdAt', 'updatedAt'],
         },
-        order : [
-          ['createdAt', 'ASC']
+        order: [
+          ['createdAt', 'ASC'],
         ],
       },
     });
@@ -133,11 +133,11 @@ class SequelizeFundRepository extends FundRepository {
 
   async getFundsByOwnerWithDonations(owner) {
     return this.Funds.findAll({
-      where : {
-        owner
+      where: {
+        owner,
       },
-      order : [
-        ['createdAt', 'ASC']
+      order: [
+        ['createdAt', 'ASC'],
       ],
       include: {
         model: this.Donations,
@@ -145,20 +145,20 @@ class SequelizeFundRepository extends FundRepository {
         attributes: {
           exclude: ['createdAt', 'updatedAt'],
         },
-        order : [
-          ['createdAt', 'ASC']
+        order: [
+          ['createdAt', 'ASC'],
         ],
       },
     });
   }
 
-  async verifyFundStatusOpenById(id){
+  async verifyFundStatusOpenById(id) {
     const fund = await this.Funds.findOne({
-      where : {
-        id
+      where: {
+        id,
       },
     });
-    if(fund.status === 'closed'){
+    if (fund.status === 'closed') {
       throw new InvariantError('Fund is closed');
     }
   }

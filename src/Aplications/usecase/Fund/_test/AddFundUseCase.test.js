@@ -9,19 +9,19 @@ const UserRepository = require('../../../../Domains/User/UserRepository');
 const NewFund = require('../../../../Domains/Fund/Entities/NewFund');
 const AddedFund = require('../../../../Domains/Fund/Entities/AddedFund');
 
-describe('test AddFundUseCase', ()=>{
-  it('should orchestrating AddFundUseCase corectly', async ()=>{
+describe('test AddFundUseCase', () => {
+  it('should orchestrating AddFundUseCase corectly', async () => {
     const payload = {
-      title : 'test title', 
-      goal : 100_000_000,
-      description : 'this is desc',
-      token : 'faketoken.justfortest',
-      thumbnail : 'image.jpg'
+      title: 'test title',
+      goal: 100_000_000,
+      description: 'this is desc',
+      token: 'faketoken.justfortest',
+      thumbnail: 'image.jpg',
     };
     const expectedUser = 'user-123';
     const expectedUploadedFile = '1213325543.jpg';
-    const expectedFundId = 'fund-123'
-    const newFund = new NewFund({...payload, owner : expectedUser});
+    const expectedFundId = 'fund-123';
+    const newFund = new NewFund({ ...payload, owner: expectedUser });
     newFund.fundId = expectedFundId;
     newFund.setThumbnail = expectedUploadedFile;
     const expectedAddedFund = new AddedFund(newFund);
@@ -33,22 +33,22 @@ describe('test AddFundUseCase', ()=>{
     const mockUserRepository = new UserRepository();
 
     mockTokenManager.verifyToken = jest.fn()
-      .mockImplementation(()=>Promise.resolve({userId : expectedUser}));
+      .mockImplementation(() => Promise.resolve({ userId: expectedUser }));
     mockValidation.validateNewFundPayload = jest.fn()
-      .mockImplementation(()=>Promise.resolve());
+      .mockImplementation(() => Promise.resolve());
     mockStorageServices.uploadFile = jest.fn()
-      .mockImplementation(()=>Promise.resolve(expectedUploadedFile));
+      .mockImplementation(() => Promise.resolve(expectedUploadedFile));
     mockfundRepository.addFund = jest.fn()
-      .mockImplementation(()=>Promise.resolve(expectedFundId));
+      .mockImplementation(() => Promise.resolve(expectedFundId));
     mockUserRepository.verifyUserFound = jest.fn()
-      .mockImplementation(()=>Promise.resolve());
+      .mockImplementation(() => Promise.resolve());
 
     const addFundUseCase = new AddFundUseCase({
-      tokenManager : mockTokenManager, 
-      validation : mockValidation, 
-      storageService : mockStorageServices, 
-      fundRepository : mockfundRepository, 
-      userRepository : mockUserRepository, 
+      tokenManager: mockTokenManager,
+      validation: mockValidation,
+      storageService: mockStorageServices,
+      fundRepository: mockfundRepository,
+      userRepository: mockUserRepository,
     });
 
     const result = await addFundUseCase.execute(payload);

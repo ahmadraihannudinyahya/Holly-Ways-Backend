@@ -3,9 +3,9 @@ const EditProfile = require('../EditProfile');
 describe('EditProfile test', () => {
   it('should create object EditProfile corectly', () => {
     const payload = {
-      fullname : 'test name', 
-      phone : '0876543776',
-      image : 'image.jpg', 
+      fullname: 'test name',
+      phone: '0876543776',
+      image: 'image.jpg',
     };
     const editProfile = new EditProfile(payload);
     expect(editProfile.fullname).toEqual(payload.fullname);
@@ -14,13 +14,13 @@ describe('EditProfile test', () => {
   });
   it('should throw error when payload not meet data spesification', () => {
     const payload1 = {
-      fullname : {name : 'test name'}, 
+      fullname: { name: 'test name' },
     };
     const payload2 = {
-      phone : ['0876543779'],
+      phone: ['0876543779'],
     };
     const payload3 = {
-      image : {name : 'image.jpg'}, 
+      image: { name: 'image.jpg' },
     };
     expect(() => new EditProfile(payload1)).toThrowError('EDIT_PROFILE.NOT_MEET_DATA_SPESIFICATION');
     expect(() => new EditProfile(payload2)).toThrowError('EDIT_PROFILE.NOT_MEET_DATA_SPESIFICATION');
@@ -28,13 +28,13 @@ describe('EditProfile test', () => {
   });
   it('should crete object EditProfile corectly when data not complete', () => {
     const payload1 = {
-      fullname : 'test name', 
+      fullname: 'test name',
     };
     const payload2 = {
-      phone : '0876543779',
+      phone: '0876543779',
     };
     const payload3 = {
-      image : 'image.jpg', 
+      image: 'image.jpg',
     };
     const editProfile1 = new EditProfile(payload1);
     const editProfile2 = new EditProfile(payload2);
@@ -46,13 +46,13 @@ describe('EditProfile test', () => {
   });
   it('shoould not throw error when data not complete', () => {
     const payload1 = {
-      fullname : 'test name', 
+      fullname: 'test name',
     };
     const payload2 = {
-      phone : '0876543779',
+      phone: '0876543779',
     };
     const payload3 = {
-      image : 'image.jpg', 
+      image: 'image.jpg',
     };
     expect(() => new EditProfile(payload1)).not.toThrowError();
     expect(() => new EditProfile(payload2)).not.toThrowError();

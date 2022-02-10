@@ -7,53 +7,53 @@ const { Donations, Users, Funds } = require('../../../../models');
 const NotFoundError = require('../../../Commons/Exceptions/NotFoundError');
 const AuthorizationError = require('../../../Commons/Exceptions/AuthorizationError');
 
-describe('test SequelizeDonationRepository', ()=>{
+describe('test SequelizeDonationRepository', () => {
   const userTest1 = {
-    id : 'user-111'
+    id: 'user-111',
   };
   const userTest2 = {
-    id : 'user-222'
+    id: 'user-222',
   };
   const fundTest1 = {
-    id : 'fund-111',
-    owner : userTest1.id
+    id: 'fund-111',
+    owner: userTest1.id,
   };
   const fundTest2 = {
     id: 'fund-222',
-    owner : userTest2.id
-  }
-  beforeAll(async ()=>{
+    owner: userTest2.id,
+  };
+  beforeAll(async () => {
     await UserTestHelper.addUser(userTest1);
     await FundTestHelper.addFund(fundTest1);
     await UserTestHelper.addUser(userTest2);
     await FundTestHelper.addFund(fundTest2);
   });
-  afterAll(async ()=>{
+  afterAll(async () => {
     await FundTestHelper.cleanTable();
     await UserTestHelper.cleanTable();
-  })
-  afterEach(async ()=>{
+  });
+  afterEach(async () => {
     await DonationTestHelper.cleanTable();
-  })
-  describe('method addDonations', ()=>{
-    it('should return id corectly', async ()=>{
+  });
+  describe('method addDonations', () => {
+    it('should return id corectly', async () => {
       const payload = {
-        fundId : fundTest2.id, 
-        donateAmount : 100_000,
-        proofAttachment : 'image.png',
-        userId : userTest2.id
+        fundId: fundTest2.id,
+        donateAmount: 100_000,
+        proofAttachment: 'image.png',
+        userId: userTest2.id,
       };
       const fakeIdGenerator = () => '123';
       const sequelizeDonationRepository = new SequelizeDonationRepository(fakeIdGenerator, Donations);
       const idDonaton = await sequelizeDonationRepository.addDonations(payload);
       expect(idDonaton).toEqual('donation-123');
-    })
-    it('should add donation corectly', async ()=>{
+    });
+    it('should add donation corectly', async () => {
       const payload = {
-        fundId : fundTest2.id, 
-        donateAmount : 100_000,
-        proofAttachment : 'image.png',
-        userId : userTest2.id
+        fundId: fundTest2.id,
+        donateAmount: 100_000,
+        proofAttachment: 'image.png',
+        userId: userTest2.id,
       };
       const fakeIdGenerator = () => '123';
       const sequelizeDonationRepository = new SequelizeDonationRepository(fakeIdGenerator, Donations);
@@ -66,76 +66,76 @@ describe('test SequelizeDonationRepository', ()=>{
       expect(expectedDonation.status).toEqual('pending');
     });
   });
-  describe('method setStatusSuccessDonation', ()=>{
+  describe('method setStatusSuccessDonation', () => {
     const donationTest = {
-      id : 'donation-199',
-      donateAmount : 190000,
-      proofAttachment : 'image.jpg',
-      fundId : fundTest1.id,
-      userId : userTest1.id
+      id: 'donation-199',
+      donateAmount: 190000,
+      proofAttachment: 'image.jpg',
+      fundId: fundTest1.id,
+      userId: userTest1.id,
     };
-    beforeEach(async ()=>{
+    beforeEach(async () => {
       await DonationTestHelper.addDonation(donationTest);
     });
-    it('should change status donation corectly', async ()=>{
+    it('should change status donation corectly', async () => {
       const sequelizeDonationRepository = new SequelizeDonationRepository({}, Donations);
       await sequelizeDonationRepository.setStatusSuccessDonation(donationTest.id);
       const expectedDonation = await DonationTestHelper.getDonationById(donationTest.id);
       expect(expectedDonation.status).toEqual('success');
     });
   });
-  describe('method verifyDonationFound', ()=>{
+  describe('method verifyDonationFound', () => {
     const donationTest = {
-      id : 'donation-199',
-      donateAmount : 190000,
-      proofAttachment : 'image.jpg',
-      fundId : fundTest1.id,
-      userId : userTest1.id,
+      id: 'donation-199',
+      donateAmount: 190000,
+      proofAttachment: 'image.jpg',
+      fundId: fundTest1.id,
+      userId: userTest1.id,
     };
-    beforeEach(async ()=>{
+    beforeEach(async () => {
       await DonationTestHelper.addDonation(donationTest);
     });
-    it('should not throw error when donation found in database', async ()=>{
+    it('should not throw error when donation found in database', async () => {
       const sequelizeDonationRepository = new SequelizeDonationRepository({}, Donations);
       await expect(sequelizeDonationRepository.verifyDonationFound(donationTest.id)).resolves.not.toThrowError();
     });
-    it('should throw NotFoundError when donation not found in database', async ()=>{
+    it('should throw NotFoundError when donation not found in database', async () => {
       const sequelizeDonationRepository = new SequelizeDonationRepository({}, Donations);
       await expect(sequelizeDonationRepository.verifyDonationFound('fake-id-donation')).rejects.toThrowError(NotFoundError);
     });
   });
-  describe('method verifyDonationInFund', ()=>{
+  describe('method verifyDonationInFund', () => {
     const donationTest = {
-      id : 'donation-199',
-      donateAmount : 190000,
-      proofAttachment : 'image.jpg',
-      fundId : fundTest1.id,
-      userId : userTest2.id
+      id: 'donation-199',
+      donateAmount: 190000,
+      proofAttachment: 'image.jpg',
+      fundId: fundTest1.id,
+      userId: userTest2.id,
     };
-    beforeEach(async ()=>{
+    beforeEach(async () => {
       await DonationTestHelper.addDonation(donationTest);
     });
-    it('should not throw error when donation found in fund', async ()=>{
+    it('should not throw error when donation found in fund', async () => {
       const sequelizeDonationRepository = new SequelizeDonationRepository({}, Donations);
       await expect(sequelizeDonationRepository.verifyDonationInFund(donationTest.id, fundTest1.id)).resolves.not.toThrowError();
     });
-    it('should throw AuthorizationError when donation not contain in fund', async ()=>{
+    it('should throw AuthorizationError when donation not contain in fund', async () => {
       const sequelizeDonationRepository = new SequelizeDonationRepository({}, Donations);
       await expect(sequelizeDonationRepository.verifyDonationInFund(donationTest.id, fundTest2.id)).rejects.toThrowError(AuthorizationError);
     });
   });
-  describe('method getAllDonationsByFundId', ()=>{
+  describe('method getAllDonationsByFundId', () => {
     const donationTest = {
-      id : 'donation-199',
-      donateAmount : 190000,
-      proofAttachment : 'image.jpg',
-      fundId : fundTest1.id,
-      userId : userTest1.id
+      id: 'donation-199',
+      donateAmount: 190000,
+      proofAttachment: 'image.jpg',
+      fundId: fundTest1.id,
+      userId: userTest1.id,
     };
-    beforeEach(async ()=>{
+    beforeEach(async () => {
       await DonationTestHelper.addDonation(donationTest);
     });
-    it('shoud return array of object donation corectly', async ()=>{
+    it('shoud return array of object donation corectly', async () => {
       const sequelizeDonationRepository = new SequelizeDonationRepository({}, Donations, Users);
       const expectedDonations = await sequelizeDonationRepository.getAllDonationsByFundId(fundTest1.id);
       expect(expectedDonations).toHaveLength(1);
@@ -146,26 +146,26 @@ describe('test SequelizeDonationRepository', ()=>{
       expect(expectedDonations[0].user).toBeDefined();
     });
   });
-  describe('method getSuccessDonationsByFundId', ()=>{
+  describe('method getSuccessDonationsByFundId', () => {
     const donationTest1 = {
-      id : 'donation-11239',
-      donateAmount : 190000,
-      proofAttachment : 'image.jpg',
-      fundId : fundTest1.id,
-      userId : userTest1.id
+      id: 'donation-11239',
+      donateAmount: 190000,
+      proofAttachment: 'image.jpg',
+      fundId: fundTest1.id,
+      userId: userTest1.id,
     };
     const donationTest2 = {
-      id : 'donation-340',
-      donateAmount : 340000,
-      proofAttachment : 'picture.jpg',
-      fundId : fundTest1.id,
-      userId : userTest2.id
-    }
-    beforeEach(async ()=>{
+      id: 'donation-340',
+      donateAmount: 340000,
+      proofAttachment: 'picture.jpg',
+      fundId: fundTest1.id,
+      userId: userTest2.id,
+    };
+    beforeEach(async () => {
       await DonationTestHelper.addDonation(donationTest1);
       await DonationTestHelper.addDonation(donationTest2);
     });
-    it('should response success donation coretly in fund', async ()=>{
+    it('should response success donation coretly in fund', async () => {
       const sequelizeDonationRepository = new SequelizeDonationRepository({}, Donations, Users);
       await DonationTestHelper.setStatusDonationById(donationTest1.id);
       const expectedDonations = await sequelizeDonationRepository.getSuccessDonationsByFundId(fundTest1.id);
@@ -177,51 +177,51 @@ describe('test SequelizeDonationRepository', ()=>{
       expect(expectedDonations[0].user).toBeDefined();
     });
   });
-  describe('method getDonationCountByFundId', ()=>{
+  describe('method getDonationCountByFundId', () => {
     const donationTest1 = {
-      id : 'donation-11239',
-      donateAmount : 190000,
-      proofAttachment : 'image.jpg',
-      fundId : fundTest1.id,
-      userId : userTest1.id
+      id: 'donation-11239',
+      donateAmount: 190000,
+      proofAttachment: 'image.jpg',
+      fundId: fundTest1.id,
+      userId: userTest1.id,
     };
     const donationTest2 = {
-      id : 'donation-340',
-      donateAmount : 340000,
-      proofAttachment : 'picture.jpg',
-      fundId : fundTest1.id,
-      userId : userTest2.id
-    }
-    beforeEach(async ()=>{
+      id: 'donation-340',
+      donateAmount: 340000,
+      proofAttachment: 'picture.jpg',
+      fundId: fundTest1.id,
+      userId: userTest2.id,
+    };
+    beforeEach(async () => {
       await DonationTestHelper.addDonation(donationTest1);
       await DonationTestHelper.addDonation(donationTest2);
     });
-    it('should return donation count amount in fund', async ()=>{
+    it('should return donation count amount in fund', async () => {
       const sequelizeDonationRepository = new SequelizeDonationRepository({}, Donations);
       const expectedDonationCount = await sequelizeDonationRepository.getDonationCountByFundId(fundTest1.id);
       expect(expectedDonationCount).toEqual(donationTest1.donateAmount + donationTest2.donateAmount);
     });
   });
-  describe('method getAllDonations', ()=>{
+  describe('method getAllDonations', () => {
     const donationTest1 = {
-      id : 'donation-11239',
-      donateAmount : 190000,
-      proofAttachment : 'image.jpg',
-      fundId : fundTest1.id,
-      userId : userTest1.id
+      id: 'donation-11239',
+      donateAmount: 190000,
+      proofAttachment: 'image.jpg',
+      fundId: fundTest1.id,
+      userId: userTest1.id,
     };
     const donationTest2 = {
-      id : 'donation-340',
-      donateAmount : 340000,
-      proofAttachment : 'picture.jpg',
-      fundId : fundTest2.id,
-      userId : userTest2.id
-    }
-    beforeEach(async ()=>{
+      id: 'donation-340',
+      donateAmount: 340000,
+      proofAttachment: 'picture.jpg',
+      fundId: fundTest2.id,
+      userId: userTest2.id,
+    };
+    beforeEach(async () => {
       await DonationTestHelper.addDonation(donationTest1);
       await DonationTestHelper.addDonation(donationTest2);
     });
-    it('should return all donation in database', async ()=>{
+    it('should return all donation in database', async () => {
       const sequelizeDonationRepository = new SequelizeDonationRepository({}, Donations);
       const expectedDonations = await sequelizeDonationRepository.getAllDonations();
       expect(expectedDonations).toHaveLength(2);
@@ -239,26 +239,26 @@ describe('test SequelizeDonationRepository', ()=>{
       expect(expectedDonations[1].status).toEqual('pending');
     });
   });
-  describe('method getDonationsByUserIdWithFund', ()=>{
+  describe('method getDonationsByUserIdWithFund', () => {
     const donationTest1 = {
-      id : 'donation-11239',
-      donateAmount : 190000,
-      proofAttachment : 'image.jpg',
-      fundId : fundTest1.id,
-      userId : userTest1.id
+      id: 'donation-11239',
+      donateAmount: 190000,
+      proofAttachment: 'image.jpg',
+      fundId: fundTest1.id,
+      userId: userTest1.id,
     };
     const donationTest2 = {
-      id : 'donation-340',
-      donateAmount : 340000,
-      proofAttachment : 'picture.jpg',
-      fundId : fundTest2.id,
-      userId : userTest2.id
-    }
-    beforeEach(async ()=>{
+      id: 'donation-340',
+      donateAmount: 340000,
+      proofAttachment: 'picture.jpg',
+      fundId: fundTest2.id,
+      userId: userTest2.id,
+    };
+    beforeEach(async () => {
       await DonationTestHelper.addDonation(donationTest1);
       await DonationTestHelper.addDonation(donationTest2);
     });
-    it('should return donations with fund by user id', async ()=>{
+    it('should return donations with fund by user id', async () => {
       const sequelizeDonationRepository = new SequelizeDonationRepository({}, Donations, {}, Funds);
       const expectedDonations = await sequelizeDonationRepository.getDonationsByUserIdWithFund(userTest2.id);
       expect(expectedDonations).toHaveLength(1);
@@ -271,26 +271,26 @@ describe('test SequelizeDonationRepository', ()=>{
       expect(expectedDonations[0].fund).toBeDefined();
     });
   });
-  describe('method getAprovedDonationAmountCountByFundId', ()=>{
+  describe('method getAprovedDonationAmountCountByFundId', () => {
     const donationTest1 = {
-      id : 'donation-832684',
-      donateAmount : 190000,
-      proofAttachment : 'image.jpg',
-      fundId : fundTest1.id,
-      userId : userTest1.id
+      id: 'donation-832684',
+      donateAmount: 190000,
+      proofAttachment: 'image.jpg',
+      fundId: fundTest1.id,
+      userId: userTest1.id,
     };
     const donationTest2 = {
-      id : 'donation-81231',
-      donateAmount : 340000,
-      proofAttachment : 'picture.jpg',
-      fundId : fundTest1.id,
-      userId : userTest2.id
-    }
-    beforeEach(async ()=>{
+      id: 'donation-81231',
+      donateAmount: 340000,
+      proofAttachment: 'picture.jpg',
+      fundId: fundTest1.id,
+      userId: userTest2.id,
+    };
+    beforeEach(async () => {
       await DonationTestHelper.addDonation(donationTest1);
       await DonationTestHelper.addDonation(donationTest2);
     });
-    it('should return total amount donation success in fund', async ()=>{
+    it('should return total amount donation success in fund', async () => {
       await DonationTestHelper.setStatusDonationById(donationTest1.id);
       await DonationTestHelper.setStatusDonationById(donationTest2.id);
       const sequelizeDonationRepository = new SequelizeDonationRepository({}, Donations);
@@ -298,26 +298,26 @@ describe('test SequelizeDonationRepository', ()=>{
       expect(expectedTotalAmount).toEqual(donationTest1.donateAmount + donationTest2.donateAmount);
     });
   });
-  describe('method getAprovedDonationCountByFundId', ()=>{
+  describe('method getAprovedDonationCountByFundId', () => {
     const donationTest1 = {
-      id : 'donation-832684',
-      donateAmount : 190000,
-      proofAttachment : 'image.jpg',
-      fundId : fundTest1.id,
-      userId : userTest1.id
+      id: 'donation-832684',
+      donateAmount: 190000,
+      proofAttachment: 'image.jpg',
+      fundId: fundTest1.id,
+      userId: userTest1.id,
     };
     const donationTest2 = {
-      id : 'donation-81231',
-      donateAmount : 340000,
-      proofAttachment : 'picture.jpg',
-      fundId : fundTest1.id,
-      userId : userTest2.id
-    }
-    beforeEach(async ()=>{
+      id: 'donation-81231',
+      donateAmount: 340000,
+      proofAttachment: 'picture.jpg',
+      fundId: fundTest1.id,
+      userId: userTest2.id,
+    };
+    beforeEach(async () => {
       await DonationTestHelper.addDonation(donationTest1);
       await DonationTestHelper.addDonation(donationTest2);
     });
-    it('should return count of donation success in fund', async ()=>{
+    it('should return count of donation success in fund', async () => {
       await DonationTestHelper.setStatusDonationById(donationTest1.id);
       await DonationTestHelper.setStatusDonationById(donationTest2.id);
       const sequelizeDonationRepository = new SequelizeDonationRepository({}, Donations);

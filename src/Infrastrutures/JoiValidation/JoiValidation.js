@@ -44,7 +44,7 @@ class JoiValidation extends Validation {
     }
   }
 
-  validateEditProfilePayload(payload){
+  validateEditProfilePayload(payload) {
     const validationResult = this.schema.editProfilePayloadSchema.validate(payload);
     if (validationResult.error) {
       throw new InvariantError(validationResult.error.message);

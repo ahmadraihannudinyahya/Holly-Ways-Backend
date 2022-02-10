@@ -4,19 +4,20 @@ const TokenManager = require('../../../Security/TokenManager');
 const UserRepository = require('../../../../Domains/User/UserRepository');
 const StorageServices = require('../../../Storage/StorageServices');
 const EditProfile = require('../../../../Domains/User/Entities/EditProfile');
+
 describe('EditProfileUseCase test', () => {
   it('should orchestrating EditProfileUseCase corectly with image', async () => {
     const payload = {
-      fullname : 'user test',
-      image : {
-        originalName : 'image.jpg',
-        mimeType : 'iamge/jpeg',
-      }, 
-      token : 'FakeToken.JustForTest', 
+      fullname: 'user test',
+      image: {
+        originalName: 'image.jpg',
+        mimeType: 'iamge/jpeg',
+      },
+      token: 'FakeToken.JustForTest',
     };
     const expectedUserId = 'user-123';
     const expectedImageName = 'image8523.jpg';
-    const editProfile = new EditProfile({fullname : payload.fullname, image : expectedImageName});
+    const editProfile = new EditProfile({ fullname: payload.fullname, image: expectedImageName });
 
     const mockValidation = new Validation();
     const mockTokenManager = new TokenManager();
@@ -26,7 +27,7 @@ describe('EditProfileUseCase test', () => {
     mockValidation.validateEditProfilePayload = jest.fn()
       .mockImplementation(() => Promise.resolve());
     mockTokenManager.verifyToken = jest.fn()
-      .mockImplementation(() => Promise.resolve({userId : expectedUserId}));
+      .mockImplementation(() => Promise.resolve({ userId: expectedUserId }));
     mockUserRepository.verifyUserFound = jest.fn()
       .mockImplementation(() => Promise.resolve());
     mockStorageServices.uploadFile = jest.fn()
@@ -35,10 +36,10 @@ describe('EditProfileUseCase test', () => {
       .mockImplementation(() => Promise.resolve());
 
     const editProfileUseCase = new EditProfileUseCase({
-      validation : mockValidation, 
-      tokenManager : mockTokenManager, 
-      userRepository : mockUserRepository, 
-      storageServies : mockStorageServices, 
+      validation: mockValidation,
+      tokenManager: mockTokenManager,
+      userRepository: mockUserRepository,
+      storageServies: mockStorageServices,
     });
     await editProfileUseCase.execute(payload);
 
@@ -50,11 +51,11 @@ describe('EditProfileUseCase test', () => {
   });
   it('should orchestrating EditProfileUseCase corectly without image', async () => {
     const payload = {
-      phone : '0898765689',
-      token : 'FakeToken.JustForTest', 
+      phone: '0898765689',
+      token: 'FakeToken.JustForTest',
     };
     const expectedUserId = 'user-123';
-    const editProfile = new EditProfile({phone : payload.phone});
+    const editProfile = new EditProfile({ phone: payload.phone });
 
     const mockValidation = new Validation();
     const mockTokenManager = new TokenManager();
@@ -64,7 +65,7 @@ describe('EditProfileUseCase test', () => {
     mockValidation.validateEditProfilePayload = jest.fn()
       .mockImplementation(() => Promise.resolve());
     mockTokenManager.verifyToken = jest.fn()
-      .mockImplementation(() => Promise.resolve({userId : expectedUserId}));
+      .mockImplementation(() => Promise.resolve({ userId: expectedUserId }));
     mockUserRepository.verifyUserFound = jest.fn()
       .mockImplementation(() => Promise.resolve());
     mockStorageServices.uploadFile = jest.fn()
@@ -73,10 +74,10 @@ describe('EditProfileUseCase test', () => {
       .mockImplementation(() => Promise.resolve());
 
     const editProfileUseCase = new EditProfileUseCase({
-      validation : mockValidation, 
-      tokenManager : mockTokenManager, 
-      userRepository : mockUserRepository, 
-      storageServies : mockStorageServices, 
+      validation: mockValidation,
+      tokenManager: mockTokenManager,
+      userRepository: mockUserRepository,
+      storageServies: mockStorageServices,
     });
     await editProfileUseCase.execute(payload);
 

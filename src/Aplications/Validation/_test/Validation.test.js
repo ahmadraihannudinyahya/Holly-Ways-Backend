@@ -1,4 +1,5 @@
 const Validation = require('../Validation');
+
 describe('Validation test', () => {
   it('should throw error when invoke unimplemented method', async () => {
     const validation = new Validation();

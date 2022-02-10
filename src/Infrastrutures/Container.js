@@ -5,10 +5,12 @@ const { nanoid } = require('nanoid');
 const brycpt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+const Joi = require('joi');
 const socket = require('./SocketIoNotification/config');
 
-const Joi = require('joi');
-const { Users, Funds, Donations, Profiles } = require('../../models');
+const {
+  Users, Funds, Donations, Profiles,
+} = require('../../models');
 
 const RegisterRepository = require('../Domains/RegisterUsers/RegisterRepository');
 const LoginUserRepository = require('../Domains/LoginUser/LoginUserRepository');
@@ -60,8 +62,8 @@ container.register([
     parameter: {
       dependencies: [
         { concrete: Users },
-        { concrete: nanoid }, 
-        { concrete: Profiles}, 
+        { concrete: nanoid },
+        { concrete: Profiles },
       ],
     },
   },
@@ -79,8 +81,8 @@ container.register([
     Class: SequelizeUserRepository,
     parameter: {
       dependencies: [
-        { concrete: Users }, 
-        { concrete: Profiles }, 
+        { concrete: Users },
+        { concrete: Profiles },
       ],
     },
   },
@@ -91,7 +93,7 @@ container.register([
       dependencies: [
         { concrete: Funds },
         { concrete: nanoid },
-        { concrete : Donations}
+        { concrete: Donations },
       ],
     },
   },
@@ -103,7 +105,7 @@ container.register([
         { concrete: nanoid },
         { concrete: Donations },
         { concrete: Users },
-        { concrete : Funds },
+        { concrete: Funds },
       ],
     },
   },
@@ -139,13 +141,13 @@ container.register([
     Class: LocalStorageServices,
   },
   {
-    key : NotificationServices.name,
-    Class : SocketIoNotificationServices,
-    parameter : {
-      dependencies : [
-        {concrete : socket }
-      ]
-    }
+    key: NotificationServices.name,
+    Class: SocketIoNotificationServices,
+    parameter: {
+      dependencies: [
+        { concrete: socket },
+      ],
+    },
   },
 ]);
 
@@ -231,47 +233,47 @@ container.register([
     },
   },
   {
-    key : GetProfilUseCase.name,
-    Class : GetProfilUseCase,
-    parameter : {
-      injectType : 'destructuring',
-      dependencies : [
+    key: GetProfilUseCase.name,
+    Class: GetProfilUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
         {
-          name : 'tokenManager',
-          internal : TokenManager.name,
+          name: 'tokenManager',
+          internal: TokenManager.name,
         },
         {
-          name : 'userRepository',
-          internal : UserRepository.name,
-        }
-      ]
-    }
+          name: 'userRepository',
+          internal: UserRepository.name,
+        },
+      ],
+    },
   },
   {
-    key : EditProfileUseCase.name, 
-    Class : EditProfileUseCase,
-    parameter : {
-      injectType : 'destructuring', 
-      dependencies : [
+    key: EditProfileUseCase.name,
+    Class: EditProfileUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
         {
-          name : 'validation', 
-          internal : Validation.name, 
-        }, 
+          name: 'validation',
+          internal: Validation.name,
+        },
         {
-          name : 'tokenManager', 
-          internal : TokenManager.name, 
-        }, 
+          name: 'tokenManager',
+          internal: TokenManager.name,
+        },
         {
-          name : 'userRepository', 
-          internal : UserRepository.name, 
-        }, 
+          name: 'userRepository',
+          internal: UserRepository.name,
+        },
         {
-          name : 'storageServies', 
-          internal : StorageServices.name, 
-        }, 
-      ], 
+          name: 'storageServies',
+          internal: StorageServices.name,
+        },
+      ],
     },
-  }, 
+  },
   {
     key: AddFundUseCase.name,
     Class: AddFundUseCase,
@@ -295,9 +297,9 @@ container.register([
           internal: FundRepository.name,
         },
         {
-          name : 'userRepository',
-          internal : UserRepository.name
-        }
+          name: 'userRepository',
+          internal: UserRepository.name,
+        },
       ],
     },
   },
@@ -312,8 +314,8 @@ container.register([
           internal: FundRepository.name,
         },
         {
-          name : 'donationRepository',
-          internal : DonationRepository.name
+          name: 'donationRepository',
+          internal: DonationRepository.name,
         },
       ],
     },
@@ -333,8 +335,8 @@ container.register([
           internal: TokenManager.name,
         },
         {
-          name : 'storageService',
-          internal : StorageServices.name, 
+          name: 'storageService',
+          internal: StorageServices.name,
         },
       ],
     },
@@ -350,8 +352,8 @@ container.register([
           internal: FundRepository.name,
         },
         {
-          name : 'donationRepository',
-          internal : DonationRepository.name
+          name: 'donationRepository',
+          internal: DonationRepository.name,
         },
       ],
     },
@@ -379,28 +381,28 @@ container.register([
           internal: StorageServices.name,
         },
         {
-          name : 'donationRepository',
-          internal : DonationRepository.name
+          name: 'donationRepository',
+          internal: DonationRepository.name,
         },
       ],
     },
   },
   {
-    key : GetMyFundUseCase.name,
-    Class : GetMyFundUseCase,
-    parameter : {
-      injectType : 'destructuring',
-      dependencies : [
+    key: GetMyFundUseCase.name,
+    Class: GetMyFundUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
         {
-          name : 'tokenManager', 
-          internal : TokenManager.name,
+          name: 'tokenManager',
+          internal: TokenManager.name,
         },
         {
-          name : 'fundRepository',
-          internal : FundRepository.name,
+          name: 'fundRepository',
+          internal: FundRepository.name,
         },
-      ]
-    }
+      ],
+    },
   },
   {
     key: AddDonationUseCase.name,
@@ -433,9 +435,9 @@ container.register([
           internal: DonationRepository.name,
         },
         {
-          name : 'notificationServices',
-          internal : NotificationServices.name,
-        }
+          name: 'notificationServices',
+          internal: NotificationServices.name,
+        },
       ],
     },
   },
@@ -490,18 +492,18 @@ container.register([
     },
   },
   {
-    key : GetMyDonationsWithFundUseCase.name,
-    Class : GetMyDonationsWithFundUseCase,
-    parameter : {
-      injectType : 'destructuring',
-      dependencies : [
+    key: GetMyDonationsWithFundUseCase.name,
+    Class: GetMyDonationsWithFundUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
         {
-          name : 'tokenManager',
-          internal : TokenManager.name,
+          name: 'tokenManager',
+          internal: TokenManager.name,
         },
         {
-          name : 'donationsRepository',
-          internal : DonationRepository.name
+          name: 'donationsRepository',
+          internal: DonationRepository.name,
         },
       ],
     },
