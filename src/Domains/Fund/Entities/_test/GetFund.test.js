@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const GetFund = require('../GetFund');
 
 describe('GetFund test', () => {

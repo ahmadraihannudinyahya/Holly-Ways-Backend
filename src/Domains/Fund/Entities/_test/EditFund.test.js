@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const EditFund = require('../EditFund');
 
 describe('EditFund test', () => {

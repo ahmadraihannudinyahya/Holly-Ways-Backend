@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const StorageServices = require('../StorageServices');
 
 describe('StorageServices test', () => {

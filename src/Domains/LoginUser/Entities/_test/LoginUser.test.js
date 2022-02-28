@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const LoginUser = require('../LoginUser');
 
 describe('LoginUser test', () => {

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const GetAllUserUseCase = require('../GetAllUserUseCase');
 
 const UserRepository = require('../../../../Domains/User/UserRepository');

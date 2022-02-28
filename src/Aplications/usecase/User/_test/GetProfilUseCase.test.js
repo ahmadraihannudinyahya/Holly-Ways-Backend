@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const GetProfilUseCase = require('../GetProfilUseCase');
 
 const TokenManager = require('../../../Security/TokenManager');

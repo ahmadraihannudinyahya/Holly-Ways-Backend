@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const FundRepository = require('../FundRepository');
 
 describe('FundRepository test', () => {

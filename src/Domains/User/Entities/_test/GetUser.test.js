@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const GetUser = require('../GetUser');
 
 describe('GetUser test', () => {

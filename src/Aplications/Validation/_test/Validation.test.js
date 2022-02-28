@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const Validation = require('../Validation');
 
 describe('Validation test', () => {

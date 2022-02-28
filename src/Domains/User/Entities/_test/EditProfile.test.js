@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const EditProfile = require('../EditProfile');
 
 describe('EditProfile test', () => {

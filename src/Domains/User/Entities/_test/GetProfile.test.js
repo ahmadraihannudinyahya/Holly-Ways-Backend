@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const GetProfile = require('../GetProfile');
 
 describe('GetProfile test', () => {

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const GetDonation = require('../GetDonation');
 
 describe('GetDonation test', () => {

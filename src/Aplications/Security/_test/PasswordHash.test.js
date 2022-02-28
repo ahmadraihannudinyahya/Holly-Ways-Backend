@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const PasswordHash = require('../PasswordHash');
 
 describe('PasswordHash test', () => {

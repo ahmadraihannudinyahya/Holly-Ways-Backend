@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const EditProfileUseCase = require('../EditProfileUseCase');
 const Validation = require('../../../Validation/Validation');
 const TokenManager = require('../../../Security/TokenManager');

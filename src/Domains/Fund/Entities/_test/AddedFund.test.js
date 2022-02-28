@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const AddedFund = require('../AddedFund');
 
 describe('AddedFund test', () => {

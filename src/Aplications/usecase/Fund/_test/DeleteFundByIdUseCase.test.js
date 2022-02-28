@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const DeleteFundByIdUseCase = require('../DeleteFundByIdUseCase');
 const Fundrepository = require('../../../../Domains/Fund/FundRepository');
 const StorageServices = require('../../../Storage/StorageServices');

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const DeleteUserByIdUseCase = require('../DeleteUserByIdUseCase');
 
 const TokenManager = require('../../../Security/TokenManager');

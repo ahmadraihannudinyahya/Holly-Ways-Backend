@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const AddFundUseCase = require('../AddFundUseCase');
 
 const TokenManager = require('../../../Security/TokenManager');

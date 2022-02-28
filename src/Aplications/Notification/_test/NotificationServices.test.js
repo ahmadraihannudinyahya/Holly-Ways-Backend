@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const NotificationServices = require('../NotificationServices');
 
 describe('NotificationServices test', () => {

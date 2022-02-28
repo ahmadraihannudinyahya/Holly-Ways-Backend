@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const MyDonation = require('../MyDonation');
 
 describe('MyDonation test', () => {

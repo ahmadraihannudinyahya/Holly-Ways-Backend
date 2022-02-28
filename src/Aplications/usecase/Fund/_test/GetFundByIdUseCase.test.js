@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const GetFundByIdUseCase = require('../GetFundByIdUseCase');
 
 const FundRepository = require('../../../../Domains/Fund/FundRepository');

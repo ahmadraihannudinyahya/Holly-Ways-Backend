@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const NewFund = require('../NewFund');
 
 describe('NewFund test', () => {

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const RegisterUserUseCase = require('../RegisterUserUseCase');
 
 const Validation = require('../../../Validation/Validation');

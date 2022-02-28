@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const EditFund = require('../../../../Domains/Fund/Entities/EditFund');
 const EditFundByIdUseCase = require('../EditFundByIdUseCase');
 
