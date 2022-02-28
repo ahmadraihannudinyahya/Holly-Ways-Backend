@@ -12,14 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     
     services:
-      mysql:
-        image: mysql:5.7
+      postgres:
+        image: postgres:14-alpine3.15
         env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: holly_ways_test
+          POSTGRES_USER: developer
+          POSTGRES_PASSWORD: developer
+          POSTGRES_DB: holly_ways_test
         ports:
-        - 32574:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        - 32574:5432
         
     strategy:
       matrix:
@@ -43,15 +43,15 @@ jobs:
         PORT: 5000
         ENDPOINT_FILE: /file
         DB_HOST: 127.0.0.1
-        DB_USER: root
-        DB_PASSSWORD: password
+        DB_USER: developer
+        DB_PASSSWORD: developer
         DB_NAME: holly_ways_test
         DB_PORT:  32574
-        DB_DIALECT: mysql
+        DB_DIALECT: postgres
         DBTEST_HOST: 127.0.0.1
-        DBTEST_USER: root
-        DBTEST_PASSSWORD: password
+        DBTEST_USER: developer
+        DBTEST_PASSSWORD: developer
         DBTEST_NAME: holly_ways_test
         DBTEST_PORT: 32574
-        DBTEST_DIALECT: mysql
+        DBTEST_DIALECT: postgres
         TOKENKEY: ${{ secrets.TOKENKEY }}
