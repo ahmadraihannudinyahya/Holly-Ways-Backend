@@ -100,18 +100,18 @@ class FundHandler {
     }
   }
 
-  async getMyFundHandler(req, res, next){
+  async getMyFundHandler(req, res, next) {
     try {
       const authHeader = req.header('Authorization');
       const token = authHeader && authHeader.split(' ')[1];
       const getMyFundUseCase = this.container.getInstance(GetMyFundUseCase.name);
-      const funds = await getMyFundUseCase.execute({token});
+      const funds = await getMyFundUseCase.execute({ token });
       res.send({
-        status : 'success',
-        data : {
-          funds
-        }
-      })
+        status: 'success',
+        data: {
+          funds,
+        },
+      });
     } catch (error) {
       next(error);
     }

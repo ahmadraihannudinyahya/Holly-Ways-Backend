@@ -70,13 +70,13 @@ class DonationHandler {
       const authHeader = req.header('Authorization');
       const token = authHeader && authHeader.split(' ')[1];
       const getMyDonationsWithFundUseCase = this.container.getInstance(GetMyDonationsWithFundUseCase.name);
-      const donations = await getMyDonationsWithFundUseCase.execute({token});
+      const donations = await getMyDonationsWithFundUseCase.execute({ token });
       res.send({
-        status : 'success',
-        data : {
-          donations
-        }
-      })
+        status: 'success',
+        data: {
+          donations,
+        },
+      });
     } catch (error) {
       next(error);
     }

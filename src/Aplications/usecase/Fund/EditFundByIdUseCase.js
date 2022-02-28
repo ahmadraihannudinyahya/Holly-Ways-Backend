@@ -3,7 +3,7 @@ const GetFund = require('../../../Domains/Fund/Entities/GetFund');
 
 class EditFundByIdUseCase {
   constructor({
-    tokenManager, fundRepostory, validation, storageService, donationRepository
+    tokenManager, fundRepostory, validation, storageService, donationRepository,
   }) {
     this.tokenManager = tokenManager;
     this.fundRepostory = fundRepostory;
@@ -26,23 +26,23 @@ class EditFundByIdUseCase {
     await this.fundRepostory.editFundById(editFund);
     const fund = await this.fundRepostory.getFundsByIdWithDonations(editFund.id);
     return new GetFund({
-      id : fund.id, 
-      title : fund.title,
-      thumbnail : fund.thumbnail, 
-      goal : fund.goal, 
-      description : fund.description, 
-      createdAt : fund.createdAt, 
-      status : fund.status,
-      donationObtained : fund.donations.reduce((total, donation) => {
-        if(donation.status === 'success'){
+      id: fund.id,
+      title: fund.title,
+      thumbnail: fund.thumbnail,
+      goal: fund.goal,
+      description: fund.description,
+      createdAt: fund.createdAt,
+      status: fund.status,
+      donationObtained: fund.donations.reduce((total, donation) => {
+        if (donation.status === 'success') {
           return total + donation.donateAmount;
-        };
+        }
         return total;
       }, 0),
-      donationCount : fund.donations.reduce((total, donation)=>{
-        if(donation.status === 'success'){
+      donationCount: fund.donations.reduce((total, donation) => {
+        if (donation.status === 'success') {
           return total + 1;
-        };
+        }
         return total;
       }, 0),
     });

@@ -22,11 +22,11 @@ class UserRepository {
   async getUserById() {
     throw new Error('UserRepository is abstract class');
   }
-  
+
   async getProfile() {
     throw new Error('UserRepository is abstract class');
   }
-  
+
   async editProfile() {
     throw new Error('UserRepository is abstract class');
   }

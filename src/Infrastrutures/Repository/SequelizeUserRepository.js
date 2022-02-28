@@ -15,9 +15,9 @@ class SequelizeUserRepository extends UserRepository {
 
   async deleteUserById(id) {
     await this.Profiles.destroy({
-      where : {
-        userId : id, 
-      }, 
+      where: {
+        userId: id,
+      },
     });
     await this.Users.destroy({
       where: {
@@ -43,40 +43,40 @@ class SequelizeUserRepository extends UserRepository {
 
   async getUserById(id) {
     return this.Users.findOne({
-      where : {
-        id
+      where: {
+        id,
       },
-    })
+    });
   }
 
   async getProfile(userId) {
     const result = await this.Users.findOne({
-      where : {
-        id : userId, 
-      }, 
+      where: {
+        id: userId,
+      },
       include: {
         model: this.Profiles,
         as: 'profile',
         attributes: {
           exclude: ['createdAt', 'updatedAt'],
-        }
+        },
       },
     });
-    return({...result.dataValues, ...result.dataValues.profile.dataValues});
+    return ({ ...result.dataValues, ...result.dataValues.profile.dataValues });
   }
 
-  async editProfile(payload, userId){
-    if(payload.fullname){
+  async editProfile(payload, userId) {
+    if (payload.fullname) {
       await this.Users.update(payload, {
-        where : {
-          id : userId, 
-        }, 
+        where: {
+          id: userId,
+        },
       });
-    };
+    }
     await this.Profiles.update(payload, {
-      where : {
-        userId, 
-      }, 
+      where: {
+        userId,
+      },
     });
   }
 }

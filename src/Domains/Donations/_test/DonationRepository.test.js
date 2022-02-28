@@ -1,9 +1,10 @@
+/* istanbul ignore file */
 const DonationRepository = require('../DonationRepository');
 
 describe('DonationRepository test', () => {
   it('should throw error when invoke unimplemented method', async () => {
     const donationRepository = new DonationRepository();
-    
+
     await expect(donationRepository.addDonations()).rejects.toThrowError('DonationRepository is abstract class');
     await expect(donationRepository.setStatusSuccessDonation()).rejects.toThrowError('DonationRepository is abstract class');
     await expect(donationRepository.verifyDonationFound()).rejects.toThrowError('DonationRepository is abstract class');
@@ -16,4 +17,4 @@ describe('DonationRepository test', () => {
     await expect(donationRepository.getAprovedDonationCountByFundId()).rejects.toThrowError('DonationRepository is abstract class');
     await expect(donationRepository.getAprovedDonationAmountCountByFundId()).rejects.toThrowError('DonationRepository is abstract class');
   });
-})
+});

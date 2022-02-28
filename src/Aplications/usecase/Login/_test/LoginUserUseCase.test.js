@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const LoginUserUseCase = require('../LoginUserUseCase');
 
 const Validtion = require('../../../Validation/Validation');
@@ -9,22 +10,22 @@ const LoginUserRepository = require('../../../../Domains/LoginUser/LoginUserRepo
 const LoginUser = require('../../../../Domains/LoginUser/Entities/LoginUser');
 const LogedinUser = require('../../../../Domains/LoginUser/Entities/LogedinUser');
 
-describe('test LoginUserUseCase', ()=>{
-  it('should orchestrating LoginUserUseCase corectly', async ()=>{
+describe('test LoginUserUseCase', () => {
+  it('should orchestrating LoginUserUseCase corectly', async () => {
     const payload = {
-      email : 'user@mail.com',
-      password : 'supersecretpass'
+      email: 'user@mail.com',
+      password: 'supersecretpass',
     };
     const expectedToken = 'faketoken.justfortest';
     const expectedUser = {
-      id : 'user-123', 
-      fullname : 'user test', 
-      email : payload.email, 
-      password : 'encriptedPass', 
+      id: 'user-123',
+      fullname: 'user test',
+      email: payload.email,
+      password: 'encriptedPass',
     };
     const loginUser = new LoginUser(payload);
     loginUser.id = expectedUser.id;
-    const expectedLogedinUser = new LogedinUser({...expectedUser, token : expectedToken});
+    const expectedLogedinUser = new LogedinUser({ ...expectedUser, token: expectedToken });
 
     const mockValidtion = new Validtion();
     const mockTokenManager = new TokenManager();
@@ -32,21 +33,21 @@ describe('test LoginUserUseCase', ()=>{
     const mockLoginUserRepository = new LoginUserRepository();
 
     mockValidtion.validateLoginUserPayload = jest.fn()
-      .mockImplementation(()=>Promise.resolve());
+      .mockImplementation(() => Promise.resolve());
     mockPasswordHash.comparePassword = jest.fn()
-      .mockImplementation(()=>Promise.resolve());
+      .mockImplementation(() => Promise.resolve());
     mockTokenManager.createToken = jest.fn()
-      .mockImplementation(()=>Promise.resolve(expectedToken));
+      .mockImplementation(() => Promise.resolve(expectedToken));
     mockLoginUserRepository.verifyUserByEmail = jest.fn()
-      .mockImplementation(()=>Promise.resolve());
+      .mockImplementation(() => Promise.resolve());
     mockLoginUserRepository.getUserByEmail = jest.fn()
-      .mockImplementation(()=>Promise.resolve(expectedUser));
+      .mockImplementation(() => Promise.resolve(expectedUser));
 
     const loginUserUseCase = new LoginUserUseCase({
-      loginUserRepository : mockLoginUserRepository, 
-      passwordHash : mockPasswordHash, 
-      tokenManager : mockTokenManager, 
-      validation : mockValidtion, 
+      loginUserRepository: mockLoginUserRepository,
+      passwordHash: mockPasswordHash,
+      tokenManager: mockTokenManager,
+      validation: mockValidtion,
     });
 
     const result = await loginUserUseCase.execute(payload);

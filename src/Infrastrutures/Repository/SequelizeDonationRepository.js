@@ -52,8 +52,8 @@ class SequelizeDonationRepository extends DonationRepository {
       where: {
         fundId,
       },
-      order : [
-        ['createdAt', 'ASC']
+      order: [
+        ['createdAt', 'ASC'],
       ],
       include: {
         model: this.Users,
@@ -71,8 +71,8 @@ class SequelizeDonationRepository extends DonationRepository {
         fundId,
         status: 'success',
       },
-      order : [
-        ['createdAt', 'ASC']
+      order: [
+        ['createdAt', 'ASC'],
       ],
       include: {
         model: this.Users,
@@ -84,52 +84,52 @@ class SequelizeDonationRepository extends DonationRepository {
     });
   }
 
-  async getDonationCountByFundId(fundId){
+  async getDonationCountByFundId(fundId) {
     const donations = await this.Donations.findAll({
-      where : {
-        fundId
-      }
+      where: {
+        fundId,
+      },
     });
-    return donations.reduce((total, donation)=> total + donation.donateAmount, 0);
+    return donations.reduce((total, donation) => total + donation.donateAmount, 0);
   }
 
-  async getAllDonations(){
+  async getAllDonations() {
     return this.Donations.findAll({
-      order : [
-        ['createdAt', 'ASC']
+      order: [
+        ['createdAt', 'ASC'],
       ],
     });
   }
 
   async getDonationsByUserIdWithFund(userId) {
     return this.Donations.findAll({
-      where : {
-        userId
+      where: {
+        userId,
       },
-      order : [
-        ['createdAt', 'ASC']
+      order: [
+        ['createdAt', 'ASC'],
       ],
-      include : {
+      include: {
         model: this.Funds,
         as: 'fund',
         attributes: {
           exclude: ['createdAt', 'updatedAt'],
         },
-      }
-    })
+      },
+    });
   }
 
-  async getAprovedDonationAmountCountByFundId(fundId){
+  async getAprovedDonationAmountCountByFundId(fundId) {
     const donations = await this.Donations.findAll({
       where: {
         fundId,
         status: 'success',
       },
     });
-    return donations.reduce((total, donation)=> total + donation.donateAmount, 0);
+    return donations.reduce((total, donation) => total + donation.donateAmount, 0);
   }
 
-  async getAprovedDonationCountByFundId(fundId){
+  async getAprovedDonationCountByFundId(fundId) {
     const donations = await this.Donations.findAll({
       where: {
         fundId,

@@ -22,9 +22,9 @@ class SequelizeRegisterRepository extends RegisterRepository {
 
   async addUser(registerUser) {
     const userId = `user-${this.idGenerator()}`;
-    await this.Users.create({ ...registerUser, id : userId });
+    await this.Users.create({ ...registerUser, id: userId });
     const profileId = `profile-${this.idGenerator()}`;
-    await this.Profiles.create({id : profileId, userId});
+    await this.Profiles.create({ id: profileId, userId });
     return userId;
   }
 }

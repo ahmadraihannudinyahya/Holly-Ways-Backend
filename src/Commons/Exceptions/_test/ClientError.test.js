@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const ClientError = require('../ClientError');
 
 describe('ClientError', () => {

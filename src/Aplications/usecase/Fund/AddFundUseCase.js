@@ -3,7 +3,7 @@ const AddedFund = require('../../../Domains/Fund/Entities/AddedFund');
 
 class AddFundUseCase {
   constructor({
-    tokenManager, validation, storageService, fundRepository, userRepository
+    tokenManager, validation, storageService, fundRepository, userRepository,
   }) {
     this.tokenManager = tokenManager;
     this.validation = validation;

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const UserRepository = require('../UserRepository');
 
 describe('UserRepository test', () => {

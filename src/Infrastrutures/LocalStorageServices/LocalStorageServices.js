@@ -7,7 +7,7 @@ class LocalStorageServices extends StorageServices {
   constructor() {
     super();
     /* istanbul ignore next */
-    const pathStorage =  process.env.NODE_ENV === 'test' ? path.join(__dirname, '../../../uploads_test') : path.join(__dirname, '../../../uploads');
+    const pathStorage = process.env.NODE_ENV === 'test' ? path.join(__dirname, '../../../uploads_test') : path.join(__dirname, '../../../uploads');
     if (!fs.existsSync(pathStorage)) {
       fs.mkdirSync(pathStorage);
     }
@@ -19,9 +19,7 @@ class LocalStorageServices extends StorageServices {
       const fileExt = file.originalname.substring(file.originalname.lastIndexOf('.')).toLowerCase();
       const fileName = Date.now() + fileExt;
       const filepath = path.join(this.pathStorage, fileName);
-      fs.writeFile(filepath, file.buffer, () => {
-        return resolve(fileName);
-      });
+      fs.writeFile(filepath, file.buffer, () => resolve(fileName));
     });
   }
 

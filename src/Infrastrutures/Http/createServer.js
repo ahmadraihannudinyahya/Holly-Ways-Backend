@@ -32,11 +32,9 @@ const createServer = (container) => {
   app.use((error, req, res, next) => {
     /* istanbul ignore next */
     if (error) {
-
       if (error instanceof ClientError) {
         return res.status(error.statusCode).send({ status: 'fail', message: error.message });
       }
-      console.log(error);
       return res.status(500).send({ status: 'error', message: 'Internal Server Error' });
     }
   });

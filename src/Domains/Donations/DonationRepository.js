@@ -35,7 +35,7 @@ class DonationRepository {
     throw new Error('DonationRepository is abstract class');
   }
 
-  async getAprovedDonationCountByFundId(){
+  async getAprovedDonationCountByFundId() {
     throw new Error('DonationRepository is abstract class');
   }
 

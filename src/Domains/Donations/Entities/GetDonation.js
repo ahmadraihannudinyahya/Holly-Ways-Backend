@@ -1,7 +1,7 @@
 class GetDonation {
   constructor(payload) {
     const {
-      id, fullname, email, donateAmount, status, proofAttachment, createdAt
+      id, fullname, email, donateAmount, status, proofAttachment, createdAt,
     } = this.verifyPayload(payload);
     this.id = id;
     this.fullname = fullname;
@@ -13,10 +13,10 @@ class GetDonation {
   }
 
   verifyPayload({
-    id, user, donateAmount, status, proofAttachment, createdAt
+    id, user, donateAmount, status, proofAttachment, createdAt,
   }) {
     const { fullname, email } = user;
-    if (!id || !fullname || !email || !donateAmount || !status || !proofAttachment ||!createdAt) {
+    if (!id || !fullname || !email || !donateAmount || !status || !proofAttachment || !createdAt) {
       throw new Error('Get_Donation.Not_Contain_Data_Spesification');
     }
     if (
@@ -34,11 +34,12 @@ class GetDonation {
       id, fullname, email, donateAmount, status, proofAttachment, createdAt,
     });
   }
-  convertDate(date){
-    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+  convertDate(date) {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const day = days[date.getDay()];
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    let month = months[date.getMonth()];
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const month = months[date.getMonth()];
     return `${day}, ${date.getDate()} ${month} ${date.getFullYear()}`;
   }
 }
