@@ -1,6 +1,7 @@
+/* istanbul ignore file */
 const PasswordHash = require('../PasswordHash');
 
-describe('PasswordHash test', ()=> {
+describe('PasswordHash test', () => {
   it('should throw error when invoke unimplemented method', async () => {
     const passwordHash = new PasswordHash();
 

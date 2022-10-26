@@ -18,7 +18,7 @@ class UserHandler {
       const getAllUserUseCase = this.container.getInstance(GetAllUserUseCase.name);
       const users = await getAllUserUseCase.execute();
       res.send({
-        status : 'success',
+        status: 'success',
         data: {
           users,
         },
@@ -46,35 +46,35 @@ class UserHandler {
     }
   }
 
-  async getProfilHandler(req, res, next){
+  async getProfilHandler(req, res, next) {
     try {
       const authHeader = req.header('Authorization');
       const token = authHeader && authHeader.split(' ')[1];
       const getProfilUseCase = this.container.getInstance(GetProfilUseCase.name);
-      const user = await getProfilUseCase.execute({token});
+      const user = await getProfilUseCase.execute({ token });
       res.send({
-        status : 'success',
-        data : {
-          user
-        }
-      })
+        status: 'success',
+        data: {
+          user,
+        },
+      });
     } catch (error) {
       next(error);
     }
   }
 
-  async editProfileHandler(req, res, next){
+  async editProfileHandler(req, res, next) {
     try {
       const authHeader = req.header('Authorization');
       const token = authHeader && authHeader.split(' ')[1];
       const editProfileUseCase = this.container.getInstance(EditProfileUseCase.name);
-      await editProfileUseCase.execute({token, ...req.body, image : req.file});
+      await editProfileUseCase.execute({ token, ...req.body, image: req.file });
       res.send({
-        status : 'success', 
+        status: 'success',
       });
     } catch (error) {
       next(error);
-    };
+    }
   }
 }
 

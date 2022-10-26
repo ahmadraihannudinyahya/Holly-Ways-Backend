@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const TokenManager = require('../TokenManager');
 
 describe('TokenManager test', () => {

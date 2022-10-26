@@ -1,5 +1,5 @@
 class DeleteFundByIdUseCase {
-  constructor({ fundRepository, tokenManager , storageService}) {
+  constructor({ fundRepository, tokenManager, storageService }) {
     this.fundRepository = fundRepository;
     this.tokenManager = tokenManager;
     this.storageService = storageService;

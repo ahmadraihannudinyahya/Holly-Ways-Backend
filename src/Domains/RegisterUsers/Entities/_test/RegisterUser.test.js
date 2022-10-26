@@ -1,11 +1,12 @@
+/* istanbul ignore file */
 const RegisterUser = require('../RegisterUser');
 
 describe('RegisterUser test', () => {
   it('should create object RegisterUser corectly', () => {
     const payload = {
-      email : 'test@mail.com',
-      password : 'testpassword', 
-      fullname : 'user test',
+      email: 'test@mail.com',
+      password: 'testpassword',
+      fullname: 'user test',
     };
     const registerUser = new RegisterUser(payload);
     expect(registerUser.email).toEqual(payload.email);
@@ -14,9 +15,9 @@ describe('RegisterUser test', () => {
   });
   it('should set id corectly', () => {
     const payload = {
-      email : 'test@mail.com',
-      password : 'testpassword', 
-      fullname : 'user test',
+      email: 'test@mail.com',
+      password: 'testpassword',
+      fullname: 'user test',
     };
     const registerUser = new RegisterUser(payload);
 
@@ -29,9 +30,9 @@ describe('RegisterUser test', () => {
   });
   it('should change password with hashed password corectly', () => {
     const payload = {
-      email : 'test@mail.com',
-      password : 'testpassword', 
-      fullname : 'user test',
+      email: 'test@mail.com',
+      password: 'testpassword',
+      fullname: 'user test',
     };
     const registerUser = new RegisterUser(payload);
     registerUser.hashedPassword = 'encriptedPassword';
@@ -42,16 +43,16 @@ describe('RegisterUser test', () => {
   });
   it('should throw error when payload not contain data needed', () => {
     const payload = {
-      email : 'test@mail.com',
-      password : 'testpassword', 
+      email: 'test@mail.com',
+      password: 'testpassword',
     };
     expect(() => new RegisterUser(payload)).toThrowError('Register_User.Not_Contain_Data_Spesification');
   });
   it('should throw error when payload not meet spesification', () => {
     const payload = {
-      email : 'test@mail.com',
-      password : 39845943, 
-      fullname : 'user test',
+      email: 'test@mail.com',
+      password: 39845943,
+      fullname: 'user test',
     };
     expect(() => new RegisterUser(payload)).toThrowError('Register_User.Not_Meet_Data_Spesification');
   });

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const RegisterUserUseCase = require('../RegisterUserUseCase');
 
 const Validation = require('../../../Validation/Validation');
@@ -8,12 +9,12 @@ const RegisterRepository = require('../../../../Domains/RegisterUsers/RegisterRe
 const RegisterUser = require('../../../../Domains/RegisterUsers/Entities/RegisterUser');
 const RegisteredUser = require('../../../../Domains/RegisterUsers/Entities/RegisteredUser');
 
-describe('test RegisterUserUseCase', ()=>{
-  it('should orchestrating RegisterUserUseCase crectly', async ()=>{
+describe('test RegisterUserUseCase', () => {
+  it('should orchestrating RegisterUserUseCase crectly', async () => {
     const payload = {
-      email : 'user@mail.com', 
-      password : 'supersecretpass', 
-      fullname : 'user test',
+      email: 'user@mail.com',
+      password: 'supersecretpass',
+      fullname: 'user test',
     };
     const expectedToken = 'faketoken.jusfortest';
     const encryptedPassword = 'encryptedPasswordHash';
@@ -21,29 +22,29 @@ describe('test RegisterUserUseCase', ()=>{
     const registerUser = new RegisterUser(payload);
     registerUser.id = expectedUserId;
     registerUser.hashedPassword = encryptedPassword;
-    const expectedRegisteredUser = new RegisteredUser({...payload, token : expectedToken});
+    const expectedRegisteredUser = new RegisteredUser({ ...payload, token: expectedToken });
 
     const mockValidation = new Validation();
     const mockTokenManager = new TokenManager();
     const mockPasswordHash = new PasswordHash();
     const mockRegisterRepository = new RegisterRepository();
 
-    mockValidation.validateRegisterUserPayload =  jest.fn()
-      .mockImplementation(()=>Promise.resolve());
+    mockValidation.validateRegisterUserPayload = jest.fn()
+      .mockImplementation(() => Promise.resolve());
     mockTokenManager.createToken = jest.fn()
-      .mockImplementation(()=>Promise.resolve(expectedToken));
+      .mockImplementation(() => Promise.resolve(expectedToken));
     mockPasswordHash.hashPassword = jest.fn()
-      .mockImplementation(()=>Promise.resolve(encryptedPassword));
+      .mockImplementation(() => Promise.resolve(encryptedPassword));
     mockRegisterRepository.verifyAvailableEmail = jest.fn()
-      .mockImplementation(()=>Promise.resolve());
+      .mockImplementation(() => Promise.resolve());
     mockRegisterRepository.addUser = jest.fn()
-      .mockImplementation(()=>Promise.resolve(expectedUserId));
+      .mockImplementation(() => Promise.resolve(expectedUserId));
 
     const registerUserUseCase = new RegisterUserUseCase({
-      registerRepository : mockRegisterRepository, 
-      passwordHash : mockPasswordHash, 
-      tokenManager : mockTokenManager, 
-      validation : mockValidation, 
+      registerRepository: mockRegisterRepository,
+      passwordHash: mockPasswordHash,
+      tokenManager: mockTokenManager,
+      validation: mockValidation,
     });
 
     const result = await registerUserUseCase.execute(payload);

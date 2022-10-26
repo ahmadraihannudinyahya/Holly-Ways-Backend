@@ -1,5 +1,5 @@
 require('dotenv').config();
-const http = require('http')
+const http = require('http');
 const createServerExpress = require('./Infrastrutures/Http/createServer');
 const container = require('./Infrastrutures/Container');
 const createSocket = require('./Infrastrutures/Socket/createSocket');

@@ -1,4 +1,6 @@
+/* istanbul ignore file */
 const StorageServices = require('../StorageServices');
+
 describe('StorageServices test', () => {
   it('should throw error when invoke unimplemented method', async () => {
     const storageServices = new StorageServices();

@@ -5,7 +5,7 @@ const route = (handler, midleware) => {
   router.get('/user', handler.getAllUserHandler);
   router.delete('/user/:userId', handler.deleteUserByIdHandler);
   router.get('/profil', handler.getProfilHandler);
-  router.patch('/profil',midleware.fileHandle('image') ,handler.editProfileHandler);
+  router.patch('/profil', midleware.fileHandle('image'), handler.editProfileHandler);
   return router;
 };
 module.exports = route;
