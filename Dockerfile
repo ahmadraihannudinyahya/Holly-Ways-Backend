@@ -4,6 +4,8 @@ WORKDIR ./app
 
 ADD . ./app
 
+RUN touch .env
+
 COPY --chown=node:node . .
 
 EXPOSE 3000
