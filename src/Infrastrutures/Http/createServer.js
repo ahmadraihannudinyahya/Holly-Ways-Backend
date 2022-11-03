@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
+const morgen = require('morgan')
 
 const register = require('../../Interfaces/Http/Api/Register');
 const Login = require('../../Interfaces/Http/Api/Login');
@@ -19,6 +20,7 @@ const createServer = (container) => {
   };
   app.use(express.json());
   app.use(cors());
+  app.use(morgen('dev'))
   /* istanbul ignore next */
   const pathFile = process.env.NODE_ENV === 'test' ? '../../../uploads_test' : '../../../uploads';
   app.use(process.env.ENDPOINT_FILE, express.static(path.join(__dirname, pathFile)));
