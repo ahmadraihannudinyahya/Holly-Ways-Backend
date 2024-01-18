@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: Contionus Integration
 
 on:
   pull_request:
@@ -11,6 +11,16 @@ jobs:
   test:
     runs-on: ubuntu-latest
     
+    services:
+      postgres:
+        image: postgres:14-alpine3.15
+        env:
+          POSTGRES_USER: developer
+          POSTGRES_PASSWORD: developer
+          POSTGRES_DB: holly_ways_test
+        ports:
+        - 32574:5432
+        
     strategy:
       matrix:
         node-version: [14.x]
@@ -21,6 +31,7 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
+        
     - name: npm install migrate and test
       run: |
         npm install
@@ -31,16 +42,16 @@ jobs:
         HOST: http://localhost
         PORT: 5000
         ENDPOINT_FILE: /file
-        DB_HOST: ${{ secrets.DBTEST_HOST }}
-        DB_USER: ${{ secrets.DBTEST_USER }}
-        DB_PASSSWORD: ${{ secrets.DBTEST_PASSWORD }}
-        DB_NAME: ${{ secrets.DBTEST_NAME }}
-        DB_PORT:  ${{ secrets.DBTEST_PORT }}
-        DB_DIALECT: ${{ secrets.DBTEST_DIALECT }}
-        DBTEST_HOST: ${{ secrets.DBTEST_HOST }}
-        DBTEST_USER: ${{ secrets.DBTEST_USER }}
-        DBTEST_PASSSWORD: ${{ secrets.DBTEST_PASSWORD }}
-        DBTEST_NAME: ${{ secrets.DBTEST_NAME }}
-        DBTEST_PORT: ${{ secrets.DBTEST_PORT }}
-        DBTEST_DIALECT: ${{ secrets.DBTEST_DIALECT }}
+        DB_HOST: 127.0.0.1
+        DB_USER: developer
+        DB_PASSSWORD: developer
+        DB_NAME: holly_ways_test
+        DB_PORT:  32574
+        DB_DIALECT: postgres
+        DBTEST_HOST: 127.0.0.1
+        DBTEST_USER: developer
+        DBTEST_PASSSWORD: developer
+        DBTEST_NAME: holly_ways_test
+        DBTEST_PORT: 32574
+        DBTEST_DIALECT: postgres
         TOKENKEY: ${{ secrets.TOKENKEY }}
